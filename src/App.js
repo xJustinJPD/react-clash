@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import Navbar from "./Navbar";
 
 // Pages
-import Index from "./pages/Index";
+import Teams from "./pages/Teams";
 
 // Auth
 import { useAuth } from "./contexts/AuthContexts";
@@ -40,7 +40,7 @@ function App() {
       {/* <Route path='/login' element={<LoginPage/>}/>
       <Route path='/register' element={<RegisterPage/>}/>
       <Route path='*' element={<PageNotFound />} /> */}
-      <Route path='/' element={<Index/>}/>
+      <Route path='/' element={<Teams/>}/>
     </Routes>
   </Router>
   );

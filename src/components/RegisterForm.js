@@ -14,6 +14,7 @@ const RegisterForm = () => {
 
     const [form, setForm] = useState({
         name: "",
+        username : "",
         email: "",
         password: ""
     });
@@ -23,15 +24,16 @@ const RegisterForm = () => {
     const handleClick = () => {
         console.log("clicked", form);
 
-        axios.post('https://college-api.vercel.app/api/register', {
+        axios.post('http://localhost/api/auth/register', {
             name: form.name,
+            username: form.username,
             email: form.email,
             password: form.password
         })
         .then(response => {
             console.log(response.data);
             onAuthenticated(true, response.data.token);
-            navigate('/')
+            navigate('/login')
         })
         .catch(err => {
             console.error(err);
@@ -89,6 +91,7 @@ const RegisterForm = () => {
             <div className='grid grid-cols-1 gap-1 justify-items-center m-3'>
             <h2 className='m-3'><b>Register:</b></h2>
             Name: <input onChange={handleForm} type="text" name="name" value={form.name}  /> <br />
+            Username: <input onChange={handleForm} type="text" name="username" value={form.username}  /> <br />
             Email: <input onChange={handleForm} type="text" name="email" value={form.email}  /> <br />
             Password: <input onChange={handleForm} type="password" name="password" value={form.password} />
             <p className="py-6">or <b><Link to={`/login`}>Login</Link></b></p>

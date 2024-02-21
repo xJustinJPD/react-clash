@@ -9,9 +9,10 @@ import Teams from "./pages/Teams";
 
 // Auth
 import { useAuth } from "./contexts/AuthContexts";
-// import LoginPage from "./LoginPage";
-// import PageNotFound from "./PageNotFound";
-// import RegisterPage from "./RegisterPage";
+import LoginForm from "./components/LoginForm"
+import RegisterForm from "./components/RegisterForm";
+import LoginPage from "./LoginPage";
+import RegisterPage from "./RegisterPage";
 
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
@@ -24,22 +25,22 @@ function App() {
     }
   }, []);
 
-  // if(authenticated){
-  //   protectedRoutes = (
-  //     <>
-  //     <Route path='/' element={<Index/>}/>
-  //     </>
-  //   );
-  // }
+  if(authenticated){
+    protectedRoutes = (
+      <>
+
+      </>
+    );
+  }
 
   return (
     <Router>
     <Navbar/>
     <Routes>
-    {/* {protectedRoutes} */}
-      {/* <Route path='/login' element={<LoginPage/>}/>
+    {protectedRoutes}
+      <Route path='/login' element={<LoginPage/>}/>
       <Route path='/register' element={<RegisterPage/>}/>
-      <Route path='*' element={<PageNotFound />} /> */}
+      {/* <Route path='*' element={<PageNotFound />} /> */}
       <Route path='/' element={<Teams/>}/>
     </Routes>
   </Router>

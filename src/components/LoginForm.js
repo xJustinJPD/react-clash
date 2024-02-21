@@ -21,7 +21,7 @@ const LoginForm = () => {
 
     const handleClick = () => {
         console.log("clicked", form);
-        let regToken = "2|ChGR6A5pk5h3dTS6PVovZELwOoLGlSZpfSMZMfNY503c6281"
+        let regToken = localStorage.getItem('token');
 
         axios.post('http://localhost/api/auth/login', {
             headers: {

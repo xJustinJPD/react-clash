@@ -5,7 +5,7 @@ import TeamCard from "./components/TeamCard";
 const Teams = () => {
     const [teams, setTeamList] = useState([]);
     
-    let token = "1|c36BbeRw54L1gqDeqTJXurJiRkihITCSkZ80VGabead3e464";
+    let token = localStorage.getItem('token');
 
     useEffect(() => {
         axios.get("http://localhost/api/teams", {
@@ -31,7 +31,6 @@ const Teams = () => {
             <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
                 {teamList}
             </div>
-            <h1>hello</h1>
         </>
     );
 };

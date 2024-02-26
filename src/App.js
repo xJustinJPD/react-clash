@@ -9,10 +9,17 @@ import Teams from "./pages/Teams";
 
 // Auth
 import { useAuth } from "./contexts/AuthContexts";
-import LoginForm from "./components/LoginForm"
-import RegisterForm from "./components/RegisterForm";
+
+
+// AuthPages
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
+
+
+// Teams
+import Show from "./teams/Show";
+import Create from "./teams/Create";
+import Edit from "./teams/Edit";
 
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
@@ -28,7 +35,9 @@ function App() {
   if(authenticated){
     protectedRoutes = (
       <>
-
+      <Route path='/teams/:id' element={<Show/>}/>
+      <Route path='/teams/edit/:id' element={<Edit/>}/>
+      <Route path='/teams/create' element={<Create/>}/>
       </>
     );
   }

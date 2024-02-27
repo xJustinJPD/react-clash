@@ -20,6 +20,7 @@ const Navbar = () => {
                 </label>
                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral text-white rounded-box w-52">
                 <li><Link to='/'>Home</Link></li>
+                <li><Link to='/teams/create'>Create a Team</Link></li>
 
                 </ul>
             </div>

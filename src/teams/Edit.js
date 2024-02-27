@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from '../config/api';
+import axios from 'axios';
 
 const Edit = () => {
     const { id } = useParams();
@@ -9,10 +9,10 @@ const Edit = () => {
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
         name: "",
-        size: "",
-        image: "",
-        wins: "",
-        losses: ""
+        // size: "",
+        // image: "",
+        // wins: "",
+        // losses: ""
     });
 
 
@@ -23,7 +23,7 @@ const Edit = () => {
     let token = localStorage.getItem('token');
     
     useEffect(() => {
-        axios.get(`/teams/${id}`, {
+        axios.get(`http://localhost/api/teams/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -74,7 +74,7 @@ const Edit = () => {
         if(isRequired(['name'])){
             let token = localStorage.getItem('token');
 
-            axios.put(`/teams/${id}`, form, {
+            axios.put(`http://localhost/api/teams/${id}`, form, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }

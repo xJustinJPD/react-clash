@@ -36,7 +36,7 @@ function App() {
     protectedRoutes = (
       <>
       <Route path='/teams/:id' element={<Show/>}/>
-      <Route path='/teams/edit/:id' element={<Edit/>}/>
+      <Route path='/teams/:id/edit' element={<Edit/>}/>
       <Route path='/teams/create' element={<Create/>}/>
       </>
     );

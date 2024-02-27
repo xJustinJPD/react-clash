@@ -2,8 +2,6 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import DeleteBtn from "../components/Delete";
-
 
 
 const Show = () => {
@@ -14,7 +12,7 @@ const Show = () => {
     let token = localStorage.getItem('token');
     
     useEffect(()=>{
-        axios.get(`http://localhost/api/teams${id}`,{
+        axios.get(`http://localhost/api/teams/${id}`,{
             headers: {
                 'Authorization' :  `Bearer ${token}`
             }
@@ -40,7 +38,7 @@ const Show = () => {
         <p className="py-6">Level {team.wins}</p>
         <p className="py-6">{team.losses}</p>
         </div>
-        {/* <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link> */}
+        <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
         {/* <DeleteBtn className="m-3" id={team.id} resource="teams" deleteCallback={() => navigate('/teams')} /> */}
     </div>
     </div>

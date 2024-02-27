@@ -106,6 +106,16 @@ const Edit = () => {
             </label>
             </div>
 
+            <div className='m-3'>
+            <label className="form-control w-full max-w-xs">
+            <div className="label">
+                <span className="label-text">Pick a file</span>
+                <span className="label-text-alt">Image</span>
+            </div>
+            <input type="file" onChange={handleForm} value={form.image} name='image' className="file-input file-input-bordered w-full max-w-xs" />
+            </label>
+            </div>
+
             <input type='submit' className="btn btn-success m-3" />
             </form>
         </div>

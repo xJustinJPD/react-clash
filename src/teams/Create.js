@@ -12,7 +12,9 @@ const Create = () => {
     const [form, setForm] = useState({
         name: "",
         size: "",
-        image: null
+        image: "",
+        wins: "",
+        losses: ""
     });
 
     const handleForm = (e) => {

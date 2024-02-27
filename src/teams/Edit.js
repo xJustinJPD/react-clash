@@ -10,7 +10,7 @@ const Edit = () => {
     const [form, setForm] = useState({
         name: "",
         size: "",
-        image: ""
+        image: null
     });
 
 

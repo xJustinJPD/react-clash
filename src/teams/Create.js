@@ -12,9 +12,7 @@ const Create = () => {
     const [form, setForm] = useState({
         name: "",
         size: "",
-        image: "",
-        wins: "",
-        losses: ""
+        image: ""
     });
 
     const handleForm = (e) => {
@@ -59,7 +57,7 @@ const Create = () => {
                 }
             })
             .then(response => {
-                navigate('/courses');
+                navigate('/');
                 console.log('posted')
             })
             .catch(err => {

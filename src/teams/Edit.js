@@ -9,10 +9,8 @@ const Edit = () => {
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
         name: "",
-        // size: "",
-        // image: "",
-        // wins: "",
-        // losses: ""
+        size: "",
+        image: null
     });
 
 

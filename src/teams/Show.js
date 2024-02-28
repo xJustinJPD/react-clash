@@ -1,6 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import DeleteBtn from "../components/Delete";
 
 
 
@@ -30,7 +31,7 @@ const Show = () => {
 
     return (
     <>
-        <div className="hero min-h-screen bg-base-200">
+    <div className="hero min-h-screen bg-base-200">
     <div className="hero-content text-center">
         <div className="max-w-md">
         <h1 className="text-5xl font-bold">{team.name}</h1>
@@ -39,7 +40,7 @@ const Show = () => {
         <p className="py-6">{team.losses}</p>
         </div>
         <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
-        {/* <DeleteBtn className="m-3" id={team.id} resource="teams" deleteCallback={() => navigate('/teams')} /> */}
+        <DeleteBtn className="m-3" id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
     </div>
     </div>
     </>

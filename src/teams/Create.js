@@ -12,7 +12,7 @@ const Create = () => {
     const [form, setForm] = useState({
         name: "",
         size: "",
-        image: null
+        image: ""
     });
 
     const handleForm = (e) => {
@@ -85,7 +85,7 @@ const Create = () => {
             <div className="label">
                 <span className="label-text">Size:</span>
             </div>
-            <input type="text" onChange={handleForm} value={form.size} name='size' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.size?.message}</span>
+            <input type="number" onChange={handleForm} value={form.size} name='size' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.size?.message}</span>
             </label>
             </div>
 

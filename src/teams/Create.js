@@ -6,7 +6,7 @@ const Create = () => {
     const errorStyle = {
         color: 'red'
     };
-    
+   
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
@@ -19,6 +19,14 @@ const Create = () => {
         setForm(prevState => ({
             ...prevState,
             [e.target.name]: e.target.value
+        }));
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setForm(prevState => ({
+            ...prevState,
+            image: file
         }));
     };
 
@@ -46,14 +54,23 @@ const Create = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log('submitted', form);
+        let token = localStorage.getItem('token');
+        // console.log(token);
+        // console.log('submitted', form);
 
         if(isRequired(['name', 'size'])){
-            let token = localStorage.getItem('token');
-            
+            //created a new form data object
+            let formData = new FormData();
+            //append adds the new data to the associated values
+            formData.append('name', form.name);
+            formData.append('size', form.size);
+            formData.append('image', form.image);
+
             axios.post('http://localhost/api/teams', form, {
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${token}`,
+                    //to allow files to the form
+                    "Content-Type": "multipart/form-data"
                 }
             })
             .then(response => {
@@ -88,6 +105,17 @@ const Create = () => {
             <input type="number" onChange={handleForm} value={form.size} name='size' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.size?.message}</span>
             </label>
             </div>
+            
+            <div className='m-3'>
+            <label className="form-control w-full max-w-xs">
+            <div className="label">
+            <span className="label-text">Team Image</span>
+            <span className="label-text-alt">Image</span>
+            </div>
+            <input type="file" onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
+            </label>
+            </div>
+
 
             <div className='m-3'>
             <label className="form-control w-full max-w-xs">

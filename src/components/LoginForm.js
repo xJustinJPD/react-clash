@@ -11,8 +11,6 @@ const LoginForm = () => {
     };
 
     const [form, setForm] = useState({
-        name : "",
-        username : "",
         email: "",
         password: ""
     });
@@ -27,8 +25,6 @@ const LoginForm = () => {
             headers: {
                 'Authorization': `Bearer ${regToken}`
             },
-            name: form.name,
-            username : form.username,
             email: form.email,
             password: form.password
         })
@@ -54,10 +50,8 @@ const LoginForm = () => {
         <>
             <div className='grid grid-cols-1 gap-1 justify-items-center m-3'>
             <h2 className='m-3'><b>Login:</b></h2>
-            Name: <input onChange={handleForm} type="text" name="name" value={form.name}  /> <br />
-            Username: <input onChange={handleForm} type="text" name="username" value={form.username}  /> <br />
-            Email: <input onChange={handleForm} type="text" name="email" value={form.email}  /> <br />
-            Password: <input onChange={handleForm} type="password" name="password" value={form.password} />
+            Email: <input onChange={handleForm} type="text" className='border' name="email" value={form.email}  /> <br />
+            Password: <input onChange={handleForm} className='border'  type="password" name="password" value={form.password} />
             <p className="py-6">or <b><Link to={`/register`}>Register</Link></b></p>
 
             <button className='btn btn-primary w-20' onClick={handleClick}>Login</button>

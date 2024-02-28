@@ -11,7 +11,7 @@ export default function DeleteBtn({id, resource, deleteCallback}) {
         setIsLoading(true);
         let token = localStorage.getItem('token');
 
-        axios.delete(`http://localhost/api//${resource}/${id}`, {
+        axios.delete(`http://localhost/api/${resource}/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

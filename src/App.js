@@ -20,6 +20,7 @@ import RegisterPage from "./RegisterPage";
 import Show from "./teams/Show";
 import Create from "./teams/Create";
 import Edit from "./teams/Edit";
+import Social from "./pages/Social";
 
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
@@ -38,6 +39,7 @@ function App() {
       <Route path='/teams/:id' element={<Show/>}/>
       <Route path='/teams/:id/edit' element={<Edit/>}/>
       <Route path='/teams/create' element={<Create/>}/>
+      <Route path='/social' element={<Social/>}/>
       </>
     );
   }

@@ -4,6 +4,7 @@ import FriendCard from "./components/FriendCard";
 
 const Social = () => {
     const [friends, setFriendsList] = useState([]);
+    const [users, setUsersList] = useState([]);
     
     let token = localStorage.getItem('token');
 
@@ -22,8 +23,27 @@ const Social = () => {
         });
     }, []);
 
+    useEffect(() => {
+        axios.get("http://localhost/api/users", {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(response => {
+            setUsersList(response.data.data);
+            console.log(response);
+        })
+        .catch(err => {
+            console.error(err);
+        });
+    }, []);
+
     const friendList = friends.map((friend, i) => (
         <FriendCard key={friend.id} friend={friend} />
+    ));
+
+    const userList = users.map((user, i) => (
+        <FriendCard key={user.id} user={user} />
     ));
 
     return (

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FriendCard from "./components/FriendCard";
+import UserCard from "./components/UserCard";
 
 const Social = () => {
     const [friends, setFriendsList] = useState([]);
@@ -43,13 +44,18 @@ const Social = () => {
     ));
 
     const userList = users.map((user, i) => (
-        <FriendCard key={user.id} user={user} />
+        <UserCard key={user.id} user={user} />
     ));
 
     return (
         <>
+            <div>Friends</div>
             <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
                 {friendList}
+            </div>
+            <div>Users</div>
+            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
+                {userList}
             </div>
         </>
     );

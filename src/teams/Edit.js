@@ -111,7 +111,14 @@ const Edit = () => {
             <input type="text" onChange={handleForm} value={form.name} name='name' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.name?.message}</span>
             </label>
             </div>
-
+            <div className='m-3'>
+            <label className="form-control w-full max-w-xs">
+            <div className="label">
+                <span className="label-text">Size:</span>
+            </div>
+            <input type="number" onChange={handleForm} value={form.size} name='size' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.size?.message}</span>
+            </label>
+            </div>
             <div className='m-3'>
   <label className="form-control w-full max-w-xs">
     <div className="label">

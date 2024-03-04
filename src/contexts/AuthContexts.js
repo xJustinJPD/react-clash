@@ -10,7 +10,7 @@ export function useAuth(){
 
 export function AuthProvider(props){
     const [authenticated, setAuthenticated] = useState(false);
-
+// added role and id and encrypt them and push them to local storage
     return (
         <AuthContext.Provider
             value={{

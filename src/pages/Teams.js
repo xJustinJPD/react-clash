@@ -8,7 +8,7 @@ const Teams = () => {
     let token = localStorage.getItem('token');
 
     useEffect(() => {
-        axios.get("http://localhost/api/teams", {
+        axios.get("http://localhost/api/user-teams", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

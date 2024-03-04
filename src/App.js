@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 
+
+//Main
+import MainPage from "./pages/MainPage"
 // Navbar
 import Navbar from "./Navbar";
 
@@ -36,6 +39,7 @@ function App() {
   if(authenticated){
     protectedRoutes = (
       <>
+      <Route path='/teams' element={<Teams/>}/>
       <Route path='/teams/:id' element={<Show/>}/>
       <Route path='/teams/:id/edit' element={<Edit/>}/>
       <Route path='/teams/create' element={<Create/>}/>
@@ -52,7 +56,8 @@ function App() {
       <Route path='/login' element={<LoginPage/>}/>
       <Route path='/register' element={<RegisterPage/>}/>
       {/* <Route path='*' element={<PageNotFound />} /> */}
-      <Route path='/' element={<Teams/>}/>
+      <Route path='/' element={<MainPage/>}/>
+      
     </Routes>
   </Router>
   );

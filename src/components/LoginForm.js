@@ -1,11 +1,12 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContexts';
-import { Link } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
+
 
 const LoginForm = () => {
     const { onAuthenticated } = useAuth();
-
+    const navigate = useNavigate();
     const errorStyle = {
         color: 'red'
     };
@@ -31,6 +32,7 @@ const LoginForm = () => {
         .then(response => {
             console.log(response.data);
             onAuthenticated(true, response.data.token);
+            navigate('/teams');
         })
         .catch(err => {
             console.error(err);

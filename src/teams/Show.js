@@ -2,20 +2,20 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import DeleteBtn from "../components/Delete";
-
-
+import { useAuth } from "../contexts/AuthContexts"; 
 
 const Show = () => {
     const { id } = useParams()
     const [team, setTeam] = useState(null)
     const navigate = useNavigate();
+    const { authenticated } = useAuth();
 
     let token = localStorage.getItem('token');
     
-    useEffect(()=>{
-        axios.get(`http://localhost/api/teams/${id}`,{
+    useEffect(() => {
+        axios.get(`http://localhost/api/teams/${id}`, {
             headers: {
-                'Authorization' :  `Bearer ${token}`
+                'Authorization': `Bearer ${token}`
             }
         })
         .then(response => {
@@ -25,26 +25,28 @@ const Show = () => {
         .catch(err => {
             console.error(err)
         })
-    },[id]);
+    }, [id]);
 
-    if(!team) return( <div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
-
+    if (!team) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
     return (
+        <div className="hero min-h-screen bg-base-200">
+            <div className="hero-content text-center">
+                <div className="max-w-md">
+                    <h1 className="text-5xl font-bold">{team.name}</h1>
+                    <p className="py-6">{team.size} Size</p>
+                    <p className="py-6">Level {team.wins}</p>
+                    <p className="py-6">{team.losses}</p>
+                </div>
+                
+                {authenticated && team.users && team.users.id === team.creator_id && (
     <>
-    <div className="hero min-h-screen bg-base-200">
-    <div className="hero-content text-center">
-        <div className="max-w-md">
-        <h1 className="text-5xl font-bold">{team.name}</h1>
-        <p className="py-6">{team.size} Size</p>
-        <p className="py-6">Level {team.wins}</p>
-        <p className="py-6">{team.losses}</p>
-        </div>
         <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
         <DeleteBtn className="m-3" id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
-    </div>
-    </div>
     </>
-    )
+)}
+            </div>
+        </div>
+    );
 }
 
 export default Show;

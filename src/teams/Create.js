@@ -116,9 +116,6 @@ const Create = () => {
             </label>
             </div>
 
-
-         
-
             <input type='submit' className="btn btn-success m-3" />
             </form>
         </div>

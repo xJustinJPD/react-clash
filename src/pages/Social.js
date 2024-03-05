@@ -3,26 +3,24 @@ import axios from "axios";
 import FriendCard from "./components/FriendCard";
 import UserCard from "./components/UserCard";
 
-const Social = () => {
+const Social = (props) => {
     const [friends, setFriendsList] = useState([]);
     const [users, setUsersList] = useState([]);
+    const [filteredUsersList, setFilteredUsersList ] = useState([])
     
     let token = localStorage.getItem('token');
 
-    // useEffect(() => {
-    //     axios.get("http://localhost/api/friends", {
-    //         headers: {
-    //             'Authorization': `Bearer ${token}`
-    //         }
-    //     })
-    //     .then(response => {
-    //         setFriendsList(response.data.data);
-    //         console.log(response);
-    //     })
-    //     .catch(err => {
-    //         console.error(err);
-    //     });
-    // }, []);
+    useEffect(()=> {
+        if(props.searchTerm<=2){
+            setFilteredUsersList(users)
+        }
+        else{
+            let filter = users.filter((user)=>{
+                return user.username.toLowerCase().includes(props.searchTerm)
+            })
+            setFilteredUsersList(filter)
+        }
+    },[users, props.searchTerm])
 
     useEffect(() => {
         axios.get("http://localhost/api/user/all", {
@@ -32,6 +30,7 @@ const Social = () => {
         })
         .then(response => {
             setUsersList(response.data.users);
+            setFilteredUsersList(response.data.users)
             console.log(response);
         })
         .catch(err => {
@@ -43,7 +42,7 @@ const Social = () => {
     //     <FriendCard key={friend.id} friend={friend} />
     // ));
 
-    const userList = users.map((user, i) => (
+    const userList = filteredUsersList.map((user, i) => (
         <UserCard key={user.id} user={user} />
     ));
 

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import TeamCard from "./components/TeamCard";
+import MatchBtn from "../matches/Create";
 
 const Teams = () => {
     const [teams, setTeamList] = useState([]);
@@ -27,7 +28,10 @@ const Teams = () => {
     ));
 
     return (
-        <>
+        <>  
+            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
+                <MatchBtn/>
+            </div>
             <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
                 {teamList}
             </div>

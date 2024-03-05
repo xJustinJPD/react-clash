@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 // Navbar
 import Navbar from "./Navbar";
@@ -24,6 +24,11 @@ import Social from "./pages/Social";
 
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
+  const [term, setTerm] = useState("");
+
+  const onHandleChange = (e) => {
+      setTerm(e.target.value)
+  }
 
   let protectedRoutes;
 
@@ -39,14 +44,14 @@ function App() {
       <Route path='/teams/:id' element={<Show/>}/>
       <Route path='/teams/:id/edit' element={<Edit/>}/>
       <Route path='/teams/create' element={<Create/>}/>
-      <Route path='/social' element={<Social/>}/>
+      <Route path='/social' element={<Social searchTerm={term}/>}/>
       </>
     );
   }
 
   return (
     <Router>
-    <Navbar/>
+    <Navbar onHandleChange={onHandleChange} searchTerm={term}/>
     <Routes>
     {protectedRoutes}
       <Route path='/login' element={<LoginPage/>}/>

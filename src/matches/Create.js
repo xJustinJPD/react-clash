@@ -2,22 +2,28 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function FriendBtn({id, resource, friendCallback}) {
+export default function MatchBtn({id, resource, matchCallback}) {
     const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
 
-    const onFriend = () => {
+    const [form, setForm] = useState({
+        team_id_1: "",
+        queue_type: ""
+    });
+
+    const onMatch = () => {
         setIsLoading(true);
         let token = localStorage.getItem('token');
 
-        axios.post(`http://localhost/api/users/${id}/send-request`, {
+        axios.post(`http://localhost/api/games`, form, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
                 .then(response => {
                     console.log(response.data);
+                    matchCallback(id);
                     // navigate('/');
                 })
                 .catch(err => {
@@ -26,8 +32,8 @@ export default function FriendBtn({id, resource, friendCallback}) {
     };
 
     return (
-        <button onClick={onFriend} className="btn btn-outline btn-success">
-            {isLoading ? "Sent." : "Send"}
+        <button onClick={onMatch} className="btn btn-outline btn-success">
+            {isLoading ? "Searching..." : "Matchmake"}
         </button>
     );
 };

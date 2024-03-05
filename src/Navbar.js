@@ -41,7 +41,7 @@ const Navbar = () => {
                 </div>
             </button> */}
                             {(authenticated) ? (
-                <button onClick={logout}>Logout</button>
+                <button className='bg-white' onClick={logout}>Logout</button>
                 ) : ""}
             </div>
                     </div>

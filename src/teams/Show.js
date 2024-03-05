@@ -5,12 +5,12 @@ import DeleteBtn from "../components/Delete";
 import { useAuth } from "../contexts/AuthContexts"; 
 
 const Show = () => {
-    const { id } = useParams()
-    const [team, setTeam] = useState(null)
+    const { id } = useParams();
+    const [team, setTeam] = useState(null);
     const navigate = useNavigate();
-    const { authenticated } = useAuth();
+    const { authenticated, userInfo } = useAuth();
 
-    let token = localStorage.getItem('token');
+    const token = localStorage.getItem('token');
     
     useEffect(() => {
         axios.get(`http://localhost/api/teams/${id}`, {
@@ -19,13 +19,15 @@ const Show = () => {
             }
         })
         .then(response => {
-            console.log(response.data.data)
-            setTeam(response.data.data)
+            console.log(response.data.data);
+            setTeam(response.data.data);
         })
         .catch(err => {
-            console.error(err)
-        })
-    }, [id]);
+            console.error(err);
+        });
+    }, [id, token]);
+
+    console.log(userInfo && userInfo.id);
 
     if (!team) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
     return (
@@ -38,12 +40,12 @@ const Show = () => {
                     <p className="py-6">{team.losses}</p>
                 </div>
                 
-                {authenticated && team.users && team.users.id === team.creator_id && (
-    <>
-        <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
-        <DeleteBtn className="m-3" id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
-    </>
-)}
+                {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
+                    <>
+                        <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
+                        <DeleteBtn className="m-3" id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
+                    </>
+                )}
             </div>
         </div>
     );

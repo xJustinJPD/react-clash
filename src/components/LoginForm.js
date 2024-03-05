@@ -23,15 +23,13 @@ const LoginForm = () => {
         let regToken = localStorage.getItem('token');
 
         axios.post('http://localhost/api/auth/login', {
-            headers: {
-                'Authorization': `Bearer ${regToken}`
-            },
             email: form.email,
             password: form.password
         })
         .then(response => {
             console.log(response.data);
-            onAuthenticated(true, response.data.token);
+            const { token, id, role } = response.data;
+            onAuthenticated(true, token, id, role);
             navigate('/teams');
         })
         .catch(err => {
@@ -39,8 +37,7 @@ const LoginForm = () => {
             console.log(err.response.data.message);
             setErrorMessage(err.response.data.message);
         });
-    };
-
+    }        
     const handleForm = (e) => {
         setForm(prevState => ({
             ...prevState,

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContexts';
+// import { useAuth } from '../contexts/AuthContexts';
 
 const RegisterForm = () => {
-    const { onAuthenticated } = useAuth();
+    // const { onAuthenticated } = useAuth();
 
     const navigate = useNavigate();
 
@@ -31,8 +31,6 @@ const RegisterForm = () => {
             password: form.password
         })
         .then(response => {
-            console.log(response.data);
-            onAuthenticated(true, response.data.token);
             navigate('/login')
         })
         .catch(err => {

@@ -10,19 +10,24 @@ export function useAuth(){
 
 export function AuthProvider(props){
     const [authenticated, setAuthenticated] = useState(false);
-// added role and id and encrypt them and push them to local storage
+    const [userInfo, setUserInfo] = useState({ id: null, role: [] });
+
     return (
         <AuthContext.Provider
             value={{
                 authenticated,
-                onAuthenticated: (auth, token) => {
+                userInfo,
+                onAuthenticated: (auth, token, id, role) => {
                     setAuthenticated(auth);
-                
-                    if(auth && token){
+                    
+                    if (auth && token) {
                         localStorage.setItem('token', token);
-                    }
-                    else if(!auth){
+                        setUserInfo({ id, role });
+                        localStorage.setItem('userInfo', JSON.stringify({ id, role }));
+                    } else if (!auth) {
                         localStorage.removeItem('token');
+                        setUserInfo({ id: null, role: [] });
+                        localStorage.removeItem('userInfo');
                     }
                 }
             }}

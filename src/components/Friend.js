@@ -10,19 +10,19 @@ export default function FriendBtn({id, resource, friendCallback}) {
     const onFriend = () => {
         setIsLoading(true);
         let token = localStorage.getItem('token');
-
-        axios.post(`http://localhost/api/users/${id}/send-request`, {
+    
+        axios.post(`http://localhost/api/users/${id}/send-request`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
-                .then(response => {
-                    console.log(response.data);
-                    // navigate('/');
-                })
-                .catch(err => {
-                    console.log(err.response.data)
-                });
+        .then(response => {
+            console.log(response.data);
+            // navigate('/');
+        })
+        .catch(err => {
+            console.log(err.response.data)
+        });
     };
 
     return (

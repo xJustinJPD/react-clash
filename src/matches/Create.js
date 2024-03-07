@@ -7,9 +7,11 @@ export default function MatchBtn({id, resource, matchCallback}) {
 
     const navigate = useNavigate();
 
+    let matchId;
+
     const [form, setForm] = useState({
-        team_id_1: "",
-        queue_type: ""
+        team_id_1: id,
+        queue_type: "1v1"
     });
 
     const onMatch = () => {
@@ -23,8 +25,8 @@ export default function MatchBtn({id, resource, matchCallback}) {
         })
                 .then(response => {
                     console.log(response.data);
-                    matchCallback(id);
-                    // navigate('/');
+                    matchId = response.data.id;
+                    navigate(`/match/${matchId}`);
                 })
                 .catch(err => {
                     console.log(err.response.data)

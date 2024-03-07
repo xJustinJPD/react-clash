@@ -30,9 +30,6 @@ const Teams = () => {
     return (
         <>  
             <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
-                <MatchBtn/>
-            </div>
-            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
                 {teamList}
             </div>
         </>

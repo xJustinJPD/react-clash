@@ -24,6 +24,10 @@ import Show from "./teams/Show";
 import Create from "./teams/Create";
 import Edit from "./teams/Edit";
 import Social from "./pages/Social";
+import MatchShow from "./matches/Show";
+
+// Matches
+
 
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
@@ -49,6 +53,7 @@ function App() {
       <Route path='/teams/:id/edit' element={<Edit/>}/>
       <Route path='/teams/create' element={<Create/>}/>
       <Route path='/social' element={<Social searchTerm={term}/>}/>
+      <Route path='/match/:id' element={<MatchShow/>}/>
       </>
     );
   }

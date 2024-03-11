@@ -25,6 +25,7 @@ import Create from "./teams/Create";
 import Edit from "./teams/Edit";
 import Social from "./pages/Social";
 import MatchShow from "./matches/Show";
+import Matches from "./matches/All";
 
 // Matches
 
@@ -54,6 +55,7 @@ function App() {
       <Route path='/teams/create' element={<Create/>}/>
       <Route path='/social' element={<Social searchTerm={term}/>}/>
       <Route path='/match/:id' element={<MatchShow/>}/>
+      <Route path='/matches' element={<Matches/>}/>
       </>
     );
   }

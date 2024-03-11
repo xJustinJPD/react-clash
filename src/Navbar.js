@@ -29,6 +29,7 @@ const Navbar = (props) => {
                 <li><Link to='/teams'>Teams</Link></li>
                 <li><Link to='/teams/create'>Create a Team</Link></li>
                 <li><Link to='/social'>Social</Link></li>
+                <li><Link to='/matches'>Matches</Link></li>
 
                 </ul>
             </div>

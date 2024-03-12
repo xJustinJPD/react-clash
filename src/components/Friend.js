@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 export default function FriendBtn({id, resource, friendCallback}) {
@@ -11,7 +11,7 @@ export default function FriendBtn({id, resource, friendCallback}) {
         setIsLoading(true);
         let token = localStorage.getItem('token');
     
-        axios.post(`http://localhost/api/users/${id}/send-request`, {}, {
+        axios.post(`/users/${id}/send-request`, {}, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

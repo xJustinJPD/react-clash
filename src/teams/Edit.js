@@ -1,6 +1,6 @@
 import { useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import axios from '../config/Api';
 
 const Edit = () => {
     const { id } = useParams();
@@ -10,7 +10,6 @@ const Edit = () => {
     const [form, setForm] = useState({
         name: "",
         size: "",
-        image: null
     });
 
 
@@ -21,7 +20,7 @@ const Edit = () => {
     let token = localStorage.getItem('token');
     
     useEffect(() => {
-        axios.get(`http://localhost/api/teams/${id}`, {
+        axios.get(`/teams/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -83,7 +82,7 @@ const Edit = () => {
             axios.put(`http://localhost/api/teams/${id}`, form, {
                 headers: {
                     "Authorization": `Bearer ${token}`
-                }
+                }   
             })
             .then(response => {
                 navigate(`/teams/${id}`);
@@ -120,14 +119,14 @@ const Edit = () => {
             </label>
             </div>
             <div className='m-3'>
-  <label className="form-control w-full max-w-xs">
-    <div className="label">
-      <span className="label-text">Pick a file</span>
-      <span className="label-text-alt">Image</span>
-    </div>
-    <input type="file" onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
-  </label>
-</div>
+            <label className="form-control w-full max-w-xs">
+            <div className="label">
+            <span className="label-text">Team Image</span>
+            <span className="label-text-alt">Image</span>
+            </div>
+            <input type="file" onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
+            </label>
+            </div>
 
 
             <input type='submit' className="btn btn-success m-3" />

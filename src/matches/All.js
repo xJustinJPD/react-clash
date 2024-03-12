@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from '../config/Api';
 import MatchCard from "./components/MatchCard";
 
 const Matches = () => {
@@ -8,7 +8,7 @@ const Matches = () => {
     let token = localStorage.getItem('token');
 
     useEffect(() => {
-        axios.get("http://localhost/api/games", {
+        axios.get("/games", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

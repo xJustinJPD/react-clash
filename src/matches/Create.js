@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 export default function MatchBtn({id, resource, matchCallback}) {
@@ -18,7 +18,7 @@ export default function MatchBtn({id, resource, matchCallback}) {
         setIsLoading(true);
         let token = localStorage.getItem('token');
 
-        axios.post(`http://localhost/api/games`, form, {
+        axios.post(`/games`, form, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

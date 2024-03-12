@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../config/Api';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // import { useAuth } from '../contexts/AuthContexts';
@@ -24,7 +24,7 @@ const RegisterForm = () => {
     const handleClick = () => {
         console.log("clicked", form);
 
-        axios.post('http://localhost/api/auth/register', {
+        axios.post('/auth/register', {
             name: form.name,
             username: form.username,
             email: form.email,

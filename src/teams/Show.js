@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from '../config/Api';
 import DeleteBtn from "../components/Delete";
 import { useAuth } from "../contexts/AuthContexts"; 
 import MatchBtn from "../matches/Create";
@@ -14,7 +14,7 @@ const Show = () => {
     const token = localStorage.getItem('token');
     
     useEffect(() => {
-        axios.get(`http://localhost/api/teams/${id}`, {
+        axios.get(`/teams/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

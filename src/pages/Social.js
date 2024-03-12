@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from '../config/Api';
 import FriendCard from "./components/FriendCard";
 import UserCard from "./components/UserCard";
 
@@ -23,7 +23,7 @@ const Social = (props) => {
     },[users, props.searchTerm])
 
     useEffect(() => {
-        axios.get("http://localhost/api/user/all", {
+        axios.get("/user/all", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios from '../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 export default function DeleteBtn({id, resource, deleteCallback}) {
@@ -11,7 +11,7 @@ export default function DeleteBtn({id, resource, deleteCallback}) {
         setIsLoading(true);
         let token = localStorage.getItem('token');
 
-        axios.delete(`http://localhost/api/${resource}/${id}`, {
+        axios.delete(`/${resource}/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

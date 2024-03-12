@@ -1,8 +1,8 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import DeleteBtn from "../components/Delete";
-import { useAuth } from "../contexts/AuthContexts"; 
+import axios from 'axios';
+import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContexts';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 const MatchShow = () => {
     const { id } = useParams();

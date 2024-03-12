@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../config/Api';
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContexts';
 import { Link, useNavigate } from 'react-router-dom';
@@ -22,7 +22,7 @@ const LoginForm = () => {
         console.log("clicked", form);
         let regToken = localStorage.getItem('token');
 
-        axios.post('http://localhost/api/auth/login', {
+        axios.post('/auth/login', {
             email: form.email,
             password: form.password
         })

@@ -1,4 +1,4 @@
-import { useContext, createContext, useState } from 'react';
+import { useContext, createContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext(null);
 
@@ -11,6 +11,16 @@ export function useAuth(){
 export function AuthProvider(props){
     const [authenticated, setAuthenticated] = useState(false);
     const [userInfo, setUserInfo] = useState({ id: null, role: [] });
+
+    useEffect(() => {
+        const storedToken = localStorage.getItem('token');
+        const storedUserInfo = localStorage.getItem('userInfo');
+
+        if (storedToken && storedUserInfo) {
+            setAuthenticated(true);
+            setUserInfo(JSON.parse(storedUserInfo));
+        }
+    }, []);
 
     return (
         <AuthContext.Provider

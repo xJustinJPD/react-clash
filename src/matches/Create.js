@@ -24,9 +24,9 @@ export default function MatchBtn({id, resource, matchCallback}) {
             }
         })
                 .then(response => {
-                    console.log(response.data);
-                    matchId = response.data.id;
-                    navigate(`/match/${response.data.id}`);
+                    console.log(response.data.data);
+                    matchId = response.data.data.id;
+                    navigate(`/match/${matchId}`);
                 })
                 .catch(err => {
                     console.log(err.response.data)

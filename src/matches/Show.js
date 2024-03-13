@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState,  useEffect} from 'react';
 import { useAuth } from '../contexts/AuthContexts';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import DeleteBtn from '../components/Delete';
 
 
 const MatchShow = () => {
@@ -29,6 +30,20 @@ const MatchShow = () => {
     }, [id, token]);
 
     if (!match) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
+    return (
+        <div className="hero min-h-screen bg-base-200">
+            <div className="hero-content text-center">
+                <div className="max-w-md">
+                    <h1 className="text-5xl font-bold">Match: {match.id}</h1>
+                    <h1 className="text-5xl font-bold">Type: {match.queue_type}</h1>
+                    {match.team_1 && <h1 className="text-5xl font-bold">Team 1: {match.team_1.id}</h1>}
+                    {match.team_2 && <h1 className="text-5xl font-bold">Team 2: {match.team_2.id}</h1>}
+                </div>
+               
+            </div>
+        </div>
+    );
+    
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content text-center">

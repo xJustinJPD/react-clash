@@ -75,7 +75,7 @@ const Create = () => {
             })
             .then(response => {
                 navigate('/');
-                console.log('posted')
+                console.log({form})
             })
             .catch(err => {
                 console.error(err);
@@ -83,7 +83,7 @@ const Create = () => {
         }
         
     };
-
+ 
     return (
         <div>
             <h2 className='m-3'>Create Team</h2>

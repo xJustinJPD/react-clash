@@ -30,6 +30,9 @@ import Matches from "./matches/All";
 // Matches
 
 
+//user
+import User from './pages/viewUser';
+
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
   const [term, setTerm] = useState("");
@@ -56,6 +59,8 @@ function App() {
       <Route path='/social' element={<Social searchTerm={term}/>}/>
       <Route path='/match/:id' element={<MatchShow/>}/>
       <Route path='/matches' element={<Matches/>}/>
+
+      <Route path='/user' element={<User/>}/>
       </>
     );
   }

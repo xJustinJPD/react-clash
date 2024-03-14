@@ -1,61 +1,75 @@
-import axios from 'axios';
-import { useState,  useEffect} from 'react';
-import { useAuth } from '../contexts/AuthContexts';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import DeleteBtn from '../components/Delete';
-
+import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from '../config/Api';
+import { useParams } from 'react-router-dom';
+import UpdateGameForm from '../components/UpdateGameForm';
+import CancelGameButton from '../components/CancelGameButton'; // Import CancelGameButton component
 
 const MatchShow = () => {
     const { id } = useParams();
     const [match, setMatch] = useState(null);
-    const navigate = useNavigate();
-    const { authenticated, userInfo } = useAuth();
+    const [team2, setTeam2] = useState(null); // State to track team_2 id
+    const [showForm, setShowForm] = useState(false); //state to show form visibility
 
-    const token = localStorage.getItem('token');
-    
     useEffect(() => {
-        axios.get(`http://localhost/api/games/${id}`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
+        const fetchMatch = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get(`/games/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                setMatch(response.data.data);
+                setTeam2(response.data.data.team_2); 
+            } catch (error) {
+                console.error(error);
             }
-        })
-        .then(response => {
-            console.log(response.data.data);
-            setMatch(response.data.data);
-            console.log(match)
-        })
-        .catch(err => {
-            console.error(err);
-        });
-    }, [id, token]);
+        };
+
+        if (team2 === null) {
+            fetchMatch();
+        }
+
+        const team2Wait = setInterval(() => {
+            if (team2 === null) {
+                fetchMatch();
+            }
+        }, 20000);
+
+        return () => clearInterval(team2Wait);
+    }, [id, team2]);
+
+    const toggleFormVisibility = () => {
+        setShowForm(!showForm);
+    };
 
     if (!match) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
-    return (
-        <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content text-center">
-                <div className="max-w-md">
-                    <h1 className="text-5xl font-bold">Match: {match.id}</h1>
-                    <h1 className="text-5xl font-bold">Type: {match.queue_type}</h1>
-                    {match.team_1 && <h1 className="text-5xl font-bold">Team 1: {match.team_1.id}</h1>}
-                    {match.team_2 && <h1 className="text-5xl font-bold">Team 2: {match.team_2.id}</h1>}
-                </div>
-               
-            </div>
-        </div>
-    );
     
+    if (team2 === null) {
+        return (
+            <div className="flex justify-center items-center h-screen">
+                <h1 className="text-5xl font-bold">Searching for a game</h1>
+            </div>
+        );
+    }
+
     return (
-        <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content text-center">
-                <div className="max-w-md">
-                    <h1 className="text-5xl font-bold">Match: {match.id}</h1>
-                    <h1 className="text-5xl font-bold">Type: {match.queue_type}</h1>
-                    <h1 className="text-5xl font-bold">Team 1: {match.team_1.id}</h1>
-                    <h1 className="text-5xl font-bold">Team 2: {match.team_2.id}</h1>
-                </div>
-                    <>
-                        <DeleteBtn className="m-3" id={match.id} resource="games" deleteCallback={() => navigate('/')} />
-                    </>
+        <div className="grid grid-cols-2 gap-4 p-4">
+            {/* Match Data */}
+            <div className="col-span-1">
+                <h1 className="text-5xl font-bold">Match: {match.id}</h1>
+                <h1 className="text-5xl font-bold">Type: {match.queue_type}</h1>
+                {match.team_1 && <h1 className="text-5xl font-bold">Team 1: {match.team_1.id}</h1>}
+                {match.team_2 && <h1 className="text-5xl font-bold">Team 2: {match.team_2.id}</h1>}
+            </div>
+            
+            {/* Form */}
+            <div className="col-span-1">
+            <CancelGameButton gameId={id} /> 
+                <button onClick={toggleFormVisibility} className="btn btn-primary mb-4">Update Game</button>
+               
+                {showForm && <UpdateGameForm gameId={id} team1Creator={match.team_1.creator} team2Creator={match.team_2.creator} />}
             </div>
         </div>
     );

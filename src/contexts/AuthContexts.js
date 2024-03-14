@@ -19,6 +19,8 @@ export function AuthProvider(props){
         if (storedToken && storedUserInfo) {
             setAuthenticated(true);
             setUserInfo(JSON.parse(storedUserInfo));
+        } else {
+            setAuthenticated(false);
         }
     }, []);
 

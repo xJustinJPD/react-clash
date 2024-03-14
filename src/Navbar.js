@@ -27,7 +27,6 @@ const Navbar = (props) => {
                 <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral text-white rounded-box w-52">
                 <li><Link to='/'>Home</Link></li>
                 <li><Link to='/teams'>Teams</Link></li>
-                <li><Link to='/teams/create'>Create a Team</Link></li>
                 <li><Link to='/social'>Social</Link></li>
                 <li><Link to='/matches'>Matches</Link></li>
 

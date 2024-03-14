@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState} from "react";
+import { Link } from "react-router-dom";
 import axios from '../config/Api';
 import TeamCard from "./components/TeamCard";
 import MatchBtn from "../matches/Create";
@@ -28,11 +29,16 @@ const Teams = () => {
     ));
 
     return (
-        <>  
+        <div>  
+            <div className="grid mt-3 justify-items-center">
+            <Link to="/teams/create"><button className="px-4 py-2 bg-green-500 rounded text-white ml-2">
+            Create Team
+            </button></Link>
+            </div>
             <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
                 {teamList}
             </div>
-        </>
+        </div>
     );
 };
 

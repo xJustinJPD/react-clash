@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useEffect, useParams } from 'react';
 import { useAuth } from '../contexts/AuthContexts';
 import { Link, useNavigate } from 'react-router-dom';
+import DeleteBtn from '../components/Delete';
 
 
 const MatchShow = () => {

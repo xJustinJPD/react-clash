@@ -10,6 +10,7 @@ const Edit = () => {
     const [form, setForm] = useState({
         name: "",
         size: "",
+        image: ""
     });
 
 
@@ -75,11 +76,17 @@ const Edit = () => {
     const submitForm = (e) => {
         e.preventDefault();
         console.log('submitted', form);
+        let token = localStorage.getItem('token');
 
-        if(isRequired(['name'])){
-            let token = localStorage.getItem('token');
+        if(isRequired(['name','size'])){
+            let formData = new FormData();
+            //append adds the new data to the associated values
+            formData.append('name', form.name);
+            formData.append('size', form.size);
+            formData.append('image', form.image);
 
-            axios.put(`http://localhost/api/teams/${id}`, form, {
+
+            axios.put(`/api/teams/${id}`, formData, {
                 headers: {
                     "Authorization": `Bearer ${token}`
                 }   

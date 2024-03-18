@@ -6,6 +6,7 @@ import UserCard from "./components/UserCard";
 const Social = (props) => {
     const [friends, setFriendsList] = useState([]);
     const [filteredUsersList, setFilteredUsersList ] = useState([]);
+    const [searchUsersList, setSearchUsersList ] = useState([]);
     const token = localStorage.getItem('token');
 
     useEffect(() => {
@@ -22,6 +23,18 @@ const Social = (props) => {
             console.error(err);
         });
     }, [token]);
+
+    useEffect(()=> {
+        if(props.searchTerm<=2){
+            setSearchUsersList(filteredUsersList)
+        }
+        else{
+            let filter = filteredUsersList.filter((user)=>{
+                return user.username.toLowerCase().includes(props.searchTerm)
+            })
+            setSearchUsersList(filter)
+        }
+    },[filteredUsersList, props.searchTerm])
 
     useEffect(() => {
         axios.get("/user/all", {
@@ -45,7 +58,7 @@ const Social = (props) => {
         <FriendCard key={friend.id} friend={friend.friend} />
     ));
 
-    const userList = filteredUsersList.map((user, i) => (
+    const userList = searchUsersList.map((user, i) => (
         <UserCard key={user.id} user={user} />
     ));
 

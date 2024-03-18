@@ -13,7 +13,6 @@ const RegisterForm = () => {
     };
 
     const [form, setForm] = useState({
-        name: "",
         username : "",
         email: "",
         password: ""
@@ -25,7 +24,6 @@ const RegisterForm = () => {
         console.log("clicked", form);
 
         axios.post('/auth/register', {
-            name: form.name,
             username: form.username,
             email: form.email,
             password: form.password
@@ -88,7 +86,6 @@ const RegisterForm = () => {
 
             <div className='grid grid-cols-1 gap-1 justify-items-center m-3'>
             <h2 className='m-3'><b>Register:</b></h2>
-            Name: <input onChange={handleForm} type="text" name="name" value={form.name}  /> <br />
             Username: <input onChange={handleForm} type="text" name="username" value={form.username}  /> <br />
             Email: <input onChange={handleForm} type="text" name="email" value={form.email}  /> <br />
             Password: <input onChange={handleForm} type="password" name="password" value={form.password} />

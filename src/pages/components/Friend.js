@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 export default function FriendBtn({id, resource, friendCallback}) {
     const [isLoading, setIsLoading] = useState(false);
 
-    const navigate = useNavigate();
-
+    const navigate = useNavigate(); 
     const onFriend = () => {
         setIsLoading(true);
         let token = localStorage.getItem('token');

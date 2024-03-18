@@ -2,8 +2,8 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from '../config/Api';
 import { useParams } from 'react-router-dom';
-import UpdateGameForm from '../components/UpdateGameForm';
-import CancelGameButton from '../components/CancelGameButton'; // Import CancelGameButton component
+import UpdateGameForm from './components/UpdateGameForm';
+import CancelGameButton from './components/CancelGameButton'; // Import CancelGameButton component
 
 const MatchShow = () => {
     const { id } = useParams();

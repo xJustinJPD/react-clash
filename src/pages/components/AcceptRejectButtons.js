@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from '../config/Api';
+import axios from '../../config/Api';
 
 const AcceptRequestBtn = ({ requestId, onSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);

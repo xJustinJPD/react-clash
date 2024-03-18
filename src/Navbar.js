@@ -7,10 +7,7 @@ const Navbar = (props) => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const logout = () => {
-        onAuthenticated(false);
-        navigate('/login');
-    }
+   
 
     const handleInputChange = (e) => {
         navigate('/social');
@@ -42,9 +39,7 @@ const Navbar = (props) => {
                 </div>
             )}
             <div className="navbar-end">
-                            {(authenticated) ? (
-                <button className='bg-white' onClick={logout}>Logout</button>
-                ) : ""}
+                          
                   {authenticated ? (
             // Avatar for authenticated users
             <div className="avatar online pl-2">

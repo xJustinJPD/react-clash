@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from '../config/Api';
-import { useAuth } from '../contexts/AuthContexts';
+import axios from '../../config/Api';
+import { useAuth } from '../../contexts/AuthContexts';
 import { useNavigate } from 'react-router-dom';
 
 const UpdateGameForm = ({ gameId, team1Creator, team2Creator }) => {

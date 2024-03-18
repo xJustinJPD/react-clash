@@ -31,6 +31,7 @@ const Social = (props) => {
         })
         .then(response => {
             const allUsers = response.data.users;
+            //some is a js boolean function which checks if friend id and user id dont match to return
             const filteredUsers = allUsers.filter(user => !friends.some(friend => friend.friend.id === user.id));
             setFilteredUsersList(filteredUsers);
             console.log(response);

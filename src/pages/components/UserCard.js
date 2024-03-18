@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import FriendBtn from '../../components/Friend';
+import FriendBtn from './Friend';
 import { useNavigate } from 'react-router-dom';
 
 const UserCard = ({user}) => {

@@ -1,4 +1,4 @@
-import axios from '../config/Api';
+import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 const CancelGameButton = ({ gameId }) => {

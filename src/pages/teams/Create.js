@@ -1,6 +1,7 @@
 import axios from '../../config/Api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from '../../config/Api';
 
 const Create = () => {
     const errorStyle = {

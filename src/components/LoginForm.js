@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 const LoginForm = () => {
+    const [local] = axios;
     const { onAuthenticated } = useAuth();
     const navigate = useNavigate();
     const errorStyle = {
@@ -22,7 +23,7 @@ const LoginForm = () => {
         console.log("clicked", form);
         let regToken = localStorage.getItem('token');
 
-        axios.post('/auth/login', {
+        local.post('/auth/login', {
             email: form.email,
             password: form.password
         })

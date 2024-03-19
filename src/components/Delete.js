@@ -6,12 +6,12 @@ export default function DeleteBtn({id, resource, deleteCallback}) {
     const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
-
+    const [local] = axios;
     const onDelete = () => {
         setIsLoading(true);
         let token = localStorage.getItem('token');
 
-        axios.delete(`/${resource}/${id}`, {
+        local.delete(`/${resource}/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import axios from '../../config/Api';
+import axios from '../../../config/Api';
 
 const AcceptRequestBtn = ({ requestId, onSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
-
+  const [local] = axios;
   const handleAccept = () => {
     setIsLoading(true);
     const token = localStorage.getItem('token');
 
-    axios
-      .put(`/requests/${requestId}/accept`, {}, {
+    local.put(`/requests/${requestId}/accept`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -34,13 +33,12 @@ const AcceptRequestBtn = ({ requestId, onSuccess }) => {
 
 const RejectRequestBtn = ({ requestId, onSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
-
+  const [local] = axios;
   const handleReject = () => {
     setIsLoading(true);
     const token = localStorage.getItem('token');
 
-    axios
-      .put(`/requests/${requestId}/reject`, {}, {
+    local.put(`/requests/${requestId}/reject`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

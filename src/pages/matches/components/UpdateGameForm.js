@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import axios from '../../config/Api';
-import { useAuth } from '../../contexts/AuthContexts';
+import axios from '../../../config/Api';
+import { useAuth } from '../../../contexts/AuthContexts';
 import { useNavigate } from 'react-router-dom';
 
 const UpdateGameForm = ({ gameId, team1Creator, team2Creator }) => {
     const navigate = useNavigate();
+    const [local] = axios;
     const [team1Score, setTeam1Score] = useState('');
     const [team2Score, setTeam2Score] = useState('');
     const [team1Result, setTeam1Result] = useState('');
@@ -21,7 +22,7 @@ const UpdateGameForm = ({ gameId, team1Creator, team2Creator }) => {
             formData.append('team_1_result', team1Result);
             formData.append('team_2_result', team2Result);
 
-            const response = await axios.put(`/games/${gameId}`, formData, {
+            const response = await local.put(`/games/${gameId}`, formData, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }

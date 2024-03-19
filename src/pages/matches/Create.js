@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function MatchBtn({id, resource, matchCallback}) {
     const [isLoading, setIsLoading] = useState(false);
-
+    const [local] = axios;
     const navigate = useNavigate();
 
     let matchId;
@@ -18,7 +18,7 @@ export default function MatchBtn({id, resource, matchCallback}) {
         setIsLoading(true);
         let token = localStorage.getItem('token');
 
-        axios.post(`/games`, form, {
+        local.post(`/games`, form, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

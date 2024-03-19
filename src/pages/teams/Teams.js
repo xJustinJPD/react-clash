@@ -1,16 +1,16 @@
 import { useEffect, useState} from "react";
 import { Link } from "react-router-dom";
-import axios from '../config/Api';
+import axios from '../../config/Api';
 import TeamCard from "./components/TeamCard";
-import MatchBtn from "../matches/Create";
+import MatchBtn from "../../matches/Create";
 
 const Teams = () => {
     const [teams, setTeamList] = useState([]);
-    
+    const [local] = axios;
     let token = localStorage.getItem('token');
 
     useEffect(() => {
-        axios.get("/user-teams", {
+        local.get("/user-teams", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

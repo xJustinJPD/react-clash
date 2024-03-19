@@ -8,7 +8,7 @@ import MainPage from "./pages/MainPage"
 import Navbar from "./Navbar";
 
 // Pages
-import Teams from "./pages/Teams";
+import Teams from "./pages/teams/Teams";
 
 // Auth
 import { useAuth } from "./contexts/AuthContexts";
@@ -20,10 +20,10 @@ import RegisterPage from "./RegisterPage";
 
 
 // Teams
-import Show from "./teams/Show";
-import Create from "./teams/Create";
-import Edit from "./teams/Edit";
-import Social from "./pages/Social";
+import Show from "./pages/teams/Show";
+import Create from "./pages/teams/Create";
+import Edit from "./pages/teams/Edit";
+import Social from "./pages/Socials/Social";
 import MatchShow from "./matches/Show";
 import Matches from "./matches/All";
 
@@ -31,7 +31,7 @@ import Matches from "./matches/All";
 
 
 //user
-import User from './pages/viewUser';
+import Profile from './pages/Socials/viewProfile';
 
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
@@ -60,7 +60,7 @@ function App() {
       <Route path='/match/:id' element={<MatchShow/>}/>
       <Route path='/matches' element={<Matches/>}/>
 
-      <Route path='/user' element={<User/>}/>
+      <Route path='/profile' element={<Profile/>}/>
       </>
     );
   }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from '../config/Api';
+import axios from '../../config/Api';
 import FriendCard from "./components/FriendCard";
 import UserCard from "./components/UserCard";
 
@@ -8,9 +8,10 @@ const Social = (props) => {
     const [filteredUsersList, setFilteredUsersList ] = useState([]);
     const [searchUsersList, setSearchUsersList ] = useState([]);
     const token = localStorage.getItem('token');
+    const [local] = axios;
 
     useEffect(() => {
-        axios.get("/friends", {
+        local.get("/friends", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -37,7 +38,7 @@ const Social = (props) => {
     },[filteredUsersList, props.searchTerm])
 
     useEffect(() => {
-        axios.get("/user/all", {
+        local.get("/user/all", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

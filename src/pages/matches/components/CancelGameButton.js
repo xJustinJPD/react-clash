@@ -1,14 +1,14 @@
-import axios from '../../config/Api';
+import axios from '../../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
 const CancelGameButton = ({ gameId }) => {
     const navigate = useNavigate();
-
+    const [local] = axios;
     const handleCancelGame = async () => {
         try {
             const token = localStorage.getItem('token'); 
             
-            await axios.put(`/games/${gameId}/cancel`, null, {
+            await local.put(`/games/${gameId}/cancel`, null, {
                 headers: {
                     Authorization: `Bearer ${token}` 
                 }

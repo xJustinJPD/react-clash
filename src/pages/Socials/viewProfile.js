@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import axios from '../config/Api';
+import axios from '../../config/Api';
 import { AcceptRequestBtn, RejectRequestBtn } from './components/AcceptRejectButtons';
-import { useAuth } from '../contexts/AuthContexts';
+import { useAuth } from '../../contexts/AuthContexts';
 import { useNavigate } from 'react-router-dom';
 
-const ViewUser = () => {
+const ViewProfile = () => {
   const { authenticated, onAuthenticated } = useAuth();
   const [user, setUser] = useState([]);
   const [receivedRequests, setReceivedRequests] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
   const token = localStorage.getItem('token');
-
+  const [local,picture] = axios;
   const navigate = useNavigate();
 
   const logout = () => {
@@ -19,7 +19,7 @@ const ViewUser = () => {
   }
 
   useEffect(() => {
-    axios.get('/auth/user', {
+    local.get('/auth/user', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -33,7 +33,7 @@ const ViewUser = () => {
   }, [token]);
 
   useEffect(() => {
-    axios.get('/requests/received', {
+    local.get('/requests/received', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -47,7 +47,7 @@ const ViewUser = () => {
   }, [token]);
 
   useEffect(() => {
-    axios.get('/requests/sent', {
+    local.get('/requests/sent', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -61,7 +61,7 @@ const ViewUser = () => {
   }, [token]);
 
   const fetchReceivedRequests = () => {
-    axios.get('/requests/received', {
+    local.get('/requests/received', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -79,7 +79,7 @@ const ViewUser = () => {
       <div className="grid grid-cols-8 gap-4 bg-white p-8 shadow-lg rounded-md">
         <div className="col-span-8">
           <h1 className="text-3xl font-bold mb-4">Username: {user?.username}</h1>
-          <img src={`http://localhost:80/images/no_image_available.jpg`} alt="" className="mb-4 rounded-full w-24 h-24" />
+          <img src={`http://localhost:80/images/${user?.image}`} alt="" className="mb-4 rounded-full w-24 h-24" />
           <p className="text-gray-600"><b>Current Email: </b>{user?.email}</p>
           <p className="text-gray-600"><b>Description: </b>{user?.description}</p>
           <p className="text-gray-600"><b>Kills: </b>{user?.kills}</p>
@@ -120,4 +120,4 @@ const ViewUser = () => {
   );
 };
 
-export default ViewUser;
+export default ViewProfile;

@@ -1,14 +1,15 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState} from "react";
-import axios from '../config/Api';
-import DeleteBtn from "../components/Delete";
-import { useAuth } from "../contexts/AuthContexts"; 
-import MatchBtn from "../matches/Create";
+import axios from '../../config/Api';
+import DeleteBtn from "../../components/Delete";
+import { useAuth } from "../../contexts/AuthContexts"; 
+import MatchBtn from "../../matches/Create";
 import Friend from "./components/FriendCard";
-import UserCard from "../pages/components/UserCard";
+import UserCard from "../Socials/components/UserCard";
 
 const Show = () => {
     const { id } = useParams();
+    const [local] = axios;
     const [team, setTeam] = useState(null);
     const navigate = useNavigate();
     const { authenticated, userInfo } = useAuth();
@@ -18,7 +19,7 @@ const Show = () => {
     const token = localStorage.getItem('token');
     
     useEffect(() => {
-        axios.get(`/teams/${id}`, {
+        local.get(`/teams/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
@@ -34,7 +35,7 @@ const Show = () => {
     }, [id, token]);
 
     useEffect(() => {
-        axios.get("/friends", {
+        local.get("/friends", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

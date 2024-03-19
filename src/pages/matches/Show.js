@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import axios from '../config/Api';
+import axios from '../../config/Api';
 import { useParams } from 'react-router-dom';
 import UpdateGameForm from './components/UpdateGameForm';
 import CancelGameButton from './components/CancelGameButton'; // Import CancelGameButton component
 
 const MatchShow = () => {
     const { id } = useParams();
+    const [local] = axios;
     const [match, setMatch] = useState(null);
     const [team2, setTeam2] = useState(null); // State to track team_2 id
     const [showForm, setShowForm] = useState(false); //state to show form visibility
@@ -15,7 +16,7 @@ const MatchShow = () => {
         const fetchMatch = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await axios.get(`/games/${id}`, {
+                const response = await local.get(`/games/${id}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }

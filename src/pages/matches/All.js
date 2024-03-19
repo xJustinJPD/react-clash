@@ -4,11 +4,11 @@ import MatchCard from "./components/MatchCard";
 
 const Matches = () => {
     const [matches, setMatchList] = useState([]);
-    
+    const [local] = axios;
     let token = localStorage.getItem('token');
 
     useEffect(() => {
-        axios.get("/games", {
+        local.get("/games", {
             headers: {
                 'Authorization': `Bearer ${token}`
             }

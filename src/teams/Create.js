@@ -83,7 +83,7 @@ const Create = () => {
         }
         
     };
- 
+    
     return (
         <div>
             <h2 className='m-3'>Create Team</h2>

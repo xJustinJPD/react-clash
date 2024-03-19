@@ -24,8 +24,8 @@ import Show from "./pages/teams/Show";
 import Create from "./pages/teams/Create";
 import Edit from "./pages/teams/Edit";
 import Social from "./pages/Socials/Social";
-import MatchShow from "./matches/Show";
-import Matches from "./matches/All";
+import MatchShow from "./pages/matches/Show";
+import Matches from "./pages/matches/All";
 
 // Matches
 

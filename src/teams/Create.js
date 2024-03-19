@@ -6,7 +6,7 @@ const Create = () => {
     const errorStyle = {
         color: 'red'
     };
-   
+    
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({

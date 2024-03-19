@@ -1,5 +1,6 @@
 import { useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+// import axios from '../config/Api';
 import axios from '../config/Api';
 
 const Edit = () => {
@@ -7,10 +8,10 @@ const Edit = () => {
     const [team, setTeam] = useState(null);
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
+
     const [form, setForm] = useState({
         name: "",
-        size: "",
-        image: ""
+        size: ""
     });
 
 
@@ -42,13 +43,14 @@ const Edit = () => {
             [e.target.name]: e.target.value
         }));
     };
-    const handleImageChange = (e) => {
-        const file = e.target.files[0];
-        setForm(prevState => ({
-            ...prevState,
-            image: file || prevState.image // Keep the previous value if no new file is selected
-        }));
-    };
+
+    // const handleImageChange = (e) => {
+    //     const file = e.target.files[0];
+    //     setForm(prevState => ({
+    //         ...prevState,
+    //         image: file || prevState.image // Keep the previous value if no new file is selected
+    //     }));
+    // };
     
     
     const isRequired = (fields) => {
@@ -74,21 +76,23 @@ const Edit = () => {
     };
 
     const submitForm = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         console.log('submitted', form);
-        let token = localStorage.getItem('token');
 
         if(isRequired(['name','size'])){
-            let formData = new FormData();
-            //append adds the new data to the associated values
-            formData.append('name', form.name);
-            formData.append('size', form.size);
-            formData.append('image', form.image);
+                        //created a new form data object
+                        let formData = new FormData();
+                        //append adds the new data to the associated values
+                        formData.append('name', form.name);
+                        formData.append('size', form.size);
+                        // formData.append('image', form.image);
 
 
-            axios.put(`/api/teams/${id}`, formData, {
+            axios.put(`/teams/${id}`, form, {
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+
                 }   
             })
             .then(response => {
@@ -125,7 +129,7 @@ const Edit = () => {
             <input type="number" onChange={handleForm} value={form.size} name='size' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.size?.message}</span>
             </label>
             </div>
-            <div className='m-3'>
+            {/* <div className='m-3'>
             <label className="form-control w-full max-w-xs">
             <div className="label">
             <span className="label-text">Team Image</span>
@@ -133,7 +137,7 @@ const Edit = () => {
             </div>
             <input type="file" onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
             </label>
-            </div>
+            </div> */}
 
 
             <input type='submit' className="btn btn-success m-3" />

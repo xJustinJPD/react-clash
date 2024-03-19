@@ -3,7 +3,7 @@ import { useEffect, useState} from "react";
 import axios from '../../config/Api';
 import DeleteBtn from "../../components/Delete";
 import { useAuth } from "../../contexts/AuthContexts"; 
-import MatchBtn from "../../matches/Create";
+import MatchBtn from "../matches/Create";
 import Friend from "./components/FriendCard";
 import UserCard from "../Socials/components/UserCard";
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from '../config/Api';
+import axios from '../../config/Api';
 import MatchCard from "./components/MatchCard";
 
 const Matches = () => {

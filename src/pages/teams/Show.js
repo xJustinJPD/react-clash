@@ -64,7 +64,7 @@ const Show = () => {
         <>
             <div className="hero min-h-screen bg-base-200">
                 <div className="hero-content text-center">
-                    {team.image}
+                <img src={team?.image} alt="" className="mb-4 rounded-full w-24 h-24" />
                     <div className="max-w-md">
                         <h1 className="text-5xl font-bold">{team.name}</h1>
                         <p className="py-6">{team.size} Size</p>

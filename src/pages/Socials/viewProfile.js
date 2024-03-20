@@ -79,7 +79,7 @@ const ViewProfile = () => {
       <div className="grid grid-cols-8 gap-4 bg-white p-8 shadow-lg rounded-md">
         <div className="col-span-8">
           <h1 className="text-3xl font-bold mb-4">Username: {user?.username}</h1>
-          <img src={`http://localhost:80/images/${user?.image}`} alt="" className="mb-4 rounded-full w-24 h-24" />
+          <img src={`${user?.image}`} alt="" className="mb-4 rounded-full w-24 h-24" />
           <p className="text-gray-600"><b>Current Email: </b>{user?.email}</p>
           <p className="text-gray-600"><b>Description: </b>{user?.description}</p>
           <p className="text-gray-600"><b>Kills: </b>{user?.kills}</p>

@@ -4,7 +4,7 @@ const UserHero = ({ user }) => {
     return (
         <div className="hero min-h-screen bg-base-200">
             <div className="hero-content flex-col lg:flex-row">
-                <img src={`http://localhost:80/images/${user?.image}`} className="max-w-sm rounded-lg shadow-2xl" />
+                <img src={user.image} className="max-w-sm rounded-lg shadow-2xl" />
                 <div>
                     <h1 className="text-5xl font-bold mb-3">{user.username}</h1>
                     {user.description && <p className="">{user.description}</p>}
@@ -19,7 +19,7 @@ const UserHero = ({ user }) => {
                         {user.teams && user.teams.map(team => (
                             <div key={team.id} className="carousel-item w-full">
                                 <Link to={`/teams/${team.id}`}>
-                                    <img src={`http://localhost:80/images/${team.image}`} className="w-full" alt={team.name} />
+                                    <img src={team.image} className="w-full" alt={team.name} />
                                     <p className="text-center">{team.name}</p>
                                 </Link>
                             </div>

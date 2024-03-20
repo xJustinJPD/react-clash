@@ -90,7 +90,7 @@ const Edit = () => {
             formData.append('_method', 'put');
 
 
-            local.post(`/teams/${id}`, formData, {
+            local.put(`/teams/${id}`, form, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     //to allow files to the form

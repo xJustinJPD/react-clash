@@ -8,6 +8,7 @@ const Create = () => {
         color: 'red'
     };
     
+    const [local] = axios;
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({

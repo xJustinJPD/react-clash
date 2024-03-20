@@ -1,4 +1,4 @@
-import axios from '../config/Api';
+import axios from '../../config/Api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,11 +7,13 @@ const Create = () => {
         color: 'red'
     };
     
+    const [local] = axios;
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
         name: "",
-        size: ""
+        size: "",
+        image: ""
     });
 
     const handleForm = (e) => {
@@ -21,13 +23,13 @@ const Create = () => {
         }));
     };
 
-    // const handleImageChange = (e) => {
-    //     const file = e.target.files[0];
-    //     setForm(prevState => ({
-    //         ...prevState,
-    //         image: file
-    //     }));
-    // };
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setForm(prevState => ({
+            ...prevState,
+            image: file
+        }));
+    };
 
     const isRequired = (fields) => {
 
@@ -63,9 +65,9 @@ const Create = () => {
             //append adds the new data to the associated values
             formData.append('name', form.name);
             formData.append('size', form.size);
-            // formData.append('image', form.image);
+            formData.append('image', form.image);
 
-            axios.post('/teams', form, {
+            local.post('/teams', form, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     //to allow files to the form
@@ -105,7 +107,7 @@ const Create = () => {
             </label>
             </div>
             
-            {/* <div className='m-3'>
+            <div className='m-3'>
             <label className="form-control w-full max-w-xs">
             <div className="label">
             <span className="label-text">Team Image</span>
@@ -113,7 +115,7 @@ const Create = () => {
             </div>
             <input type="file" onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
             </label>
-            </div> */}
+            </div>
 
             <input type='submit' className="btn btn-success m-3" />
             </form>

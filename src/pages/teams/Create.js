@@ -1,9 +1,9 @@
 import axios from '../../config/Api';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../config/Api';
 
 const Create = () => {
+    const [local] = axios;
     const errorStyle = {
         color: 'red'
     };
@@ -67,7 +67,7 @@ const Create = () => {
             formData.append('size', form.size);
             formData.append('image', form.image);
 
-            axios.post('/teams', form, {
+            local.post('/teams', form, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     //to allow files to the form

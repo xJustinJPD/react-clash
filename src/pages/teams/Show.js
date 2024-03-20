@@ -62,38 +62,51 @@ const Show = () => {
     if (!team) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
     return (
         <>
-        <div className="hero min-h-screen bg-base-200">
-            <div className="hero-content text-center">
-                {team.image}
-                <div className="max-w-md">
-                    <h1 className="text-5xl font-bold">{team.name}</h1>
-                    <p className="py-6">{team.size} Size</p>
-                    <p className="py-6">Level {team.wins}</p>
-                    <p className="py-6">{team.losses}</p>
+            <div className="hero min-h-screen bg-base-200">
+                <div className="hero-content text-center">
+                    {team.image}
+                    <div className="max-w-md">
+                        <h1 className="text-5xl font-bold">{team.name}</h1>
+                        <p className="py-6">{team.size} Size</p>
+                        <p className="py-6">Level {team.wins}</p>
+                        <p className="py-6">{team.losses}</p>
+                    </div>
+                    
+                    {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
+                        <>
+                            <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
+                            <DeleteBtn className="m-3" id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
+                            <MatchBtn id={team.id}/>
+                        </>
+                    )}
                 </div>
-                
-                {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
-                    <>
-                        <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
-                        <DeleteBtn className="m-3" id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
-                        <MatchBtn id={team.id}/>
-                    </>
-                )}
             </div>
-        </div>
-        <div className="text-3xl font-bold text-center my-4">Users in Team:</div>
+            <div className="text-3xl font-bold text-center my-4">Users in Team:</div>
             <hr className="my-4" />
             <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
                 {userList}
             </div>
-        <div className="text-3xl font-bold text-center my-4">Add Friends To Team:</div>
-            <hr className="my-4" />
-            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
-                {friendList}
-            </div>
+            {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
+                <>
+                    {friendList.length > 0 ? (
+                        <>
+                            <div className="text-3xl font-bold text-center my-4">Add Friends To Team:</div>
+                            <hr className="my-4" />
+                            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
+                                {friendList}
+                            </div>
+                        </>
+                    ) : (
+                        <div className="text-center my-4">
+                        <Link to="/social"> <button className="btn btn-primary">Add Friends</button></Link> 
+                        </div>
+                    )}
+                </>
+            )}
         </>
-
     );
+
+    
 } 
 
 export default Show;

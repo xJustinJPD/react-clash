@@ -22,17 +22,18 @@ import RegisterPage from "./RegisterPage";
 // Teams
 import Show from "./pages/teams/Show";
 import Create from "./pages/teams/Create";
-import Edit from "./pages/teams/Edit";
-import Social from "./pages/Socials/Social";
+import Edit from "./pages/teams/Edit"
+
+
+
+// Matches
 import MatchShow from "./pages/matches/Show";
 import Matches from "./pages/matches/All";
 
-// Matches
-
-
 //user
 import Profile from './pages/Socials/viewProfile';
-
+import Social from "./pages/Socials/Social";
+import SingleUser from "./pages/Socials/SingleUser"
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
   const [term, setTerm] = useState("");
@@ -59,7 +60,7 @@ function App() {
       <Route path='/social' element={<Social searchTerm={term}/>}/>
       <Route path='/match/:id' element={<MatchShow/>}/>
       <Route path='/matches' element={<Matches/>}/>
-
+      <Route path='/user/:id' element={<SingleUser/>}/>
       <Route path='/profile' element={<Profile/>}/>
       </>
     );

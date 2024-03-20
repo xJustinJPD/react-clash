@@ -9,7 +9,7 @@ const FriendCard = ({friend}) => {
                     <h2 className="card-title">{friend.username} </h2>
                     <b>ID: </b><p>{friend.id}</p> 
                     <div className="card-actions justify-end">
-                    <Link to={`/user/${friend.username}`}><button className="btn btn-primary">More info</button></Link>
+                    <Link to={`/user/${friend.id}`}><button className="btn btn-primary">More info</button></Link>
                     
                     </div>
             </div>

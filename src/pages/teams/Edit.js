@@ -78,7 +78,7 @@ const Edit = () => {
         e.preventDefault();
         let token = localStorage.getItem('token');
         // console.log(token);
-        // console.log('submitted', form);
+        console.log('submitted', form);
 
         if(isRequired(['name', 'size'])){
             //created a new form data object
@@ -87,16 +87,18 @@ const Edit = () => {
             formData.append('name', form.name);
             formData.append('size', form.size);
             formData.append('image', form.image);
+            formData.append('_method', 'put');
 
-            local.put(`/teams/${id}`, form, {
+
+            local.post(`/teams/${id}`, formData, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     //to allow files to the form
-                    "Content-Type": "multipart/form-data"
+                    "Content-Type": "multipart/form-data",
                 }
             })
             .then(response => {
-                navigate('/');
+                navigate('/teams');
                 console.log({form})
             })
             .catch(err => {

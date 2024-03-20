@@ -87,8 +87,9 @@ const Edit = () => {
             formData.append('name', form.name);
             formData.append('size', form.size);
             formData.append('image', form.image);
+            formData.append('_method', 'put');
 
-            local.put(`/teams/${id}`, form, {
+            local.put(`/teams/${id}`, formData, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     //to allow files to the form

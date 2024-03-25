@@ -10,6 +10,7 @@ const EditUser = () => {
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
         username: "",
+        description:"",
         image: ""
     });
 
@@ -84,6 +85,7 @@ const EditUser = () => {
             let formData = new FormData();
             //append adds the new data to the associated values
             formData.append('username', form.username);
+            formData.append('description', form.description);
             formData.append('image', form.image);
             formData.append('_method', 'put');
 
@@ -118,12 +120,26 @@ const EditUser = () => {
             <input type="text" onChange={handleForm} value={form.username} name='username' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.username?.message}</span>
             </label>
             </div>
-            
+            <div className='m-3'>
+            <label className="form-control w-full max-w-xs">
+                <div className="label">
+                    <span className="label-text">Description:</span>
+                </div>
+                <input 
+                    type="text" 
+                    onChange={handleForm} 
+                    value={form.description} 
+                    name='description' 
+                    placeholder="Type here"  
+                    className="input input-bordered large-input" 
+                />
+                <span style={errorStyle}>{errors.description?.message}</span>
+            </label>
+            </div>
             <div className='m-3'>
             <label className="form-control w-full max-w-xs">
             <div className="label">
             <span className="label-text">User Image</span>
-            <span className="label-text-alt">Image</span>
             </div>
             <input type="file"  onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
             </label>

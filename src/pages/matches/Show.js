@@ -36,7 +36,7 @@ const MatchShow = () => {
             if (team2 === null) {
                 fetchMatch();
             }
-        }, 20000);
+        }, 1000);
 
         return () => clearInterval(team2Wait);
     }, [id, team2]);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from '../../../config/Api';
 import { useAuth } from '../../../contexts/AuthContexts';
 import { useNavigate } from 'react-router-dom';
@@ -28,18 +28,25 @@ const UpdateGameForm = ({ gameId, team1Creator, team2Creator }) => {
         e.preventDefault();
         
         try {
+         
             const formData = new FormData();
-            formData.append('team_1_score', team1Score);
-            formData.append('team_2_score', team2Score);
-            formData.append('team_1_result', team1Result);
-            formData.append('team_2_result', team2Result);
-            formData.append('team_1_image', team1Image); 
-            formData.append('team_2_image', team2Image); 
+            if (authenticated && (userInfo && (userInfo.id === team1Creator || userInfo.role.includes('admin')))) {
+                formData.append('team_1_score', parseInt(team1Score));
+                formData.append('team_1_result', JSON.parse(team1Result));
+                formData.append('team_1_image', team1Image); 
+            }
+            if (authenticated && (userInfo && (userInfo.id === team2Creator || userInfo.role.includes('admin')))) {
+                formData.append('team_2_image', team2Image); 
+                formData.append('team_2_result', JSON.parse(team2Result));
+                formData.append('team_2_score', parseInt(team2Score));
+            }
+            
             formData.append('_method', 'put');
-
-            const response = await local.put(`/games/${gameId}`, formData, {
+            console.log('Form data:', formData);
+            const response = await local.post(`/games/${gameId}`, formData, {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                    "Content-Type": "multipart/form-data"
                 }
             });
 
@@ -62,8 +69,8 @@ const UpdateGameForm = ({ gameId, team1Creator, team2Creator }) => {
                             <label htmlFor="team1Result">Team 1 Result:</label>
                             <select id="team1Result" value={team1Result} onChange={(e) => setTeam1Result(e.target.value)}>
                                 <option value="">Select Result</option>
-                                <option value="true">Win</option>
-                                <option value="false">Loss</option>
+                                <option value={0}>Win</option>
+                                <option value={1}>Loss</option>
                             </select>
                         </div>
                     )}
@@ -76,8 +83,8 @@ const UpdateGameForm = ({ gameId, team1Creator, team2Creator }) => {
                             <label htmlFor="team2Result">Team 2 Result:</label>
                             <select id="team2Result" value={team2Result} onChange={(e) => setTeam2Result(e.target.value)}>
                                 <option value="">Select Result</option>
-                                <option value="true">Win</option>
-                                <option value="false">Loss</option>
+                                <option value={0}>Win</option>
+                                <option value={1}>Loss</option>
                             </select>
                         </div>
                     )}

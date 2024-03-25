@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from '../../config/Api';
 import { AcceptRequestBtn, RejectRequestBtn } from './components/AcceptRejectButtons';
 import { useAuth } from '../../contexts/AuthContexts';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const ViewProfile = () => {
   const { authenticated, onAuthenticated } = useAuth();
@@ -88,6 +88,9 @@ const ViewProfile = () => {
           <p className="text-gray-600"><b>KD Ratio: </b>{user['user-kd-ratio']}</p>
           <p className="text-gray-600"><b>Win/loss Ratio: </b>{user['user-win-ratio']}</p>
         </div>
+      </div>
+      <div>
+      <Link to={`/user/${user.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
       </div>
       <div className="grid grid-cols-1 bg-white p-8 shadow-lg rounded-md ml-4">
         {authenticated ? (

@@ -34,6 +34,9 @@ import Matches from "./pages/matches/All";
 import Profile from './pages/Socials/viewProfile';
 import Social from "./pages/Socials/Social";
 import SingleUser from "./pages/Socials/SingleUser"
+import EditUser from "./pages/Socials/UpdateUser";
+
+
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
   const [term, setTerm] = useState("");
@@ -62,6 +65,7 @@ function App() {
       <Route path='/matches' element={<Matches/>}/>
       <Route path='/user/:id' element={<SingleUser/>}/>
       <Route path='/profile' element={<Profile/>}/>
+      <Route path='/user/:id/edit' element={<EditUser/>}/>
       </>
     );
   }

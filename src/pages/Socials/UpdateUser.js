@@ -2,15 +2,14 @@ import { useState, useEffect} from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from '../../config/Api';
 
-const Edit = () => {
+const EditUser = () => {
     const { id } = useParams();
     const [local] = axios;
-    const [team, setTeam] = useState(null);
+    const [user, setUser] = useState(null);
     const navigate = useNavigate();
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
-        name: "",
-        size: "",
+        username: "",
         image: ""
     });
 
@@ -22,14 +21,14 @@ const Edit = () => {
     let token = localStorage.getItem('token');
     
     useEffect(() => {
-        local.get(`/teams/${id}`, {
+        local.get(`/user/${id}`, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
         })
         .then(response => {
             console.log(response.data.data);
-            setTeam(response.data.data);
+            setUser(response.data.data);
             setForm(response.data.data);
         })
         .catch(err => {
@@ -80,17 +79,16 @@ const Edit = () => {
         // console.log(token);
         console.log('submitted', form);
 
-        if(isRequired(['name', 'size'])){
+        if(isRequired(['username'])){
             //created a new form data object
             let formData = new FormData();
             //append adds the new data to the associated values
-            formData.append('name', form.name);
-            formData.append('size', form.size);
+            formData.append('username', form.username);
             formData.append('image', form.image);
             formData.append('_method', 'put');
 
 
-            local.post(`/teams/${id}`, formData, {
+            local.post(`/user/${id}`, formData, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     //to allow files to the form
@@ -110,30 +108,21 @@ const Edit = () => {
  
     return (
         <div>
-            <h2 className='m-3'>Edit Team</h2>
+            <h2 className='m-3'>Edit User</h2>
             <form onSubmit={submitForm}>
             <div className='m-3'>
             <label className="form-control w-full max-w-xs">
             <div className="label">
-                <span className="label-text">Name:</span>
+                <span className="label-text">Username:</span>
             </div>
-            <input type="text" onChange={handleForm} value={form.name} name='name' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.name?.message}</span>
-            </label>
-            </div>
-
-            <div className='m-3'>
-            <label className="form-control w-full max-w-xs">
-            <div className="label">
-                <span className="label-text">Size:</span>
-            </div>
-            <input type="number" onChange={handleForm} value={form.size} name='size' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.size?.message}</span>
+            <input type="text" onChange={handleForm} value={form.username} name='username' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.username?.message}</span>
             </label>
             </div>
             
             <div className='m-3'>
             <label className="form-control w-full max-w-xs">
             <div className="label">
-            <span className="label-text">Team Image</span>
+            <span className="label-text">User Image</span>
             <span className="label-text-alt">Image</span>
             </div>
             <input type="file"  onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
@@ -147,4 +136,4 @@ const Edit = () => {
 };
 
 
-export default Edit;
+export default EditUser;

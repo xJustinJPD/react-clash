@@ -4,6 +4,7 @@ import axios from '../../config/Api';
 import { useParams } from 'react-router-dom';
 import UpdateGameForm from './components/UpdateGameForm';
 import CancelGameButton from './components/CancelGameButton'; // Import CancelGameButton component
+import PlayerCard from './components/PlayerStatsForm';
 
 const MatchShow = () => {
     const { id } = useParams();
@@ -11,6 +12,11 @@ const MatchShow = () => {
     const [match, setMatch] = useState(null);
     const [team2, setTeam2] = useState(null); // State to track team_2 id
     const [showForm, setShowForm] = useState(false); //state to show form visibility
+    const [players1, setPlayers1] = useState([]); // State to track team_1 players
+    const [players2, setPlayers2] = useState([]); // State to track team_2 players
+
+    const token = localStorage.getItem('token');
+
 
     useEffect(() => {
         const fetchMatch = async () => {
@@ -26,6 +32,7 @@ const MatchShow = () => {
             } catch (error) {
                 console.error(error);
             }
+
         };
 
         if (team2 === null) {
@@ -38,12 +45,97 @@ const MatchShow = () => {
             }
         }, 1000);
 
+        const fetchPlayers = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await local.get(`/stats/${id}/${match.team_1.id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                    console.log(response.data.data)
+                    setPlayers1(response.data.data)
+            } catch (error) {
+                console.error(error);
+            }
+
+        };
+
+        // local.get(`/stats/${id}/${match.team_1.id}`,{
+        //     headers: {
+        //         Authorization: `Bearer ${token}`
+        //     }
+        // })
+        //         .then(response => {
+        //             console.log(response.data.data)
+        //             setPlayers1(response.data.data)
+        //         })
+        //         .catch(err => {
+        //             console.log(err.response.data)
+        //         });
+
+        // local.get(`/stats/${id}/${team2.id}`,{
+        //     headers: {
+        //         Authorization: `Bearer ${token}`
+        //     }
+        // })
+        //         .then(response => {
+        //             console.log(response.data.data)
+        //             setPlayers2(response.data.data)
+        //         })
+        //         .catch(err => {
+        //             console.log(err.response.data)
+        //         });
+
         return () => clearInterval(team2Wait);
     }, [id, team2]);
 
     const toggleFormVisibility = () => {
         setShowForm(!showForm);
     };
+
+    console.log(players1)
+
+
+
+            // useEffect(() => {
+            //     local.get(`/stats/${id}/${match.team_1.id}`,{
+            //         headers: {
+            //             Authorization: `Bearer ${token}`
+            //         }
+            //     })
+            //             .then(response => {
+            //                 console.log(response.data.data)
+            //                 setPlayers1(response.data.data)
+            //             })
+            //             .catch(err => {
+            //                 console.log(err.response.data)
+            //             });
+            // }, [id]);
+
+            // useEffect(() => {
+            //     local.get(`/stats/${id}/${match.team_2.id}`,{
+            //         headers: {
+            //             Authorization: `Bearer ${token}`
+            //         }
+            //     })
+            //             .then(response => {
+            //                 console.log(response.data.data)
+            //                 setPlayers2(response.data.data)
+            //             })
+            //             .catch(err => {
+            //                 console.log(err.response.data)
+            //             });
+            // }, [id]);
+
+
+            // const players1List = players1.map((user, i) => (
+            //     <PlayerCard key={user.id} user={user} />
+            // ));
+
+            // const players2List = players2.map((user, i) => (
+            //     <PlayerCard key={user.id} user={user} />
+            // ));
 
     if (!match) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
     

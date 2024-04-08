@@ -1,78 +1,92 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from '../../config/Api';
-import { AcceptRequestBtn, RejectRequestBtn } from './components/AcceptRejectButtons';
 import { useAuth } from '../../contexts/AuthContexts';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; 
+import ReceivedRequests from './components/RecievedRequests';
+import SentRequests from './components/SentRequests';
+
+
 
 const ViewProfile = () => {
   const { authenticated, onAuthenticated } = useAuth();
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState([]); 
   const [receivedRequests, setReceivedRequests] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
   const token = localStorage.getItem('token');
-  const [local,picture] = axios;
+  const [local] = axios; 
   const navigate = useNavigate();
 
   const logout = () => {
     onAuthenticated(false);
     navigate('/login');
-  }
+  };
 
-  useEffect(() => {
-    local.get('/auth/user', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    .then(response => {
-      console.log(response.data.user)
-      setUser(response.data.user);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-  }, [token]);
 
-  useEffect(() => {
-    local.get('/requests/received', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-    .then(response => {
+
+
+  const fetchReceivedRequests = async () => {
+
+    try {
+      const response = await local.get('/requests/received', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
       setReceivedRequests(response.data.requests);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-  }, [token]);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
-    local.get('/requests/sent', {
-      headers: {
-        'Authorization': `Bearer ${token}`
+    const fetchData = async () => {
+      try {
+        const response = await local.get('/auth/user', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setUser(response.data.user);
+      } catch (error) {
+        console.error(error);
       }
-    })
-    .then(response => {
-      setSentRequests(response.data.requests);
-    })
-    .catch(err => {
-      console.error(err);
-    });
-  }, [token]);
+    };
 
-  const fetchReceivedRequests = () => {
-    local.get('/requests/received', {
-      headers: {
-        'Authorization': `Bearer ${token}`
+    const fetchSentRequests = async () => {
+      try {
+        const response = await local.get('/requests/sent', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setSentRequests(response.data.requests);
+      } catch (error) {
+        console.error(error);
       }
-    })
-    .then(response => {
-      setReceivedRequests(response.data.requests);
-    })
-    .catch(err => {
-      console.error(err);
-    });
+    };
+
+    fetchData();
+    fetchReceivedRequests();
+    fetchSentRequests();
+    
+   
+  }, [token, local]);
+
+  
+
+  let recievedTimer;
+
+  useEffect(() => {
+    recievedTimer = setInterval(fetchReceivedRequests, 5000);
+
+    return () => {
+            clearInterval(recievedTimer);
+          }; 
+  }, []);
+  
+  const handleCancelRequest = (requestId) => {
+    const updatedRequests = sentRequests.filter(request => request.friend_info.id !== requestId);
+    setSentRequests(updatedRequests);
   };
 
   return (
@@ -91,7 +105,7 @@ const ViewProfile = () => {
         </div>
       </div>
       <div>
-      <Link to={`/user/${user.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
+        <Link to={`/user/${user?.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
       </div>
       <div className="grid grid-cols-1 bg-white p-8 shadow-lg rounded-md ml-4">
         {authenticated ? (
@@ -99,26 +113,8 @@ const ViewProfile = () => {
             Logout
           </button>
         ) : null}
-        <div className="border-b-2 pb-4">
-          <h1 className="text-3xl font-bold mb-4">Received Friend Requests:</h1>
-          {receivedRequests.map(request => (
-            <div key={request.id} className="flex items-center justify-between">
-              <p className="mr-4">{request.user_id}</p>
-              <div>
-                <AcceptRequestBtn requestId={request.id} onSuccess={fetchReceivedRequests} />
-                <RejectRequestBtn requestId={request.id} onSuccess={fetchReceivedRequests} />
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="border-b-2 pt-4 pb-4">
-          <h1 className="text-3xl font-bold mb-4">Sent Friend Requests:</h1>
-          {sentRequests.map(request => (
-            <div key={request.id}>
-              <p>{request.friend_id}</p>
-            </div>
-          ))}
-        </div>
+        <ReceivedRequests receivedRequests={receivedRequests} fetchReceivedRequests={fetchReceivedRequests} />
+        <SentRequests sentRequests={sentRequests} onCancelRequest={handleCancelRequest} />
       </div>
     </div>
   );

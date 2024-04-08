@@ -2,16 +2,30 @@ import { useState } from 'react';
 import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
-export default function MatchBtn({id, resource, matchCallback}) {
+export default function MatchBtn({id, size, matchCallback}) {
     const [isLoading, setIsLoading] = useState(false);
     const [local] = axios;
     const navigate = useNavigate();
 
     let matchId;
-
+//switch works like a multiple conditions but its much cleaner
+    const determineQueueType = (teamSize) => {
+        switch (teamSize) {
+            case 1:
+                return "1v1";
+            case 2:
+                return "2v2";
+            case 3:
+                return "3v3";
+            case 4:
+                return "4v4";
+            default:
+                return "Unknown";
+        }
+    };
     const [form, setForm] = useState({
         team_id_1: id,
-        queue_type: "1v1"
+        queue_type: determineQueueType(size)
     });
 
     const onMatch = () => {

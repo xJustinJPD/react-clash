@@ -76,7 +76,7 @@ const Show = () => {
                         <>
                             <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
                             <DeleteBtn className="m-3" id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
-                            <MatchBtn id={team.id}/>
+                            <MatchBtn id={team.id} size={team.size}/>
                         </>
                     )}
                 </div>

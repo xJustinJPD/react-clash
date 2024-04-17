@@ -3,7 +3,7 @@ import axios from '../../../config/Api';
 import { useAuth } from '../../../contexts/AuthContexts';
 import { useNavigate } from 'react-router-dom';
 
-const UpdateGameForm = ({ gameId, team1Creator, team2Creator }) => {
+const UpdateGameForm = ({ gameId, team1Creator, team2Creator, team1id, team2id }) => {
     const navigate = useNavigate();
     const [local] = axios;
     const [team1Score, setTeam1Score] = useState('');
@@ -51,7 +51,7 @@ const UpdateGameForm = ({ gameId, team1Creator, team2Creator }) => {
             });
 
             console.log(response.data);
-            navigate(`/teams`);
+            navigate(`/match/${gameId}/${team1id}/${team2id}/stats`);
         } catch (error) {
             console.error(error);
         }

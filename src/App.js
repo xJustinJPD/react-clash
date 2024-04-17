@@ -35,6 +35,7 @@ import Profile from './pages/Socials/viewProfile';
 import Social from "./pages/Socials/Social";
 import SingleUser from "./pages/Socials/SingleUser"
 import EditUser from "./pages/Socials/UpdateUser";
+import MatchStats from "./pages/matches/Edit";
 
 
 function App() {
@@ -62,6 +63,7 @@ function App() {
       <Route path='/teams/create' element={<Create/>}/>
       <Route path='/social' element={<Social searchTerm={term}/>}/>
       <Route path='/match/:id' element={<MatchShow/>}/>
+      <Route path='/match/:id/:team1id/:team2id/stats' element={<MatchStats/>}/>
       <Route path='/matches' element={<Matches/>}/>
       <Route path='/user/:id' element={<SingleUser/>}/>
       <Route path='/profile' element={<Profile/>}/>

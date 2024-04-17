@@ -82,7 +82,7 @@ const MatchShow = () => {
             <CancelGameButton gameId={id} /> 
                 <button onClick={toggleFormVisibility} className="btn btn-primary mb-4">Update Game</button>
                
-                {showForm && <UpdateGameForm gameId={id} team1Creator={match.team_1.creator} team2Creator={match.team_2.creator} />}
+                {showForm && <UpdateGameForm gameId={id} team1Creator={match.team_1.creator} team2Creator={match.team_2.creator} team1id={match.team_1.id} team2id={match.team_2.id} />}
             </div>
         </div>
     );

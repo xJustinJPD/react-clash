@@ -12,8 +12,7 @@ const Edit = () => {
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
         name: "",
-        size: "",
-        image: ""
+        size: ""
     });
 
 
@@ -50,7 +49,7 @@ const Edit = () => {
         const file = e.target.files[0];
         setForm(prevState => ({
             ...prevState,
-            image: file
+            image: file || null  // Set image to null if no file is selected
         }));
     };
 
@@ -88,7 +87,11 @@ const Edit = () => {
             //append adds the new data to the associated values
             formData.append('name', form.name);
             formData.append('size', form.size);
+          if(form.image !== null){
             formData.append('image', form.image);
+          }
+          //removing image completly from the form if none are selected
+            
             formData.append('_method', 'put');
             if (userInfo && userInfo.role.includes('admin')) {
                 // Append wins and losses only if user is admin
@@ -97,7 +100,7 @@ const Edit = () => {
             }
 
 
-            local.put(`/teams/${id}`, formData, {
+            local.post(`/teams/${id}`, formData, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     //to allow files to the form

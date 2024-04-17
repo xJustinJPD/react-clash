@@ -75,7 +75,7 @@ const Create = () => {
                 }
             })
             .then(response => {
-                navigate('/');
+                navigate('/teams');
                 console.log({form})
             })
             .catch(err => {

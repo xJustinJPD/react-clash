@@ -87,7 +87,7 @@ const EditUser = () => {
             formData.append('username', form.username);
             formData.append('description', form.description);
             formData.append('image', form.image);
-            formData.append('_method', 'put');
+            formData.append('_method', 'put');        
 
 
             local.post(`/user/${id}`, formData, {

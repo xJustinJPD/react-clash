@@ -49,7 +49,7 @@ const Edit = () => {
         const file = e.target.files[0];
         setForm(prevState => ({
             ...prevState,
-            image: file || null  // Set image to null if no file is selected
+            imageFile: file
         }));
     };
 
@@ -87,11 +87,7 @@ const Edit = () => {
             //append adds the new data to the associated values
             formData.append('name', form.name);
             formData.append('size', form.size);
-          if(form.image !== null){
-            formData.append('image', form.image);
-          }
-          //removing image completly from the form if none are selected
-            
+            formData.append('imageFile', form.imageFile);
             formData.append('_method', 'put');
             if (userInfo && userInfo.role.includes('admin')) {
                 // Append wins and losses only if user is admin

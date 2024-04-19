@@ -98,7 +98,7 @@ const PlayerCard = ({user}) => {
                         <div className="label">
                             <span className="label-text">Kills:</span>
                         </div>
-                        <input type="text" onChange={handleForm} value={kills} name='kills' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.name?.message}</span>
+                        <input type="text" onChange={handleForm} value={kills} name='kills' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
                         </label>
                         </div>
                         </form>

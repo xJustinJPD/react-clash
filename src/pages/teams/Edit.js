@@ -50,7 +50,7 @@ const Edit = () => {
         const file = e.target.files[0];
         setForm(prevState => ({
             ...prevState,
-            image: file
+            imageFile: file
         }));
     };
 
@@ -88,7 +88,7 @@ const Edit = () => {
             //append adds the new data to the associated values
             formData.append('name', form.name);
             formData.append('size', form.size);
-            formData.append('image', form.image);
+            formData.append('imageFile', form.imageFile);
             formData.append('_method', 'put');
             if (userInfo && userInfo.role.includes('admin')) {
                 // Append wins and losses only if user is admin
@@ -97,7 +97,7 @@ const Edit = () => {
             }
 
 
-            local.put(`/teams/${id}`, formData, {
+            local.post(`/teams/${id}`, formData, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     //to allow files to the form

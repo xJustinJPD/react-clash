@@ -44,6 +44,7 @@ export default function MatchBtn({id, size, matchCallback}) {
                 })
                 .catch(err => {
                     console.log(err.response.data)
+                    setIsLoading(false);
                 });
     };
 

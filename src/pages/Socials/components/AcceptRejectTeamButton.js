@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import axios from '../../../config/Api';
-//friends buttons
-const AcceptRequestBtn = ({ requestId, onSuccess }) => {
+//teams buttons
+const AcceptTeamBtn = ({ teamId, onSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [local] = axios;
   const handleAccept = () => {
     setIsLoading(true);
     const token = localStorage.getItem('token');
 
-    local.put(`/requests/${requestId}/accept`, {}, {
+    local.put(`/teams/${teamId}/accept-invite`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -31,14 +31,14 @@ const AcceptRequestBtn = ({ requestId, onSuccess }) => {
   );
 };
 
-const RejectRequestBtn = ({ requestId, onSuccess }) => {
+const RejectTeamBtn = ({ teamId, onSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [local] = axios;
   const handleReject = () => {
     setIsLoading(true);
     const token = localStorage.getItem('token');
-
-    local.put(`/requests/${requestId}/reject`, {}, {
+    // console.log(teamId)
+    local.delete(`/teams/${teamId}/reject-invite`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -61,4 +61,4 @@ const RejectRequestBtn = ({ requestId, onSuccess }) => {
   );
 };
 
-export { AcceptRequestBtn, RejectRequestBtn };
+export { AcceptTeamBtn, RejectTeamBtn };

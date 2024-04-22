@@ -4,6 +4,7 @@ import { useAuth } from '../../contexts/AuthContexts';
 import { Link, useNavigate } from 'react-router-dom'; 
 import ReceivedRequests from './components/RecievedRequests';
 import SentRequests from './components/SentRequests';
+import ReceivedTeams from './components/ReceivedTeams';
 
 
 
@@ -12,6 +13,8 @@ const ViewProfile = () => {
   const [user, setUser] = useState([]); 
   const [receivedRequests, setReceivedRequests] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
+  const [receivedTeams, setReceivedTeams] = useState([]);
+  const [sentTeams, setSentTeams] = useState([]);
   const token = localStorage.getItem('token');
   const [local] = axios; 
   const navigate = useNavigate();
@@ -20,8 +23,6 @@ const ViewProfile = () => {
     onAuthenticated(false);
     navigate('/login');
   };
-
-
 
 
   const fetchReceivedRequests = async () => {
@@ -37,6 +38,19 @@ const ViewProfile = () => {
       console.error(error);
     }
   };
+  const fetchReceivedTeams = async () => {
+    try {
+      const response = await local.get('/user-teamrequests', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setReceivedTeams(response.data.requests);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,6 +65,7 @@ const ViewProfile = () => {
         console.error(error);
       }
     };
+    
 
     const fetchSentRequests = async () => {
       try {
@@ -65,9 +80,13 @@ const ViewProfile = () => {
       }
     };
 
+    
+    
+
     fetchData();
     fetchReceivedRequests();
     fetchSentRequests();
+    fetchReceivedTeams();
     
    
   }, [token, local]);
@@ -115,6 +134,8 @@ const ViewProfile = () => {
         ) : null}
         <ReceivedRequests receivedRequests={receivedRequests} fetchReceivedRequests={fetchReceivedRequests} />
         <SentRequests sentRequests={sentRequests} onCancelRequest={handleCancelRequest} />
+        <ReceivedTeams teams={receivedTeams} fetchReceivedTeams={fetchReceivedTeams} />
+
       </div>
     </div>
   );

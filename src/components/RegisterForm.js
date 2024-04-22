@@ -1,10 +1,10 @@
 import axios from '../config/Api';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-// import { useAuth } from '../contexts/AuthContexts';
+import { useAuth } from '../contexts/AuthContexts';
 
 const RegisterForm = () => {
-    // const { onAuthenticated } = useAuth();
+    const { onAuthenticated } = useAuth();
     const [local] = axios;
     const navigate = useNavigate();
 
@@ -29,7 +29,9 @@ const RegisterForm = () => {
             password: form.password
         })
         .then(response => {
-            navigate('/login')
+            const { token, id, role } = response.data;
+            onAuthenticated(true, token, id, role)
+            navigate('/teams')
         })
         .catch(err => {
             console.error(err);
@@ -86,12 +88,12 @@ const RegisterForm = () => {
 
             <div className='grid grid-cols-1 gap-1 justify-items-center m-3'>
             <h2 className='m-3'><b>Register:</b></h2>
-            Username: <input onChange={handleForm} type="text" name="username" value={form.username}  /> <br />
-            Email: <input onChange={handleForm} type="text" name="email" value={form.email}  /> <br />
-            Password: <input onChange={handleForm} type="password" name="password" value={form.password} />
+            Username: <input onChange={handleForm} className='border' type="text" name="username" value={form.username}  /> <br />
+            Email: <input onChange={handleForm} className='border' type="text" name="email" value={form.email}  /> <br />
+            Password: <input onChange={handleForm} className='border' type="password" name="password" value={form.password} />
             <p className="py-6">or <b><Link to={`/login`}>Login</Link></b></p>
 
-            <button className='btn btn-success w-20' onClick={handleClick}>Register</button>
+            <button className='btn btn-success w-20' onClick={handleClick}>Submit</button>
             <p style={errorStyle}>{errorMessage}</p>
             </div>
 

@@ -9,15 +9,10 @@ const PlayerCard = ({user}) => {
     const navigate = useNavigate();
     const [local] = axios;
     const [errors, setErrors] = useState({});
-    const [newKills, setNewKills] = useState(0);
-    const [newDeaths, setNewDeaths] = useState(0);
-
-    let kills;
-    let deaths;
 
     const [form, setForm] = useState({
-        kills: kills,
-        deaths: deaths,
+        kills: "",
+        deaths: ""
     });
 
     const handleForm = (e) => {
@@ -56,28 +51,23 @@ const PlayerCard = ({user}) => {
         // console.log(token);
         console.log('submitted', form);
 
-        kills = form.kills + newKills
-        deaths = form.deaths + newDeaths
-
         if(isRequired(['kills', 'deaths'])){
-            //created a new form data object
-            let formData = new FormData();
-            //append adds the new data to the associated values
-            formData.append('kills', form.kills);
-            formData.append('deaths', form.deaths);
-            formData.append('_method', 'put');
+            // //created a new form data object
+            // let formData = new FormData();
+            // //append adds the new data to the associated values
+            // formData.append('kills', form.kills);
+            // formData.append('deaths', form.deaths);
 
 
-            local.put(`/stats/${user.id}`, formData, {
+            local.put(`/stats/${user.id}`, form, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
                     //to allow files to the form
-                    "Content-Type": "multipart/form-data",
                 }
             })
             .then(response => {
-                navigate('/teams');
                 console.log({form})
+                console.log(`submitted user ${user.id}`)
             })
             .catch(err => {
                 console.error(err);
@@ -98,9 +88,18 @@ const PlayerCard = ({user}) => {
                         <div className="label">
                             <span className="label-text">Kills:</span>
                         </div>
-                        <input type="text" onChange={handleForm} value={kills} name='kills' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                        <input type="text" onChange={handleForm} value={form.kills} name='kills' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
                         </label>
                         </div>
+                        <div className='m-3'>
+                        <label className="form-control w-full max-w-xs">
+                        <div className="label">
+                            <span className="label-text">Deaths:</span>
+                        </div>
+                        <input type="text" onChange={handleForm} value={form.deaths} name='deaths' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                        </label>
+                        </div>
+                        <input type='submit' className="btn btn-success m-3" />
                         </form>
                     <div className="card-actions justify-end">
                         {userInfo && userInfo.id !== user.id && (

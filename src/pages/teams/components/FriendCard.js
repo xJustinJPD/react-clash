@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import AddBtn from './FriendTeam';
 
-const Friend = ({friend, team_id}) => {
+const Friend = ({friend, team_id, addCallback}) => {
 
 	return (
         <>
@@ -11,7 +11,7 @@ const Friend = ({friend, team_id}) => {
                     <b>ID: </b><p>{friend.id}</p> 
                     <div className="card-actions justify-end">
                     {/* <Link to={`/teams/${friend.id}`}><button className="btn btn-outline btn-primary">More</button></Link> */}
-                    <AddBtn className="m-3" team_id={team_id} player_username={friend.username} />
+                    <AddBtn className="m-3" team_id={team_id} player_username={friend.username} addCallback={addCallback}  />
                     </div>
             </div>
             </div>

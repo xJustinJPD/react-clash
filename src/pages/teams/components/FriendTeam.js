@@ -9,7 +9,6 @@ export default function AddBtn({team_id, player_username, addCallback}) {
         username: player_username
     });
 
-    const navigate = useNavigate();
 
     const handleAdd = (e) => {
         setIsLoading(true);
@@ -24,12 +23,14 @@ export default function AddBtn({team_id, player_username, addCallback}) {
                 }
             })
             .then(response => {
-                console.log('added')
+                console.log('added');
+                if (typeof addCallback === 'function') {
+                    addCallback(); 
+                }
             })
             .catch(err => {
                 console.error(err);
             });
-        
     };
 
     return (

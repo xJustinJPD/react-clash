@@ -14,7 +14,6 @@ const ViewProfile = () => {
   const [receivedRequests, setReceivedRequests] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
   const [receivedTeams, setReceivedTeams] = useState([]);
-  const [sentTeams, setSentTeams] = useState([]);
   const token = localStorage.getItem('token');
   const [local] = axios; 
   const navigate = useNavigate();
@@ -50,10 +49,10 @@ const ViewProfile = () => {
       console.error(error);
     }
   };
-
+ 
 
   useEffect(() => {
-    const fetchData = async () => {
+    const userData = async () => {
       try {
         const response = await local.get('/auth/user', {
           headers: {
@@ -65,8 +64,6 @@ const ViewProfile = () => {
         console.error(error);
       }
     };
-    
-
     const fetchSentRequests = async () => {
       try {
         const response = await local.get('/requests/sent', {
@@ -81,9 +78,8 @@ const ViewProfile = () => {
     };
 
     
-    
 
-    fetchData();
+    userData();
     fetchReceivedRequests();
     fetchSentRequests();
     fetchReceivedTeams();

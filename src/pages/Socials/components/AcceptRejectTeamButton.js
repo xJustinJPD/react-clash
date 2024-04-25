@@ -34,15 +34,16 @@ const AcceptTeamBtn = ({ teamId, onSuccess }) => {
 const RejectTeamBtn = ({ teamId, onSuccess }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [local] = axios;
+  
   const handleReject = () => {
     setIsLoading(true);
     const token = localStorage.getItem('token');
     // console.log(teamId)
-    local.delete(`/teams/${teamId}/reject-invite`, {}, {
-        headers: {
+    local.delete(`/teams/${teamId}/reject-invite`, {
+      headers: {
           'Authorization': `Bearer ${token}`
-        }
-      })
+      }
+  })
       .then(response => {
         onSuccess();
       })

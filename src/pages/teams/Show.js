@@ -28,7 +28,7 @@ const Show = () => {
             }
         })
         .then(response => {
-            // console.log(response.data);
+            console.log(response.data.data);
             setTeam(response.data.data);
             setTeamUserList(response.data.data.users)
         })

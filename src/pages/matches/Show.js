@@ -1,19 +1,18 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from '../../config/Api';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate  } from 'react-router-dom';
 import UpdateGameForm from './components/UpdateGameForm';
 import CancelGameButton from './components/CancelGameButton'; // Import CancelGameButton component
 import PlayerCard from './components/PlayerStatsForm';
 
 const MatchShow = () => {
     const { id } = useParams();
+    const navigate = useNavigate();
     const [local] = axios;
     const [match, setMatch] = useState(null);
     const [team2, setTeam2] = useState(null); // State to track team_2 id
     const [showForm, setShowForm] = useState(false); //state to show form visibility
-    const [players1, setPlayers1] = useState([]); // State to track team_1 players
-    const [players2, setPlayers2] = useState([]); // State to track team_2 players
 
     const token = localStorage.getItem('token');
 
@@ -44,17 +43,24 @@ const MatchShow = () => {
                 fetchMatch();
             }
         }, 1000);
+        const matchCancelled = setInterval(()=> {
+            if (match.status === 'accepted'){
+                fetchMatch();
+            }
+        },5000);
 
 
       
-        return () => clearInterval(team2Wait);
+        return () => {
+            clearInterval(team2Wait);
+            clearInterval(matchCancelled);
+        }
     }, [id, team2]);
 
     const toggleFormVisibility = () => {
         setShowForm(!showForm);
     };
 
-    console.log(players1)
 
 
     if (!match) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
@@ -65,6 +71,14 @@ const MatchShow = () => {
                 <h1 className="text-5xl font-bold">Searching for a game</h1>
             </div>
         );
+    }
+    if (match.status === 'cancelled') {
+        // Redirect to teams page
+        navigate('/teams');
+        // Show alert
+        alert('The other team has forfeited.');
+        // Return null as component will unmount due to redirection
+        return null;
     }
 
     return (

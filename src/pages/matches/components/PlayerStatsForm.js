@@ -98,9 +98,18 @@ const PlayerCard = ({user}) => {
                         <div className="label">
                             <span className="label-text">Kills:</span>
                         </div>
-                        <input type="text" onChange={handleForm} value={kills} name='kills' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                        <input type="number" onChange={handleForm} value={kills} name='kills' placeholder="Kills" className="input input-bordered w-full max-w-xs text-black" />
+                        </label>
+                        <label className="form-control w-full max-w-xs">
+                        <div className="label">
+                            <span className="label-text">Kills:</span>
+                        </div>
+                        <input type="number" onChange={handleForm} value={deaths} name='deaths' placeholder="Deaths" className="input input-bordered w-full max-w-xs text-black" />
                         </label>
                         </div>
+                        <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                         Update Stats
+                        </button>
                         </form>
                     <div className="card-actions justify-end">
                         {userInfo && userInfo.id !== user.id && (

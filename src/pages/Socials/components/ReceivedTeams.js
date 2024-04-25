@@ -2,7 +2,7 @@ import { AcceptTeamBtn, RejectTeamBtn } from './AcceptRejectTeamButton';
 
 const ReceivedTeams = ({ teams, fetchReceivedTeams }) => {
   return (
-    <div className="border-b-2 pb-4">
+    <div className="border-b-2 pt-4  pb-4">
       <h1 className="text-3xl font-bold mb-4">Received Team Requests:</h1>
       {teams.map(teamRequest => (
         <div key={teamRequest.id} className="flex items-center justify-between">

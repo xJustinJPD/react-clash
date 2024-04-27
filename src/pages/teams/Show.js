@@ -72,10 +72,18 @@ const Show = () => {
 
     const filteredFriends = friends.filter(friend => !requestsSent.some(request => request.user.id === friend.friend.id));
 
-    console.log(filteredFriends);
+    // console.log(filteredFriends);
+    
     const friendList = filteredFriends.map((friend, i) => (
-        <Friend key={friend.id} friend={friend.friend} team_id={team.id} addCallback={fetchSentRequests}  />
+        //error when clicking on the team for the first time
+        team ? (
+            <Friend key={friend.id} friend={friend.friend} team_id={team.id} addCallback={fetchSentRequests} />
+        ) : (
+            //it wouldnt get here until it checks if team is available
+            <div>Loading...</div>
+        )
     ));
+    
 
     const userList = teamUserList.map((user, i) => (
         <UserCard key={user.id} user={user} />

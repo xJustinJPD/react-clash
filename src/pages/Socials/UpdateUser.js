@@ -10,8 +10,7 @@ const EditUser = () => {
     const [errors, setErrors] = useState({});
     const [form, setForm] = useState({
         username: "",
-        description:"",
-        image: ""
+        description:""
     });
 
 
@@ -48,7 +47,7 @@ const EditUser = () => {
         const file = e.target.files[0];
         setForm(prevState => ({
             ...prevState,
-            image: file
+            imageFile: file
         }));
     };
 
@@ -86,7 +85,7 @@ const EditUser = () => {
             //append adds the new data to the associated values
             formData.append('username', form.username);
             formData.append('description', form.description);
-            formData.append('image', form.image);
+            formData.append('imageFile', form.imageFile);
             formData.append('_method', 'put');        
 
 
@@ -98,7 +97,7 @@ const EditUser = () => {
                 }
             })
             .then(response => {
-                navigate('/teams');
+                navigate('/profile');
                 console.log({form})
             })
             .catch(err => {

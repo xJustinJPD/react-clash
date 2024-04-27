@@ -61,7 +61,14 @@ const MatchShow = () => {
         setShowForm(!showForm);
     };
 
-
+    if (match.status === 'cancelled') {
+        // Redirect to teams page
+        navigate('/teams');
+        // Show alert
+        alert('The other team has forfeited.');
+        // Return null as component will unmount due to redirection
+        return null;
+    }
 
     if (!match) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
     
@@ -72,14 +79,7 @@ const MatchShow = () => {
             </div>
         );
     }
-    if (match.status === 'cancelled') {
-        // Redirect to teams page
-        navigate('/teams');
-        // Show alert
-        alert('The other team has forfeited.');
-        // Return null as component will unmount due to redirection
-        return null;
-    }
+    
 
     return (
         <div className="grid grid-cols-2 gap-4 p-4">

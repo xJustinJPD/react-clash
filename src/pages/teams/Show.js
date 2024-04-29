@@ -92,8 +92,8 @@ const Show = () => {
     const sentUsers = requestsSent.map((request, i) => (
         <SentRequests key={request.user.id} user={request.user} teamId={request.team_id} onCanceled={fetchSentRequests} />
     ));
-
-    console.log(userInfo && userInfo.id);
+    // console.log(team.image, "image");
+    // console.log(userInfo && userInfo.id);
 
     if (!team) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
     return (

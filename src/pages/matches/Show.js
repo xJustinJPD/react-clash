@@ -61,7 +61,7 @@ const MatchShow = () => {
         setShowForm(!showForm);
     };
 
-    if (match.status === 'cancelled') {
+    if (match != null && match.status === 'cancelled') {
         // Redirect to teams page
         navigate('/teams');
         // Show alert

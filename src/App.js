@@ -41,7 +41,7 @@ import MatchStats from "./pages/matches/Edit";
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
   const [term, setTerm] = useState("");
-
+  const [error, setError] = useState(null);
   const onHandleChange = (e) => {
       setTerm(e.target.value)
   }
@@ -54,27 +54,45 @@ function App() {
     }
   }, []);
 
+  const clearError = () => {
+    setError(null);
+  };
+
+  // Set up interval to clear error every 3 seconds
+  useEffect(() => {
+    let errors;
+
+    if (error) {
+      errors = setInterval(() => {
+        clearError();
+      }, 4000);
+    }
+
+    // Clean up interval on component unmount or when error is cleared
+    return () => clearInterval(errors);
+  }, [error]);
+
   if(authenticated){
     protectedRoutes = (
       <>
-      <Route path='/teams' element={<Teams/>}/>
-      <Route path='/teams/:id' element={<Show/>}/>
-      <Route path='/teams/:id/edit' element={<Edit/>}/>
-      <Route path='/teams/create' element={<Create/>}/>
-      <Route path='/social' element={<Social searchTerm={term}/>}/>
-      <Route path='/match/:id' element={<MatchShow/>}/>
-      <Route path='/match/:id/:team1id/:team2id/stats' element={<MatchStats/>}/>
-      <Route path='/matches' element={<Matches/>}/>
-      <Route path='/user/:id' element={<SingleUser/>}/>
-      <Route path='/profile' element={<Profile/>}/>
-      <Route path='/user/:id/edit' element={<EditUser/>}/>
+      <Route path='/teams' element={<Teams setError={setError}/>}/>
+      <Route path='/teams/:id' element={<Show setError={setError}/>}/>
+      <Route path='/teams/:id/edit' element={<Edit setError={setError}/>}/>
+      <Route path='/teams/create' element={<Create setError={setError}/>}/>
+      <Route path='/social' element={<Social searchTerm={term} setError={setError}/>}/>
+      <Route path='/match/:id' element={<MatchShow setError={setError}/>}/>
+      <Route path='/match/:id/:team1id/:team2id/stats' element={<MatchStats setError={setError}/>}/>
+      <Route path='/matches' element={<Matches setError={setError}/>}/>
+      <Route path='/user/:id' element={<SingleUser setError={setError}/>}/>
+      <Route path='/profile' element={<Profile setError={setError}/>}/>
+      <Route path='/user/:id/edit' element={<EditUser setError={setError}/>}/>
       </>
     );
   }
 
   return (
     <Router>
-    <Navbar onHandleChange={onHandleChange} searchTerm={term}/>
+    <Navbar onHandleChange={onHandleChange} searchTerm={term} error={error}/>
     <Routes>
     {protectedRoutes}
       <Route path='/login' element={<LoginPage/>}/>

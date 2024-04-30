@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from '../../config/Api';
 import MatchCard from "./components/MatchCard";
 
-const Matches = () => {
+const Matches = ({setError}) => {
     const [matches, setMatchList] = useState([]);
     const [local] = axios;
     let token = localStorage.getItem('token');
@@ -19,6 +19,9 @@ const Matches = () => {
         })
         .catch(err => {
             console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message);
+            }
         });
     }, []);
 

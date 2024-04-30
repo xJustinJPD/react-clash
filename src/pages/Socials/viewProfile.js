@@ -8,7 +8,7 @@ import ReceivedTeams from './components/ReceivedTeams';
 
 
 
-const ViewProfile = () => {
+const ViewProfile = ({setError}) => {
   const { authenticated, onAuthenticated } = useAuth();
   const [user, setUser] = useState([]); 
   const [receivedRequests, setReceivedRequests] = useState([]);
@@ -33,8 +33,11 @@ const ViewProfile = () => {
         }
       });
       setReceivedRequests(response.data.requests);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+    }
     }
   };
   const fetchReceivedTeams = async () => {
@@ -45,8 +48,10 @@ const ViewProfile = () => {
         }
       });
       setReceivedTeams(response.data.requests);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+    }
     }
   };
  
@@ -60,8 +65,11 @@ const ViewProfile = () => {
           }
         });
         setUser(response.data.user);
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error(err);
+        if (err.response && err.response.data && err.response.data.message) {
+          setError(err.response.data.message);
+      }
       }
     };
     const fetchSentRequests = async () => {
@@ -72,8 +80,11 @@ const ViewProfile = () => {
           }
         });
         setSentRequests(response.data.requests);
-      } catch (error) {
-        console.error(error);
+      } catch (err) {
+        console.error(err);
+        if (err.response && err.response.data && err.response.data.message) {
+          setError(err.response.data.message);
+      }
       }
     };
 

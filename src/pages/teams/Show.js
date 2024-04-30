@@ -8,7 +8,7 @@ import Friend from "./components/FriendCard";
 import UserCard from "../Socials/components/UserCard";
 import SentRequests from "./components/SentRequestCard";
 
-const Show = () => {
+const Show = ({setError}) => {
     const { id } = useParams();
     const [local] = axios;
     const [team, setTeam] = useState();
@@ -34,6 +34,9 @@ const Show = () => {
         })
         .catch(err => {
             console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message); 
+            }
         });
     }, [id, token]);
 
@@ -49,6 +52,9 @@ const Show = () => {
         })
         .catch(err => {
             console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message); 
+            }
         });
     }, [token]);
 
@@ -63,6 +69,9 @@ const Show = () => {
         })
         .catch(err => {
             console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message); 
+            }
         });
     };
 
@@ -80,20 +89,19 @@ const Show = () => {
             <Friend key={friend.id} friend={friend.friend} team_id={team.id} addCallback={fetchSentRequests} />
         ) : (
             //it wouldnt get here until it checks if team is available
-            <div>Loading...</div>
+            <div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>
         )
     ));
     
 
     const userList = teamUserList.map((user, i) => (
-        <UserCard key={user.id} user={user} />
+        <UserCard key={user.id} user={user}  setError={setError} />
     ));
 
     const sentUsers = requestsSent.map((request, i) => (
-        <SentRequests key={request.user.id} user={request.user} teamId={request.team_id} onCanceled={fetchSentRequests} />
+        <SentRequests key={request.user.id} user={request.user}  setError={setError} teamId={request.team_id} onCanceled={fetchSentRequests} />
     ));
-    // console.log(team.image, "image");
-    // console.log(userInfo && userInfo.id);
+  
 
     if (!team) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
     return (
@@ -111,8 +119,8 @@ const Show = () => {
                     {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
                         <>
                             <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
-                            <DeleteBtn className="m-3" id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
-                            <MatchBtn id={team.id} size={team.size}/>
+                            <DeleteBtn className="m-3"  setError={setError} id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
+                            <MatchBtn id={team.id} size={team.size} setError={setError}/>
                         </>
                     )}
                 </div>

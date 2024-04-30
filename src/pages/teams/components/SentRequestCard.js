@@ -1,5 +1,5 @@
 import CancelRequest from './CancelRequestBtn';
-const SentRequestCard = ({user, teamId, onCanceled}) => {
+const SentRequestCard = ({user, teamId, onCanceled, setError}) => {
 
 	return (
         <>
@@ -8,7 +8,7 @@ const SentRequestCard = ({user, teamId, onCanceled}) => {
                     <h2 className="card-title">{user.username} </h2>
                     <b>ID: </b><p>{user.id}</p> 
                     <div className="card-actions justify-end">
-                    <CancelRequest userId={user.id} teamId={teamId} onCanceled={onCanceled} />
+                    <CancelRequest userId={user.id} teamId={teamId} onCanceled={onCanceled} setError={setError} />
                     </div>
             </div>
             </div>

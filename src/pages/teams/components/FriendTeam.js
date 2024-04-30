@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from '../../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
-export default function AddBtn({team_id, player_username, addCallback}) {
+export default function AddBtn({team_id, player_username, addCallback, setError}) {
     const [isLoading, setIsLoading] = useState(false);
     const [local] = axios;
     const [form, setForm] = useState({
@@ -30,6 +30,9 @@ export default function AddBtn({team_id, player_username, addCallback}) {
             })
             .catch(err => {
                 console.error(err);
+                if (err.response && err.response.data && err.response.data.message) {
+                    setError(err.response.data.message);
+                }
             });
     };
 

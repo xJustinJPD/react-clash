@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from '../../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
-export default function FriendBtn({id, resource, friendCallback}) {
+export default function FriendBtn({id, resource, friendCallback, setError}) {
     const [isLoading, setIsLoading] = useState(false);
     const [local] = axios;
     const navigate = useNavigate(); 
@@ -21,6 +21,9 @@ export default function FriendBtn({id, resource, friendCallback}) {
         })
         .catch(err => {
             console.log(err.response.data)
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message);
+            }
         });
     };
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../../../config/Api';
 //teams buttons
-const AcceptTeamBtn = ({ teamId, onSuccess }) => {
+const AcceptTeamBtn = ({ teamId, onSuccess, setError }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [local] = axios;
   const handleAccept = () => {
@@ -18,6 +18,9 @@ const AcceptTeamBtn = ({ teamId, onSuccess }) => {
       })
       .catch(err => {
         console.error(err);
+        if (err.response && err.response.data && err.response.data.message) {
+          setError(err.response.data.message);
+      }
       })
       .finally(() => {
         setIsLoading(false);

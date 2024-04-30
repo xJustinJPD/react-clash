@@ -18,11 +18,15 @@ const RegisterForm = () => {
         password: ""
     });
 
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessages, setErrorMessages] = useState({
+        username: "",
+        email: "",
+        password: ""
+    });
 
-    const handleClick = () => {
-        console.log("clicked", form);
-
+    const handleClick = (e) => {
+        // console.log("clicked", form);
+        e.preventDefault();
         local.post('/auth/register', {
             username: form.username,
             email: form.email,
@@ -35,9 +39,14 @@ const RegisterForm = () => {
         })
         .catch(err => {
             console.error(err);
-            console.log(err.response.data.message);
-            setErrorMessage(err.response.data.message);
-            setErrorMessage(Object.values(err.response.data));
+            if (err.response && err.response.data && err.response.data.errors) {
+                const { errors } = err.response.data;
+                setErrorMessages({
+                    username: errors.username || "",
+                    email: errors.email || "",
+                    password: errors.password || ""
+                });
+            }
         });
     };
 
@@ -48,53 +57,24 @@ const RegisterForm = () => {
         }));
     };
 
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            handleClick(e);
+        }
+    };
     return (
         <>
-            {/* <div className="hero min-h-screen bg-base-200">
-                <div className="hero-content flex-col lg:flex-row-reverse">
-                    <div className="text-center lg:text-left">
-                    <h1 className="text-5xl font-bold">Register now!</h1>
-                    <p className="py-6">or <b><Link to={`/login`}>Login</Link></b></p>
-                    </div>
-                    <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-                    <form className="card-body">
-                        <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Name</span>
-                        </label>
-                        <input onChange={handleForm} type="text" name="name" value={form.name} />
-                        </div>
-                        <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Email</span>
-                        </label>
-                        <input onChange={handleForm} type="text" name="email" value={form.email} />
-                        </div>
-                        <div className="form-control">
-                        <label className="label">
-                            <span className="label-text">Password</span>
-                        </label>
-                        <input onChange={handleForm} type="password" name="password" value={form.password}/>
-
-                        </div>
-                        <div className="form-control mt-6">
-                        <button onClick={handleClick} className="btn btn-success">Register</button>
-                        </div>
-                    </form>
-                    <p style={errorStyle}>{errorMessage}</p>
-                    </div>
-                </div>
-            </div> */}
-
             <div className='grid grid-cols-1 gap-1 justify-items-center m-3'>
             <h2 className='m-3'><b>Register:</b></h2>
-            Username: <input onChange={handleForm} className='border' type="text" name="username" value={form.username}  /> <br />
-            Email: <input onChange={handleForm} className='border' type="text" name="email" value={form.email}  /> <br />
-            Password: <input onChange={handleForm} className='border' type="password" name="password" value={form.password} />
+            Username: <input onChange={handleForm} onKeyDown={handleKeyDown} className='border' type="text" name="username" value={form.username}  />
+            <p style={errorStyle}>{errorMessages.username}</p> <br />
+            Email: <input onChange={handleForm} onKeyDown={handleKeyDown} className='border' type="text" name="email" value={form.email}  /> 
+            <p style={errorStyle}>{errorMessages.email}</p> <br />
+            Password: <input onChange={handleForm} onKeyDown={handleKeyDown} className='border' type="password" name="password" value={form.password} />
+            <p style={errorStyle}>{errorMessages.password}</p> <br />
             <p className="py-6">or <b><Link to={`/login`}>Login</Link></b></p>
 
             <button className='btn btn-success w-20' onClick={handleClick}>Submit</button>
-            <p style={errorStyle}>{errorMessage}</p>
             </div>
 
         </>

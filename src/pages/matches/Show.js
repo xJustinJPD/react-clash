@@ -6,7 +6,7 @@ import UpdateGameForm from './components/UpdateGameForm';
 import CancelGameButton from './components/CancelGameButton'; // Import CancelGameButton component
 import PlayerCard from './components/PlayerStatsForm';
 
-const MatchShow = () => {
+const MatchShow = ({setError}) => {
     const { id } = useParams();
     const navigate = useNavigate();
     const [local] = axios;
@@ -28,8 +28,11 @@ const MatchShow = () => {
                 });
                 setMatch(response.data.data);
                 setTeam2(response.data.data.team_2); 
-            } catch (error) {
-                console.error(error);
+            } catch (err) {
+                console.error(err);
+                if (err.response && err.response.data && err.response.data.message) {
+                    setError(err.response.data.message);
+                }
             }
 
         };

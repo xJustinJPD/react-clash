@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
-export default function MatchBtn({id, size, matchCallback}) {
+export default function MatchBtn({id, size, matchCallback, setError}) {
     const [isLoading, setIsLoading] = useState(false);
     const [local] = axios;
     const navigate = useNavigate();
@@ -44,6 +44,9 @@ export default function MatchBtn({id, size, matchCallback}) {
                 })
                 .catch(err => {
                     console.log(err.response.data)
+                    if (err.response && err.response.data && err.response.data.message) {
+                        setError(err.response.data.message);
+                    }
                     setIsLoading(false);
                 });
     };

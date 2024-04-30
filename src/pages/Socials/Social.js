@@ -3,7 +3,7 @@ import axios from '../../config/Api';
 import FriendCard from "./components/FriendCard";
 import UserCard from "./components/UserCard";
 
-const Social = (props) => {
+const Social = ({searchTerm, setError}) => {
     const [friends, setFriendsList] = useState([]);
     const [filteredUsersList, setFilteredUsersList ] = useState([]);
     const [searchUsersList, setSearchUsersList ] = useState([]);
@@ -22,20 +22,23 @@ const Social = (props) => {
         })
         .catch(err => {
             console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message);
+            }
         });
     }, [token]);
 
     useEffect(()=> {
-        if(props.searchTerm<=2){
+        if(searchTerm<=2){
             setSearchUsersList(filteredUsersList)
         }
         else{
             let filter = filteredUsersList.filter((user)=>{
-                return user.username.toLowerCase().includes(props.searchTerm)
+                return user.username.toLowerCase().includes(searchTerm)
             })
             setSearchUsersList(filter)
         }
-    },[filteredUsersList, props.searchTerm])
+    },[filteredUsersList, searchTerm])
 
     useEffect(() => {
         local.get("/user/all", {
@@ -52,6 +55,9 @@ const Social = (props) => {
         })
         .catch(err => {
             console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message);
+            }
         });
     }, [friends, token]);
 

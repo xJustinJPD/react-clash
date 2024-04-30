@@ -4,7 +4,7 @@ import axios from '../../config/Api';
 import TeamCard from "./components/TeamCard";
 import MatchBtn from "../matches/Create";
 
-const Teams = () => {
+const Teams = ({ setError }) => {
     const [teams, setTeamList] = useState([]);
     const [local] = axios;
     let token = localStorage.getItem('token');
@@ -20,7 +20,9 @@ const Teams = () => {
             console.log(response);
         })
         .catch(err => {
-            console.error(err);
+            if (err.response && err.response.data && err.response.data.message) {
+                setError(err.response.data.message); 
+            }
         });
     }, []);
 

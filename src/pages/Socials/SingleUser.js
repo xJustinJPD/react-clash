@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import UserHero from "../Socials/components/UserHero";
 import axios from '../../config/Api';
 
-const SingleUser = () => {
+const SingleUser = ({setError}) => {
   const [local] = axios;
   // Extracting the 'id' parameter from the URL
   const { id } = useParams();
@@ -26,6 +26,9 @@ const SingleUser = () => {
       })
       .catch(err => {
         console.error(err);
+        if (err.response && err.response.data && err.response.data.message) {
+          setError(err.response.data.message);
+      }
       });
   }, [id]);
  
@@ -39,7 +42,7 @@ const SingleUser = () => {
 
 
 
-  // JSX for the Single Lecturer component
+ 
   return (
     <UserHero
         user={user}

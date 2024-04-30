@@ -1,6 +1,6 @@
 import axios from '../../../config/Api';
 
-const CancelRequestBtn = ({ friendId, onCancelRequest }) => {
+const CancelRequestBtn = ({ friendId, onCancelRequest, setError }) => {
   const token = localStorage.getItem('token');
   const [local] = axios;
 
@@ -16,6 +16,9 @@ const CancelRequestBtn = ({ friendId, onCancelRequest }) => {
     })
     .catch(err => {
       console.error(err);
+      if (err.response && err.response.data && err.response.data.message) {
+        setError(err.response.data.message);
+    }
     });
   };
 

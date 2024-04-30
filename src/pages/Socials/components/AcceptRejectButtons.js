@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from '../../../config/Api';
 //friends buttons
-const AcceptRequestBtn = ({ requestId, onSuccess }) => {
+const AcceptRequestBtn = ({ requestId, onSuccess ,setError }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [local] = axios;
   const handleAccept = () => {
@@ -18,6 +18,9 @@ const AcceptRequestBtn = ({ requestId, onSuccess }) => {
       })
       .catch(err => {
         console.error(err);
+        if (err.response && err.response.data && err.response.data.message) {
+          setError(err.response.data.message);
+      }
       })
       .finally(() => {
         setIsLoading(false);

@@ -22,6 +22,7 @@ const PlayerCard = ({user}) => {
         }));
     };
 
+    console.log(`submitted user ${user.id} + ${user.user.id}`)
 
     const isRequired = (fields) => {
 
@@ -59,6 +60,7 @@ const PlayerCard = ({user}) => {
             // formData.append('deaths', form.deaths);
 
 
+
             local.put(`/stats/${user.id}`, form, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -67,7 +69,7 @@ const PlayerCard = ({user}) => {
             })
             .then(response => {
                 console.log({form})
-                console.log(`submitted user ${user.id}`)
+                console.log(`submitted user ${user.id} + ${user.user.id}`)
             })
             .catch(err => {
                 console.error(err);

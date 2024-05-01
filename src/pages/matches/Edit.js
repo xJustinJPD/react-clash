@@ -42,7 +42,7 @@ const MatchStats = () => {
     }, [id]);
 
             const players1List = players1.map((user, i) => (
-                <PlayerCard key={user.id} user={user} />
+                <PlayerCard key={user.id} user={user}/>
             ));
 
             const players2List = players2.map((user, i) => (
@@ -53,6 +53,8 @@ const MatchStats = () => {
         <>  
             <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
                 Team 1 Players: {players1List}
+            </div>
+            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
                 Team 2 Players: {players2List}
             </div>
         </>

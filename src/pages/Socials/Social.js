@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import axios from '../../config/Api';
 import FriendCard from "./components/FriendCard";
 import UserCard from "./components/UserCard";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../contexts/AuthContexts"; 
 
 const Social = ({searchTerm, setError}) => {
     const [friends, setFriendsList] = useState([]);
@@ -9,6 +11,7 @@ const Social = ({searchTerm, setError}) => {
     const [searchUsersList, setSearchUsersList ] = useState([]);
     const token = localStorage.getItem('token');
     const [local] = axios;
+    const { authenticated, userInfo } = useAuth();
 
     useEffect(() => {
         local.get("/friends", {
@@ -71,6 +74,9 @@ const Social = ({searchTerm, setError}) => {
 
     return (
         <div>
+            {authenticated && ((userInfo && userInfo.role.includes('admin'))) && (
+                            <Link to={`/create/adminUser`}><button className="btn btn-outline btn-primary m-3">Create new Admin</button></Link>
+                    )}
             <div className="text-3xl font-bold text-center my-4">Friends</div>
             <hr className="my-4" />
             <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>

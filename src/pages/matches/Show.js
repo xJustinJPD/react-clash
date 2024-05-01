@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 import axios from '../../config/Api';
 import { useParams, useNavigate  } from 'react-router-dom';
 import UpdateGameForm from './components/UpdateGameForm';
-import CancelGameButton from './components/CancelGameButton'; // Import CancelGameButton component
+import CancelGameButton from './components/CancelGameButton'; 
+import CancelMatchMakeBtn from './components/CancelGameButton';
 import PlayerCard from './components/PlayerStatsForm';
 
 const MatchShow = ({setError}) => {
@@ -45,18 +46,23 @@ const MatchShow = ({setError}) => {
             if (team2 === null) {
                 fetchMatch();
             }
-        }, 1000);
-        const matchCancelled = setInterval(()=> {
-            if (match.status === 'accepted' && team2 != null){
-                fetchMatch();
+        }, 2000);
+        if (team2 !== null){
+            const matchCancelled = setInterval(()=> {
+                if (match.status === 'accepted' && team2 !== null){
+                    fetchMatch();
+                }
+            },5000);
+            return () => {
+                clearInterval(matchCancelled);
             }
-        },5000);
+        }
+        
 
 
       
         return () => {
             clearInterval(team2Wait);
-            clearInterval(matchCancelled);
         }
     }, [id, team2]);
 
@@ -77,9 +83,12 @@ const MatchShow = ({setError}) => {
     
     if (team2 === null) {
         return (
-            <div className="flex justify-center items-center h-screen">
-            <h1 className="text-5xl font-bold mr-2">Searching for a game</h1>
-            <span className="loading loading-dots loading-lg" style={{ marginTop: "2rem" }}></span>
+            <div className="flex flex-col justify-center items-center h-screen">
+            <div className="flex items-center mb-5">
+                <h1 className="text-5xl font-bold mr-2">Searching for a game</h1>
+                <span className="loading loading-dots loading-lg" style={{ marginTop: "2rem" }}></span>
+            </div>
+            <CancelMatchMakeBtn gameId={id} setError={setError} /> 
         </div>
 
         );
@@ -98,7 +107,7 @@ const MatchShow = ({setError}) => {
             
             {/* Form */}
             <div className="col-span-1">
-            <CancelGameButton gameId={id} /> 
+            <CancelGameButton gameId={id} setError={setError} /> 
                 <button onClick={toggleFormVisibility} className="btn btn-primary mb-4">Update Game</button>
                
                 {showForm && <UpdateGameForm gameId={id} team1Creator={match.team_1.creator} team2Creator={match.team_2.creator} team1id={match.team_1.id} team2id={match.team_2.id} />}

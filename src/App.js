@@ -36,6 +36,7 @@ import Social from "./pages/Socials/Social";
 import SingleUser from "./pages/Socials/SingleUser"
 import EditUser from "./pages/Socials/UpdateUser";
 import MatchStats from "./pages/matches/Edit";
+import CreateAdminUser from "./pages/Socials/CreateAdminUser";
 
 
 function App() {
@@ -86,6 +87,7 @@ function App() {
       <Route path='/user/:id' element={<SingleUser setError={setError}/>}/>
       <Route path='/profile' element={<Profile setError={setError}/>}/>
       <Route path='/user/:id/edit' element={<EditUser setError={setError}/>}/>
+      <Route path='/create/adminUser' element={<CreateAdminUser />} />
       </>
     );
   }

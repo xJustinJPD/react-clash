@@ -120,7 +120,7 @@ const Show = ({setError}) => {
                         <>
                             <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
                             <DeleteBtn className="m-3"  setError={setError} id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
-                            <MatchBtn id={team.id} size={team.size} setError={setError}/>
+                            <MatchBtn id={team.id} users={teamUserList} size={team.size} setError={setError}/>
                         </>
                     )}
                 </div>

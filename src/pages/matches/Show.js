@@ -47,7 +47,7 @@ const MatchShow = ({setError}) => {
             }
         }, 1000);
         const matchCancelled = setInterval(()=> {
-            if (match.status === 'accepted'){
+            if (match.status === 'accepted' && team2 != null){
                 fetchMatch();
             }
         },5000);
@@ -78,8 +78,10 @@ const MatchShow = ({setError}) => {
     if (team2 === null) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <h1 className="text-5xl font-bold">Searching for a game</h1>
-            </div>
+            <h1 className="text-5xl font-bold mr-2">Searching for a game</h1>
+            <span className="loading loading-dots loading-lg" style={{ marginTop: "2rem" }}></span>
+        </div>
+
         );
     }
     

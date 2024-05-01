@@ -2,10 +2,12 @@ import { useState } from 'react';
 import axios from '../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
-export default function MatchBtn({id, size, matchCallback, setError}) {
+export default function MatchBtn({id, size, matchCallback, users, setError}) {
     const [isLoading, setIsLoading] = useState(false);
     const [local] = axios;
     const navigate = useNavigate();
+
+   
 
     let matchId;
 //switch works like a multiple conditions but its much cleaner
@@ -23,6 +25,7 @@ export default function MatchBtn({id, size, matchCallback, setError}) {
                 return "Unknown";
         }
     };
+ 
     const [form, setForm] = useState({
         team_id_1: id,
         queue_type: determineQueueType(size)
@@ -31,7 +34,11 @@ export default function MatchBtn({id, size, matchCallback, setError}) {
     const onMatch = () => {
         setIsLoading(true);
         let token = localStorage.getItem('token');
-
+        if (size !== users.length) {
+            setError("Team size doesn't match the number of users.");
+            setIsLoading(false);
+            return;
+        }
         local.post(`/games`, form, {
             headers: {
                 Authorization: `Bearer ${token}`

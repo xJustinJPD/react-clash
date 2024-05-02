@@ -5,7 +5,7 @@ import UserCard from "./components/UserCard";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContexts"; 
 
-const Social = ({searchTerm, setError}, props) => {
+const Social = ({searchTerm, setError}) => {
     const [friends, setFriendsList] = useState([]);
     const [filteredUsersList, setFilteredUsersList ] = useState([]);
     const [searchUsersList, setSearchUsersList ] = useState([]);

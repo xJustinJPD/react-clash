@@ -1,14 +1,14 @@
 import axios from '../../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
-const CancelMatchMakeBtn = ({ gameId, setError }) => {
+const CancelGameButton = ({ gameId, setError }) => {
     const navigate = useNavigate();
     const [local] = axios;
     const handleCancelGame = async () => {
         try {
             const token = localStorage.getItem('token'); 
             
-            await local.delete(`/games/stopMatch/${gameId}`, {
+            await local.put(`/games/${gameId}/cancel`, null, {
                 headers: {
                     Authorization: `Bearer ${token}` 
                 }
@@ -23,9 +23,9 @@ const CancelMatchMakeBtn = ({ gameId, setError }) => {
 
     return (
         <button onClick={handleCancelGame} className="btn btn-danger">
-            Cancel Game
+            Cancel MatchMaking
         </button>
     );
 };
 
-export default CancelMatchMakeBtn;
+export default CancelGameButton;

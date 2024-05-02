@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import axios from '../../config/Api';
 import { useParams, useNavigate  } from 'react-router-dom';
 import UpdateGameForm from './components/UpdateGameForm';
-import CancelGameButton from './components/CancelGameButton'; 
-import CancelMatchMakeBtn from './components/CancelGameButton';
+import CancelGameButton from './components/CancelGameBtn.js'; 
+import CancelMatchMakeBtn from './components/CancelMatchMakeBtn.js';
 import PlayerCard from './components/PlayerStatsForm';
 
 const MatchShow = ({setError}) => {

@@ -38,6 +38,7 @@ import EditUser from "./pages/Socials/UpdateUser";
 import MatchStats from "./pages/matches/Edit";
 import CreateAdminUser from "./pages/Socials/CreateAdminUser";
 
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
@@ -101,7 +102,7 @@ function App() {
       <Route path='/register' element={<RegisterPage/>}/>
       {/* <Route path='*' element={<PageNotFound />} /> */}
       <Route path='/' element={<MainPage/>}/>
-      
+      <Route path='*' element={<PageNotFound />} />
     </Routes>
   </Router>
   );

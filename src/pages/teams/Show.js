@@ -86,7 +86,7 @@ const Show = ({setError}) => {
     const friendList = filteredFriends.map((friend, i) => (
         //error when clicking on the team for the first time
         team ? (
-            <Friend key={friend.id} friend={friend.friend} team_id={team.id} addCallback={fetchSentRequests} />
+            <Friend key={friend.id} friend={friend.friend} setError={setError} team_id={team.id} addCallback={fetchSentRequests} />
         ) : (
             //it wouldnt get here until it checks if team is available
             <div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>
@@ -107,28 +107,29 @@ const Show = ({setError}) => {
     // console.log(team.image, "show")
     return (
         <>
-            <div className="hero min-h-screen bg-base-200">
-                <div className="hero-content text-center">
-                <img src={team?.image} alt="" className="mb-4 rounded-full w-24 h-24" />
-                    <div className="max-w-md">
-                        <h1 className="text-5xl font-bold">{team.name}</h1>
-                        <h1 className="py-6">{team.size} Size</h1>
-                        <p className="py-6">Level {team.wins}</p>
-                        <p className="py-6">{team.losses}</p>
-                    </div>
-                    
-                    {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
-                        <>
-                            <Link to={`/teams/${team.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
-                            <DeleteBtn className="m-3"  setError={setError} id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
-                            <MatchBtn id={team.id} users={teamUserList} size={team.size} setError={setError}/>
-                        </>
-                    )}
-                </div>
-            </div>
+             <div className="hero min-h-screen bg-base-200">
+  <div className="hero-content flex-col lg:flex-row">
+    <img src={team.image} alt={team.name} className="max-w-sm rounded-lg shadow-2xl" />
+    <div className="flex flex-col justify-center ml-6">
+      <h1 className="text-5xl font-bold mb-5">{team.name}</h1>
+      <p className="text-lg py-2">Size: {team.size}</p>
+      <p className="text-lg py-2">Wins: {team.wins}</p>
+      <p className="text-lg py-2">Losses: {team.losses}</p>
+      <p className="text-lg py-2">Rank: {team.rank}</p>
+      <p className="text-lg py-2">Win Ratio: {team["team-win-ratio"]}</p>
+      {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
+        <div className="flex mt-4">
+          <Link to={`/teams/${team.id}/edit`} className="btn btn-outline btn-primary mr-3">Edit</Link>
+          <DeleteBtn setError={setError} id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
+          <MatchBtn id={team.id} users={teamUserList} size={team.size} setError={setError} />
+        </div>
+      )}
+    </div>
+  </div>
+</div>
             <div className="text-3xl font-bold text-center my-4">Users in Team:</div>
             <hr className="my-4" />
-            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
+            <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
                 {userList}
             </div>
             {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
@@ -137,14 +138,14 @@ const Show = ({setError}) => {
                  <div className="text-3xl font-bold text-center my-4">Sent Requests To:</div>
                  
                     <hr className="my-4" />
-                        <div  div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
+                        <div  div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
                         {sentUsers}
                         </div>
                     {friendList.length > 0 ? (
                         <>
                             <div className="text-3xl font-bold text-center my-4">Add Friends To Team:</div>
                             <hr className="my-4" />
-                            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
+                            <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
                                 {friendList}
                             </div>
                         </>

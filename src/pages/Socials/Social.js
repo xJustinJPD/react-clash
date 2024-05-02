@@ -76,12 +76,12 @@ const Social = ({searchTerm, setError}, props) => {
         <div>
             <div className="text-3xl font-bold text-center my-4">Users</div>
                 <hr className="my-4" />
-                <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
+                <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
                     {userList}
                 </div>
             <div className="text-3xl font-bold text-center my-4">Friends</div>
             <hr className="my-4" />
-            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
+            <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
                 {friendList}
             </div>
         </div>

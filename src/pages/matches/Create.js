@@ -59,7 +59,7 @@ export default function MatchBtn({id, size, matchCallback, users, setError}) {
     };
 
     return (
-        <button onClick={onMatch} className="btn btn-outline btn-success">
+        <button onClick={onMatch} className="btn btn-info ml-3">
             {isLoading ? "Searching..." : "Matchmake"}
         </button>
     );

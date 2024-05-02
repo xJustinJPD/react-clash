@@ -16,7 +16,7 @@ const MainPage = () => {
       <main className="container mx-auto py-8 flex-grow">
         <section className="mb-8 text-center">
           <div className="bg-white rounded-lg p-8 mb-4">
-            <h2 className="text-4xl font-bold mb-4">Clash against opponents, Unite with your team</h2>
+            <h2 className="text-4xl font-bold mb-4">Unite with your team, Clash against opponents</h2>
             <h2 className="text-4xl font-bold mb-4">Welcome to Clash!</h2>
             <p className="text-lg mb-6">Are you ready to take your gaming experience to the next level? Look no further! Clash is the ultimate destination for competitive gamers like you.</p>
             <p className="text-gray-700 mb-6">Whether you're aiming to climb the leaderboards, compete in tournaments, or connect with fellow gamers, Clash has got you covered.</p>

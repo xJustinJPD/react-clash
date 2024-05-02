@@ -5,7 +5,7 @@ import UserCard from "./components/UserCard";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContexts"; 
 
-const Social = ({searchTerm, setError}) => {
+const Social = ({searchTerm, setError}, props) => {
     const [friends, setFriendsList] = useState([]);
     const [filteredUsersList, setFilteredUsersList ] = useState([]);
     const [searchUsersList, setSearchUsersList ] = useState([]);
@@ -74,18 +74,15 @@ const Social = ({searchTerm, setError}) => {
 
     return (
         <div>
-            {authenticated && ((userInfo && userInfo.role.includes('admin'))) && (
-                            <Link to={`/create/adminUser`}><button className="btn btn-outline btn-primary m-3">Create new Admin</button></Link>
-                    )}
+            <div className="text-3xl font-bold text-center my-4">Users</div>
+                <hr className="my-4" />
+                <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
+                    {userList}
+                </div>
             <div className="text-3xl font-bold text-center my-4">Friends</div>
             <hr className="my-4" />
             <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
                 {friendList}
-            </div>
-            <div className="text-3xl font-bold text-center my-4">Users</div>
-            <hr className="my-4" />
-            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
-                {userList}
             </div>
         </div>
     );

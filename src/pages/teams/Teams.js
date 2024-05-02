@@ -32,9 +32,9 @@ const Teams = ({ setError }) => {
 
     return (
         <div>  
-            <div className="grid mt-3 justify-items-center">
-            <Link to="/teams/create"><button className="px-4 py-2 bg-green-500 rounded text-white ml-2">
-            Create Team
+            <div className="grid mt-3 ml-3 mr-10 pr-6 justify-end">
+            <Link to="/teams/create"><button className="btn btn-outline btn-primary rounded text-white">
+            New Team +
             </button></Link>
             </div>
             <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>

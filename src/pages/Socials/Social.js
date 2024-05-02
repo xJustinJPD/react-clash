@@ -74,6 +74,11 @@ const Social = ({searchTerm, setError}) => {
 
     return (
         <div>
+            {authenticated && ((userInfo && userInfo.role.includes('admin'))) && (
+            <div className="flex mt-4">
+              <Link to={`/create/adminUser`} className="btn btn-outline btn-info mr-3">Create Admin</Link>
+            </div>
+          )}
             <div className="text-3xl font-bold text-center my-4">Users</div>
                 <hr className="my-4" />
                 <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>

@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
-import axios from '../../../config/Api';
 
 const TeamCard = ({ team }) => {
-    const [local,picture] = axios
+    
     // console.log(team.image, "all")
 
     return (

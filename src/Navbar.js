@@ -17,11 +17,11 @@ const Navbar = (props) => {
     return (
       <>
             <div className="navbar bg-neutral">
-            <div className="navbar-start">
+            <div className="navbar-start text-white">
     <a className="btn btn-ghost text-xl"><Link to='/'>Clash</Link></a>
   </div>
   <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1">
+    <ul className="menu menu-horizontal text-white px-1">
     <li><Link to='/'>Home</Link></li>
     <li className='pt-2'>/</li>
     <li><Link to='/teams'>Teams</Link></li>

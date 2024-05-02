@@ -12,6 +12,7 @@ const MainPage = () => {
           <h1 className="text-3xl font-bold">Clash: Call of Duty Edition</h1>
         </div>
       </header>
+      
       <main className="container mx-auto py-8 flex-grow">
         <section className="mb-8 text-center">
           <div className="bg-white rounded-lg p-8 mb-4">

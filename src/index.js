@@ -7,10 +7,12 @@ import { AuthProvider } from './contexts/AuthContexts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <html data-theme="lofi">
   <React.StrictMode>
     <AuthProvider>
       <App />
     </AuthProvider>
   </React.StrictMode>
+  </html>
 );
 

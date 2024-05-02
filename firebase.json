@@ -4,8 +4,7 @@
     "ignore": [
       "firebase.json",
       "**/.*",
-      "**/node_modules/**",
-      "tailwind.config.js"
+      "**/node_modules/**"
     ],
     "rewrites": [
       {

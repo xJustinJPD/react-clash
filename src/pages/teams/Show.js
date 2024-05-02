@@ -104,6 +104,7 @@ const Show = ({setError}) => {
   
 
     if (!team) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
+    // console.log(team.image, "show")
     return (
         <>
             <div className="hero min-h-screen bg-base-200">

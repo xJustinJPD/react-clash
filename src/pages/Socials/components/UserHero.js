@@ -19,7 +19,7 @@ const UserHero = ({ user }) => {
                         {user.teams && user.teams.map(team => (
                             <div key={team.id} className="carousel-item w-full">
                                 <Link to={`/teams/${team.id}`}>
-                                    <img src={team.image} className="w-full" alt={team.name} />
+                                    <img src={team.image} className="justify-center rounded-full w-20 h-20" alt={team.name} />
                                     <p className="text-center">{team.name}</p>
                                 </Link>
                             </div>

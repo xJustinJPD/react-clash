@@ -37,6 +37,7 @@ import SingleUser from "./pages/Socials/SingleUser"
 import EditUser from "./pages/Socials/UpdateUser";
 import MatchStats from "./pages/matches/Edit";
 import CreateAdminUser from "./pages/Socials/CreateAdminUser";
+import Footer from "./Footer";
 
 
 function App() {
@@ -103,6 +104,7 @@ function App() {
       <Route path='/' element={<MainPage/>}/>
       
     </Routes>
+    <Footer/>
   </Router>
   );
 }

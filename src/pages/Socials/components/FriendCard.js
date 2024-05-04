@@ -4,16 +4,16 @@ const FriendCard = ({friend}) => {
 
 	return (
         <>
-            <div className="card w-96 bg-neutral text-neutral-content">
+            <Link to={`/user/${friend.id}`}>
+            <div className="card card-side w-96 bg-neutral text-neutral-content">
+                <figure className='justify-center ml-10'>
+                <img src={friend?.image} alt="" className="justify-center rounded-full w-20 h-20" />
+                </figure>
                 <div className="card-body items-center text-center">
-                    <h2 className="card-title">{friend.username} </h2>
-                    <b>ID: </b><p>{friend.id}</p> 
-                    <div className="card-actions justify-end">
-                    <Link to={`/user/${friend.id}`}><button className="btn btn-primary">More info</button></Link>
-                    
-                    </div>
+                    <h2 className="card-title">{friend.username}</h2>
+                </div>
             </div>
-            </div>
+            </Link>
         </>
         )
 };

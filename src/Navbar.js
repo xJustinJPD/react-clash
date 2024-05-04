@@ -15,7 +15,7 @@ const Navbar = (props) => {
     }
 
     return (
-      <>
+      <div className=''>
             <div className="navbar bg-neutral">
             <div className="navbar-start">
     <a className="btn btn-ghost text-xl"><Link to='/'>Clash</Link></a>
@@ -23,9 +23,9 @@ const Navbar = (props) => {
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
     <li><Link to='/'>Home</Link></li>
-    <li className='pt-2'>/</li>
+    <li className='pt-2'>•</li>
     <li><Link to='/teams'>Teams</Link></li>
-    <li className='pt-2'>/</li>
+    <li className='pt-2'>•</li>
     <li><Link to='/social'>Social</Link></li>
     </ul>
   </div>
@@ -64,13 +64,16 @@ const Navbar = (props) => {
                   {location.pathname === '/social' && (
                                       <div className='flex justify-center m-5'>
             <div className='flex justify-center'>
-                    <input type="text" placeholder='Search for a user' value={props.searchTerm} onChange={handleInputChange} style={{ height:"80%"}}/>
+                    <label class="input input-bordered flex items-center gap-2">
+                      <input type="text" className="grow" placeholder="Search Users" value={props.searchTerm} onChange={handleInputChange} />
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 opacity-70"><path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd" /></svg>
+                    </label>
                 </div>
                 </div>
             )}
                   
                   
-                  </>
+                  </div>
                     
     );
 };

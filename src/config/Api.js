@@ -18,4 +18,4 @@ const picture = axios.create({
     baseURL: 'http://localhost:80/images'
 });
 
-export default [local, picture];
+export default [local, picture, discord];

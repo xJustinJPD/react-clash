@@ -6,7 +6,7 @@ import { useAuth } from '../contexts/AuthContexts';
 const DiscordAuthCallback = () => {
   const { onAuthenticated } = useAuth();
   const navigate = useNavigate();
-  const [local, discord] = axios;
+  const [local,picture,discord ] = axios;
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);

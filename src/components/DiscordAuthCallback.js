@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import axios from '../config/Api';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from './contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContexts';
 
 const DiscordAuthCallback = () => {
   const { onAuthenticated } = useAuth();

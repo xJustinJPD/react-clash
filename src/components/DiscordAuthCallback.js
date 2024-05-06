@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useLocation, useHistory  } from 'react-router-dom';
+import { useLocation, Link} from 'react-router-dom';
 
 const DiscordAuthCallback = () => {
   const location = useLocation();
-  const history = useHistory();
   const CLIENT_ID = process.env.REACT_APP_DISCORD_CLIENT_ID;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const SECRET_DISCORD = process.env.REACT_APP_SECRET;
@@ -48,17 +47,14 @@ const DiscordAuthCallback = () => {
     fetchData();
   }, [CLIENT_ID, REDIRECT_URI, location.search,SECRET_DISCORD]);
 
-  const handleReturnToProfile = () => {
-    history.push('/profile'); 
-  };
+
   return (
     <div>
       {userData ? (
         <div>
           <h2>User Information</h2>
           <p>Username: {userData.username}</p>
-          {/* Render other user information here */}
-          <button onClick={handleReturnToProfile}>Return to Profile</button>
+          <Link to="/profile">Return to Profile</Link>
         </div>
       ) : (
         <p>Loading user data...</p>

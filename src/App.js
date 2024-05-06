@@ -40,7 +40,7 @@ import CreateAdminUser from "./pages/Socials/CreateAdminUser";
 import Footer from "./Footer";
 import UpdatePassword from "./pages/Socials/components/UpdatePassword";
 import PageNotFound from './pages/PageNotFound';
-
+import DiscordAuthCallback from "./components/DiscordAuthCallback";
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
   const [term, setTerm] = useState("");
@@ -105,6 +105,7 @@ function App() {
       {/* <Route path='*' element={<PageNotFound />} /> */}
       <Route path='/' element={<MainPage/>}/>
       <Route path='*' element={<PageNotFound />} />
+      <Route path="/auth/discord/callback" element={<DiscordAuthCallback />} />
     </Routes>
     <Footer/>
   </Router>

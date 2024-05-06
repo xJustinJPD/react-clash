@@ -1,29 +1,39 @@
-import axios from 'axios';
 import { useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContexts';
+import axios from '../config/Api';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from './contexts/AuthContext';
+
 const DiscordAuthCallback = () => {
-    const [local, discord] = axios;
+  const { onAuthenticated } = useAuth();
+  const navigate = useNavigate();
+  const [local, discord] = axios;
+
   useEffect(() => {
-    // Extract code from URL
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
-    const { onAuthenticated } = useAuth();
-    // Send code to backend
+
     discord.post('/auth/discord/callback', { code })
       .then(response => {
+        const { access_token } = response.data;
         
-        console.log(response.data);
-        const accessToken = response.data.access_token;
-        onAuthenticated(true, accessToken);
-        window.location.href = '/teams';
+        if (access_token) {
+          onAuthenticated(true, access_token);
+          navigate('/teams');
+          alert("Authentication successful");
+        } else {
+          console.error("Error: Failed to authenticate or access token is missing.");
+          navigate('/login');
+          alert("Failed to authenticate, please try again later");
+        }
       })
       .catch(error => {
-        // Handle error
-        console.error(error);
+        console.error("Error:", error);
+        navigate('/login');
+        alert("An error occurred during authentication, please try again later");
       });
-  }, [discord, onAuthenticated]); 
+  }, [onAuthenticated, navigate]);
 
-  return null; 
+  return null;
 };
 
 export default DiscordAuthCallback;

@@ -10,15 +10,18 @@ const DiscordAuthCallback = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
 
-    discord.post('/token?', null, {
+    discord.post('/token', null, {
       params: {
         client_id: '1237075531095343124',
         client_secret: 'HNRQaTSz5TkL98goSZCY5F8HLqq4Ic_y',
         grant_type: 'authorization_code',
         code: code,
         redirect_uri: 'https://clash-d9110.web.app/auth/discord/callback',
-        scope: 'identify',
-      }
+        scope: 'identify email',
+      },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
     })
     .then(response => {
       const { access_token } = response.data;

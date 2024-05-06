@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 // import { useAuth } from '../contexts/AuthContexts';
 
 const DiscordAuthCallback = () => {
-  const { onAuthenticated } = useAuth();
+//   const { onAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [local,picture,discord ] = axios;
 

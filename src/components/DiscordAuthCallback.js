@@ -1,12 +1,14 @@
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory  } from 'react-router-dom';
 
 const DiscordAuthCallback = () => {
   const location = useLocation();
+  const history = useHistory();
   const CLIENT_ID = process.env.REACT_APP_DISCORD_CLIENT_ID;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
-
+  const SECRET_DISCORD = process.env.REACT_APP_SECRET;
+  const [userData, setUserData] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -17,7 +19,7 @@ const DiscordAuthCallback = () => {
           'https://discord.com/api/oauth2/token',
           new URLSearchParams({
             client_id: CLIENT_ID,
-            client_secret: 'HNRQaTSz5TkL98goSZCY5F8HLqq4Ic_y',
+            client_secret: SECRET_DISCORD,
             code: code,
             grant_type: 'authorization_code',
             redirect_uri: REDIRECT_URI
@@ -36,7 +38,7 @@ const DiscordAuthCallback = () => {
             Authorization: `Bearer ${access_token}`
           }
         });
-
+        setUserData(userInformation.data);
         console.log(response.data, userInformation.data);
       } catch (error) {
         console.error(error);
@@ -44,9 +46,25 @@ const DiscordAuthCallback = () => {
     };
 
     fetchData();
-  }, [CLIENT_ID, REDIRECT_URI, location.search]);
+  }, [CLIENT_ID, REDIRECT_URI, location.search,SECRET_DISCORD]);
 
-  return null;
+  const handleReturnToProfile = () => {
+    history.push('/profile'); 
+  };
+  return (
+    <div>
+      {userData ? (
+        <div>
+          <h2>User Information</h2>
+          <p>Username: {userData.username}</p>
+          {/* Render other user information here */}
+          <button onClick={handleReturnToProfile}>Return to Profile</button>
+        </div>
+      ) : (
+        <p>Loading user data...</p>
+      )}
+    </div>
+  );
 };
 
 export default DiscordAuthCallback;

@@ -29,7 +29,7 @@ const LoginForm = () => {
         .then(response => {
             const { token, id, role } = response.data;
             onAuthenticated(true, token, id, role);
-            window.location.href = 'https://clash-0707c55bf2f2.herokuapp.com/auth/discord';
+            navigate('/teams');
         })
         .catch(err => {
             console.error(err);

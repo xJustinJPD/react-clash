@@ -1,34 +1,39 @@
 import { useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 const DiscordAuthCallback = () => {
-//   const navigate = useNavigate();
+  const location = useLocation();
+  const CLIENT_ID = process.env.REACT_APP_DISCORD_CLIENT_ID;
+  const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const urlParams = new URLSearchParams(window.location.search);
+        const urlParams = new URLSearchParams(location.search);
         const code = urlParams.get('code');
 
-        const response = await axios.post('https://discord.com/api/oauth2/token', null, {
-          params: {
-            client_id: '1237075531095343124',
+        const response = await axios.post(
+          'https://discord.com/api/oauth2/token',
+          new URLSearchParams({
+            client_id: CLIENT_ID,
             client_secret: 'HNRQaTSz5TkL98goSZCY5F8HLqq4Ic_y',
+            code: code,
             grant_type: 'authorization_code',
-            code: code.toString(),
-            redirect_uri: 'https://clash-d9110.web.app/auth/discord/callback'
-          },
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            redirect_uri: REDIRECT_URI
+          }).toString(),
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
           }
-        });
+        );
 
         const access_token = response.data.access_token;
 
         const userInformation = await axios.get('https://discord.com/api/v10/users/@me', {
           headers: {
-            'Authorization': `Bearer ${access_token}`,
+            Authorization: `Bearer ${access_token}`
           }
         });
 
@@ -39,7 +44,7 @@ const DiscordAuthCallback = () => {
     };
 
     fetchData();
-  }, []);
+  }, [CLIENT_ID, REDIRECT_URI, location.search]);
 
   return null;
 };

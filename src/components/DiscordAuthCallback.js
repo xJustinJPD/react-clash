@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import axios from '../config/Api';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContexts';
+// import { useAuth } from '../contexts/AuthContexts';
 
 const DiscordAuthCallback = () => {
   const { onAuthenticated } = useAuth();
@@ -12,12 +12,12 @@ const DiscordAuthCallback = () => {
     const urlParams = new URLSearchParams(window.location.search);
     const code = urlParams.get('code');
 
-    discord.post('/auth/discord/callback', { code })
+    discord.get('/auth/discord/callback', { params: { code } })
       .then(response => {
         const { access_token } = response.data;
-        
+        console.log(response.data)
         if (access_token) {
-          onAuthenticated(true, access_token);
+        //   onAuthenticated(true, access_token);
           navigate('/teams');
           alert("Authentication successful");
         } else {
@@ -31,7 +31,7 @@ const DiscordAuthCallback = () => {
         navigate('/login');
         alert("An error occurred during authentication, please try again later");
       });
-  }, [onAuthenticated, navigate]);
+  }, [navigate]);
 
   return null;
 };

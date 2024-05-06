@@ -12,11 +12,11 @@ const DiscordAuthCallback = () => {
 
     discord.post('/token', null, {
       params: {
-        client_id: 'YOUR_CLIENT_ID',
-        client_secret: 'YOUR_CLIENT_SECRET',
+        client_id: '1237075531095343124',
+        client_secret: 'HNRQaTSz5TkL98goSZCY5F8HLqq4Ic_y',
         grant_type: 'authorization_code',
         code: code,
-        redirect_uri: 'YOUR_REDIRECT_URI',
+        redirect_uri: 'https://clash-d9110.web.app/auth/discord/callback',
         scope: 'identify email',
       }
     })

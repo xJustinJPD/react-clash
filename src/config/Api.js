@@ -8,7 +8,7 @@ const local = axios.create({
     baseURL: 'https://clash-0707c55bf2f2.herokuapp.com/api'
 });
 const discord = axios.create({
-    baseURL: 'https://clash-0707c55bf2f2.herokuapp.com/'
+    baseURL: 'https://discord.com/api/oauth2'
 });
 // const local = axios.create({
 //     baseURL: 'http://localhost/api'

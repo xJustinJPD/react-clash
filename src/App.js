@@ -41,6 +41,7 @@ import Footer from "./Footer";
 import UpdatePassword from "./pages/Socials/components/UpdatePassword";
 import PageNotFound from './pages/PageNotFound';
 import DiscordAuthCallback from "./components/DiscordAuthCallback";
+import LoginDiscord from "./components/LoginDiscord";
 function App() {
   const { authenticated, onAuthenticated } = useAuth();
   const [term, setTerm] = useState("");
@@ -90,6 +91,7 @@ function App() {
       <Route path='/profile' element={<Profile setError={setError}/>}/>
       <Route path='/user/:id/edit' element={<EditUser setError={setError}/>}/>
       <Route path='/create/adminUser' element={<CreateAdminUser />} />
+      <Route path='/user/discord-login' element={<LoginDiscord />} />
       <Route path="/user/:id/password" element={<UpdatePassword setError={setError} />} />
       </>
     );

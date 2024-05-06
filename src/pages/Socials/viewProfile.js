@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import ReceivedRequests from './components/RecievedRequests';
 import SentRequests from './components/SentRequests';
 import ReceivedTeams from './components/ReceivedTeams';
-import LoginDiscord from './LoginDiscord';
+// import LoginDiscord from './LoginDiscord';
 
 
 

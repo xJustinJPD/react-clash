@@ -15,7 +15,6 @@ const Edit = () => {
         size: ""
     });
 
-
     const errorStyle = {
         color: 'red'
     };
@@ -54,22 +53,17 @@ const Edit = () => {
     };
 
     const isRequired = (fields) => {
-
         let included = true;
         setErrors({});
 
         fields.forEach(field => {
-
             if(!form[field]){
                 included = false;
                 setErrors(prevState => ({
                     ...prevState,
-                    [field]: {
-                        message: `${field} is required!`
-                    }
+                    [field]: `${field} is required!`
                 }));
             }
-            
         });
 
         return included;
@@ -77,99 +71,112 @@ const Edit = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        let token = localStorage.getItem('token');
-        // console.log(token);
-        console.log('submitted', form);
 
-        if(isRequired(['name', 'size'])){
-            //created a new form data object
+        if(isRequired(['size'])){
             let formData = new FormData();
-            //append adds the new data to the associated values
+           
             formData.append('name', form.name);
             formData.append('size', form.size);
             formData.append('imageFile', form.imageFile);
             formData.append('_method', 'put');
+
             if (userInfo && userInfo.role.includes('admin')) {
-                // Append wins and losses only if user is admin
                 formData.append('wins', form.wins);
                 formData.append('losses', form.losses);
             }
 
-
             local.post(`/teams/${id}`, formData, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
-                    //to allow files to the form
                     "Content-Type": "multipart/form-data",
                 }
             })
             .then(response => {
                 navigate('/teams');
-                console.log({form})
             })
             .catch(err => {
                 console.error(err);
+                if (err.response && err.response.data && err.response.data.errors) {
+                    const { errors } = err.response.data;
+                    setErrors({
+                        name: errors.name || "",
+                        size: errors.size || "",
+                        wins: errors.wins || "",
+                        losses: errors.losses || "",
+                        imageFile: errors.imageFile || ""
+                    });
+                }
             });
-        }
-        
+        } 
     };
  
     return (
         <div>
             <h2 className='m-3'>Edit Team</h2>
             <form onSubmit={submitForm}>
-            <div className='m-3'>
-            <label className="form-control w-full max-w-xs">
-            <div className="label">
-                <span className="label-text">Name:</span>
-            </div>
-            <input type="text" onChange={handleForm} value={form.name} name='name' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.name?.message}</span>
-            </label>
-            </div>
-
-            <div className='m-3'>
-            <label className="form-control w-full max-w-xs">
-            <div className="label">
-                <span className="label-text">Size:</span>
-            </div>
-            <input type="number" onChange={handleForm} value={form.size} name='size' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.size?.message}</span>
-            </label>
-            </div>
-            {authenticated && (userInfo && userInfo.role.includes('admin')) && ( 
-                <>
-                  <div className='m-3'>
-                  <label className="form-control w-full max-w-xs">
-                  <div className="label">
-                      <span className="label-text">Wins:</span>
-                  </div>
-                  <input type="number" onChange={handleForm} value={form.wins} name='wins' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.wins?.message}</span>
-                  </label>
-                  </div>
                     <div className='m-3'>
+                        <label className="form-control w-full max-w-xs">
+                            <div className="label">
+                                <span className="label-text">Name:</span>
+                            </div>
+                            <input type="text" onChange={handleForm} value={form.name} name='name' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                            <span style={errorStyle}>{errors.name}</span>
+                        </label>
+                    </div>
+            
+                <div className='m-3'>
                     <label className="form-control w-full max-w-xs">
-                    <div className="label">
-                        <span className="label-text">Losses:</span>
-                    </div>
-                    <input type="number" onChange={handleForm} value={form.losses} name='losses' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.losses?.message}</span>
+                        <div className="label">
+                            <span className="label-text">Size:</span>
+                        </div>
+                        <select onChange={handleForm} value={form.size} name='size' className="select select-bordered w-full max-w-xs">
+                            <option value="" disabled defaultValue>Select the size of your team</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <span style={errorStyle}>{errors.size}</span>
                     </label>
-                    </div>
-                    </>
-            )}
-            <div className='m-3'>
-            <label className="form-control w-full max-w-xs">
-            <div className="label">
-            <span className="label-text">Team Image</span>
-            <span className="label-text-alt">Image</span>
-            </div>
-            <input type="file"  onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
-            </label>
-            </div>
+                </div>
 
-            <input type='submit' className="btn btn-success m-3" />
+                {authenticated && (userInfo && userInfo.role.includes('admin')) && ( 
+                    <>
+                        <div className='m-3'>
+                            <label className="form-control w-full max-w-xs">
+                                <div className="label">
+                                    <span className="label-text">Wins:</span>
+                                </div>
+                                <input type="number" onChange={handleForm} value={form.wins} name='wins' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                                <span style={errorStyle}>{errors.wins}</span>
+                            </label>
+                        </div>
+                        <div className='m-3'>
+                            <label className="form-control w-full max-w-xs">
+                                <div className="label">
+                                    <span className="label-text">Losses:</span>
+                                </div>
+                                <input type="number" onChange={handleForm} value={form.losses} name='losses' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                                <span style={errorStyle}>{errors.losses}</span>
+                            </label>
+                        </div>
+                    </>
+                )}
+
+                <div className='m-3'>
+                    <label className="form-control w-full max-w-xs">
+                        <div className="label">
+                            <span className="label-text">Team Image</span>
+                        </div>
+                        <input type="file" onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
+                        <span style={errorStyle}>{errors.imageFile}</span>
+                    </label>
+                </div>
+
+                <input type='submit' className="btn btn-success m-3" />
             </form>
         </div>
     );
 };
-
 
 export default Edit;

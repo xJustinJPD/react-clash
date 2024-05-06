@@ -5,7 +5,7 @@ import UserCard from "./components/UserCard";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContexts"; 
 
-const Social = ({searchTerm, setError}) => {
+const Social = ({searchTerm, setError }) => {
     const [friends, setFriendsList] = useState([]);
     const [filteredUsersList, setFilteredUsersList ] = useState([]);
     const [searchUsersList, setSearchUsersList ] = useState([]);
@@ -13,6 +13,7 @@ const Social = ({searchTerm, setError}) => {
     const [local] = axios;
     const { authenticated, userInfo } = useAuth();
 
+    
     useEffect(() => {
         local.get("/friends", {
             headers: {
@@ -65,15 +66,15 @@ const Social = ({searchTerm, setError}) => {
     }, [friends, token]);
 
     const friendList = friends.map((friend, i) => (
-        <FriendCard key={friend.id} friend={friend.friend} />
+        <FriendCard key={friend.id} friend={friend.friend} setError={setError} />
     ));
 
     const userList = searchUsersList.map((user, i) => (
-        <UserCard key={user.id} user={user} />
+        <UserCard key={user.id} user={user} setError={setError} />
     ));
 
     return (
-        <div>
+        <div className="pb-36">
             {authenticated && ((userInfo && userInfo.role.includes('admin'))) && (
             <div className="flex mt-4">
               <Link to={`/create/adminUser`} className="btn btn-outline btn-info mr-3">Create Admin</Link>

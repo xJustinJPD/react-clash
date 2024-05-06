@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from '../../../config/Api';
 import { useNavigate } from 'react-router-dom';
 
-export default function FriendBtn({id, resource, friendCallback, setError}) {
+export default function FriendBtn({id, resource, friendCallback, setError, disabled}) {
     const [isLoading, setIsLoading] = useState(false);
     const [local] = axios;
     const navigate = useNavigate(); 
@@ -17,7 +17,6 @@ export default function FriendBtn({id, resource, friendCallback, setError}) {
         })
         .then(response => {
             console.log(response.data);
-            // navigate('/');
         })
         .catch(err => {
             console.log(err.response.data)
@@ -28,8 +27,14 @@ export default function FriendBtn({id, resource, friendCallback, setError}) {
     };
 
     return (
-        <button onClick={onFriend} className="btn btn-outline btn-success">
-            {isLoading ? "Sent." : "Send Friend Request"}
+       
+        disabled ? (
+            <button className="btn btn-secondary">SENT</button>
+        ) :  
+        (<button className="btn btn-outline btn-success"  onClick={onFriend}>
+        {isLoading ? "Sending..." : "Send Friend Request"}
         </button>
+        )
+     
     );
 };

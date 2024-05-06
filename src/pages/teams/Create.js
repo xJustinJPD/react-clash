@@ -4,12 +4,17 @@ import { useNavigate } from 'react-router-dom';
 
 const Create = () => {
     const [local] = axios;
+    const navigate = useNavigate();
     const errorStyle = {
         color: 'red'
     };
 
-    const navigate = useNavigate();
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({
+        name: "",
+        size: "",
+        image: ""
+    });
+
     const [form, setForm] = useState({
         name: "",
         size: "",
@@ -32,22 +37,17 @@ const Create = () => {
     };
 
     const isRequired = (fields) => {
-
         let included = true;
         setErrors({});
 
         fields.forEach(field => {
-
             if(!form[field]){
                 included = false;
                 setErrors(prevState => ({
                     ...prevState,
-                    [field]: {
-                        message: `${field} is required!`
-                    }
+                    [field]: `${field} is required!`
                 }));
             }
-            
         });
 
         return included;
@@ -56,68 +56,77 @@ const Create = () => {
     const submitForm = (e) => {
         e.preventDefault();
         let token = localStorage.getItem('token');
-        // console.log(token);
-        // console.log('submitted', form);
 
         if(isRequired(['name', 'size'])){
-            //created a new form data object
             let formData = new FormData();
-            //append adds the new data to the associated values
             formData.append('name', form.name);
             formData.append('size', form.size);
             formData.append('image', form.image);
 
-            local.post('/teams', form, {
+            local.post('/teams', formData, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
-                    //to allow files to the form
                     "Content-Type": "multipart/form-data"
                 }
             })
             .then(response => {
                 navigate('/teams');
-                console.log({form})
             })
             .catch(err => {
                 console.error(err);
+                if (err.response && err.response.data && err.response.data.errors) {
+                    const { errors } = err.response.data;
+                    setErrors({
+                        name: errors.name || "",
+                        size: errors.size || "",
+                        image: errors.image || ""
+                    });
+                }
             });
-        }
-        
+        } 
     };
     
     return (
         <div>
             <h2 className='m-3'>Create Team</h2>
             <form onSubmit={submitForm}>
-            <div className='m-3'>
-            <label className="form-control w-full max-w-xs">
-            <div className="label">
-                <span className="label-text">Name:</span>
-            </div>
-            <input type="text" onChange={handleForm} value={form.name} name='name' placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.name?.message}</span>
-            </label>
-            </div>
+                <div className='m-3'>
+                    <label className="form-control w-full max-w-xs">
+                        <div className="label">
+                            <span className="label-text">Name:</span>
+                        </div>
+                        <input type="text" onChange={handleForm} value={form.name} name='name' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                        <span style={errorStyle}>{errors.name}</span>
+                    </label>
+                </div>
 
-            <div className='m-3'>
-            <label className="form-control w-full max-w-xs">
-            <div className="label">
-                <span className="label-text">Size:</span>
-            </div>
-            <input type="number" onChange={handleForm} value={form.size} name='size' max="4" placeholder="Type here" className="input input-bordered w-full max-w-xs" /><span style={errorStyle}>{errors.size?.message}</span>
-            </label>
-            </div>
-            
-            <div className='m-3'>
-            <label className="form-control w-full max-w-xs">
-            <div className="label">
-            <span className="label-text">Team Image</span>
-            <span className="label-text-alt">Image</span>
-            </div>
-            <input type="file" onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
-            </label>
-            </div>
+                <div className='m-3'>
+                    <label className="form-control w-full max-w-xs">
+                        <div className="label">
+                            <span className="label-text">Size:</span>
+                        </div>
+                        <select onChange={handleForm} value={form.size} name='size' className="select select-bordered w-full max-w-xs">
+                            <option value="" disabled defaultValue>Select the size of your team</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        <span style={errorStyle}>{errors.size}</span>
+                    </label>
+                </div>
+                
+                <div className='m-3'>
+                    <label className="form-control w-full max-w-xs">
+                        <div className="label">
+                            <span className="label-text">Team Image</span>
+                        </div>
+                        <input type="file" onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
+                        <span style={errorStyle}>{errors.image}</span>
+                    </label>
+                </div>
 
-            <input type='submit' className="btn btn-success m-3" />
+                <input type='submit' className="btn btn-success m-3" />
             </form>
         </div>
     );

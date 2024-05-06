@@ -31,7 +31,7 @@ const Teams = ({ setError }) => {
     ));
 
     return (
-        <div>  
+        <div className="pb-36"> 
             <div className="grid mt-3 lg:ml-3 lg:mr-10 lg:pr-6 py-3 lg:justify-end justify-center">
             <Link to="/teams/create"><button className="btn btn-outline btn-primary rounded text-white">
             New Team +

@@ -8,6 +8,7 @@ import ReceivedTeams from './components/ReceivedTeams';
 
 
 
+
 const ViewProfile = ({setError}) => {
   const { authenticated, onAuthenticated } = useAuth();
   const [user, setUser] = useState([]); 
@@ -109,14 +110,20 @@ const ViewProfile = ({setError}) => {
             clearInterval(recievedTimer);
           }; 
   }, []);
+
   
+
   const handleCancelRequest = (requestId) => {
     const updatedRequests = sentRequests.filter(request => request.friend_info.id !== requestId);
     setSentRequests(updatedRequests);
   };
 
+
+
+
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between pb-36">
+      
       <div className="grid grid-cols-8 gap-4 bg-white p-8 shadow-lg rounded-md">
         <div className="col-span-8">
           <h1 className="text-3xl font-bold mb-4">Username: {user?.username}</h1>
@@ -132,6 +139,7 @@ const ViewProfile = ({setError}) => {
       </div>
       <div>
         <Link to={`/user/${user?.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
+        <Link to={`/user/${user?.id}/password`} ><button className="btn btn-outline btn-primary m-3">Update Password</button></Link>
       </div>
       <div className="grid grid-cols-1 bg-white p-8 shadow-lg rounded-md ml-4">
         {authenticated ? (

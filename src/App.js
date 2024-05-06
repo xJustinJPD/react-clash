@@ -38,7 +38,7 @@ import EditUser from "./pages/Socials/UpdateUser";
 import MatchStats from "./pages/matches/Edit";
 import CreateAdminUser from "./pages/Socials/CreateAdminUser";
 import Footer from "./Footer";
-
+import UpdatePassword from "./pages/Socials/components/UpdatePassword";
 import PageNotFound from './pages/PageNotFound';
 
 function App() {
@@ -82,7 +82,7 @@ function App() {
       <Route path='/teams/:id' element={<Show setError={setError}/>}/>
       <Route path='/teams/:id/edit' element={<Edit setError={setError}/>}/>
       <Route path='/teams/create' element={<Create setError={setError}/>}/>
-      <Route path='/social' element={<Social searchTerm={term} setError={setError}/>}/>
+      <Route path='/social' element={<Social searchTerm={term} setError={setError} />}/>
       <Route path='/match/:id' element={<MatchShow setError={setError}/>}/>
       <Route path='/match/:id/:team1id/:team2id/stats' element={<MatchStats setError={setError}/>}/>
       <Route path='/matches' element={<Matches setError={setError}/>}/>
@@ -90,6 +90,7 @@ function App() {
       <Route path='/profile' element={<Profile setError={setError}/>}/>
       <Route path='/user/:id/edit' element={<EditUser setError={setError}/>}/>
       <Route path='/create/adminUser' element={<CreateAdminUser />} />
+      <Route path="/user/:id/password" element={<UpdatePassword setError={setError} />} />
       </>
     );
   }

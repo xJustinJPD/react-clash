@@ -15,18 +15,27 @@ const RegisterForm = () => {
     const [form, setForm] = useState({
         username : "",
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
     });
 
     const [errorMessages, setErrorMessages] = useState({
         username: "",
         email: "",
-        password: ""
+        password: "",
+        confirmPassword: ""
     });
 
     const handleClick = (e) => {
-        // console.log("clicked", form);
         e.preventDefault();
+        if (form.password !== form.confirmPassword) {
+            setErrorMessages(prevState => ({
+                ...prevState,
+                confirmPassword: "Passwords do not match"
+            }));
+            return;
+        }
+
         local.post('/auth/register', {
             username: form.username,
             email: form.email,
@@ -44,7 +53,8 @@ const RegisterForm = () => {
                 setErrorMessages({
                     username: errors.username || "",
                     email: errors.email || "",
-                    password: errors.password || ""
+                    password: errors.password || "",
+                    confirmPassword: ""
                 });
             }
         });
@@ -62,6 +72,7 @@ const RegisterForm = () => {
             handleClick(e);
         }
     };
+
     return (
         <>
             <div className='grid grid-cols-1 gap-1 justify-items-center m-3'>
@@ -72,11 +83,12 @@ const RegisterForm = () => {
             <p style={errorStyle}>{errorMessages.email}</p> <br />
             Password: <input onChange={handleForm} onKeyDown={handleKeyDown} className='border' type="password" name="password" value={form.password} />
             <p style={errorStyle}>{errorMessages.password}</p> <br />
+            Confirm Password: <input onChange={handleForm} onKeyDown={handleKeyDown} className='border' type="password" name="confirmPassword" value={form.confirmPassword} />
+            <p style={errorStyle}>{errorMessages.confirmPassword}</p> <br />
             <p className="py-6">or <b><Link to={`/login`}>Login</Link></b></p>
 
             <button className='btn btn-success w-20' onClick={handleClick}>Submit</button>
             </div>
-
         </>
     );
 };

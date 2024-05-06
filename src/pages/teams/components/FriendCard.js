@@ -11,7 +11,7 @@ const Friend = ({friend, team_id, addCallback, setError}) => {
                     <b>ID: </b><p>{friend.id}</p> 
                     <div className="card-actions justify-end">
                     {/* <Link to={`/teams/${friend.id}`}><button className="btn btn-outline btn-primary">More</button></Link> */}
-                    <AddBtn className="m-3" team_id={team_id} player_username={friend.username} addCallback={addCallback} setError={setError}  />
+                    <AddBtn className="m-3" team_id={team_id} player_username={friend.username} addCallback={addCallback} setErraor={setError}  />
                     </div>
             </div>
             </div>

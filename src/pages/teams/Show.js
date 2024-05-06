@@ -106,27 +106,27 @@ const Show = ({setError}) => {
     if (!team) return (<div className="flex justify-center items-center h-screen"><span className="loading loading-spinner text-primary"></span></div>);
     // console.log(team.image, "show")
     return (
-        <>
-             <div className="hero min-h-screen bg-base-200">
-  <div className="hero-content flex-col lg:flex-row">
-    <img src={team.image} alt={team.name} className="max-w-sm rounded-lg shadow-2xl" />
-    <div className="flex flex-col justify-center ml-6">
-      <h1 className="text-5xl font-bold mb-5">{team.name}</h1>
-      <p className="text-lg py-2">Size: {team.size}</p>
-      <p className="text-lg py-2">Wins: {team.wins}</p>
-      <p className="text-lg py-2">Losses: {team.losses}</p>
-      <p className="text-lg py-2">Rank: {team.rank}</p>
-      <p className="text-lg py-2">Win Ratio: {team["team-win-ratio"]}</p>
-      {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
-        <div className="flex mt-4">
-          <Link to={`/teams/${team.id}/edit`} className="btn btn-outline btn-primary mr-3">Edit</Link>
-          <DeleteBtn setError={setError} id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
-          <MatchBtn id={team.id} users={teamUserList} size={team.size} setError={setError} />
+<div className="pb-36">
+    <div className="hero min-h-screen bg-base-200">
+        <div className="hero-content flex-col lg:flex-row">
+            <img src={team.image} alt={team.name}   className="max-w-sm rounded-lg shadow-2xl h-[200px] w-[200px] md:h-[250px] md:w-[250px] lg:h-[300px] lg:w-[300px] xl:h-[350px] xl:w-[350px]" />
+                <div className="flex flex-col justify-center ml-6">
+                <h1 className="text-5xl font-bold mb-5">{team.name}</h1>
+                <p className="text-lg py-2">Size: {team.size}</p>
+                <p className="text-lg py-2">Wins: {team.wins}</p>
+                <p className="text-lg py-2">Losses: {team.losses}</p>
+                <p className="text-lg py-2">Rank: {team.rank}</p>
+                <p className="text-lg py-2">Win Ratio: {team["team-win-ratio"]}</p>
+                {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
+                    <div className="flex mt-4">
+                    <Link to={`/teams/${team.id}/edit`} className="btn btn-outline btn-primary mr-3">Edit</Link>
+                    <DeleteBtn setError={setError} id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
+                    <MatchBtn id={team.id} users={teamUserList} size={team.size} setError={setError} />
+                    </div>
+                )}
+                </div>
         </div>
-      )}
     </div>
-  </div>
-</div>
             <div className="text-3xl font-bold text-center my-4">Users in Team:</div>
             <hr className="my-4" />
             <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
@@ -143,7 +143,7 @@ const Show = ({setError}) => {
                         </div>
                     {friendList.length > 0 ? (
                         <>
-                            <div className="text-3xl font-bold text-center my-4">Add Friends To Team:</div>
+                            <div className="text-3xl font-bold text-center my-4 ">Add Friends To Team:</div>
                             <hr className="my-4" />
                             <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
                                 {friendList}
@@ -156,7 +156,7 @@ const Show = ({setError}) => {
                     )}
                 </>
             )}
-        </>
+        </div>
     );
 
     

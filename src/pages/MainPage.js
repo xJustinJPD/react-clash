@@ -6,7 +6,7 @@ const MainPage = () => {
   const { authenticated } = useAuth();
 
   return (
-    <div className="bg-primary min-h-screen flex flex-col justify-between">
+    <div className="bg-primary min-h-screen flex flex-col justify-between pb-36">
       <header className="bg-accent text-white py-4">
         <div className="container mx-auto flex justify-center items-center">
           <h1 className="text-3xl font-bold">Clash: Call of Duty Edition</h1>

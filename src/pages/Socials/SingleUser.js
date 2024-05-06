@@ -44,9 +44,11 @@ const SingleUser = ({setError}) => {
 
  
   return (
+    <div className="pb-36">
     <UserHero
         user={user}
     />
+    </div>
   );
 }
 

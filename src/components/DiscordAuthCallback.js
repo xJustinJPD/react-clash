@@ -1,45 +1,46 @@
 import { useEffect } from 'react';
-import axios from '../config/Api';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const DiscordAuthCallback = () => {
-  const navigate = useNavigate();
-  const [local,picture,discord] = axios;
+//   const navigate = useNavigate();
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
+    const fetchData = async () => {
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const code = urlParams.get('code');
 
-    discord.post('/token', null, {
-      params: {
-        client_id: '1237075531095343124',
-        client_secret: 'HNRQaTSz5TkL98goSZCY5F8HLqq4Ic_y',
-        grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: 'https://clash-d9110.web.app/auth/discord/callback',
-        scope: 'identify email',
-      },
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
-    .then(response => {
-      const { access_token } = response.data;
-      if (access_token) {
-        navigate('/teams');
-        alert("Authentication successful");
-      } else {
-        console.error("Error: Failed to authenticate or access token is missing.");
-        navigate('/login');
-        alert("Failed to authenticate, please try again later");
+        const response = await axios.post('https://discord.com/api/oauth2/token', null, {
+          params: {
+            client_id: '1237075531095343124',
+            client_secret: 'HNRQaTSz5TkL98goSZCY5F8HLqq4Ic_y',
+            grant_type: 'authorization_code',
+            code: code,
+            redirect_uri: 'https://clash-d9110.web.app/auth/discord/callback',
+            scope: 'identify email',
+          },
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          }
+        });
+
+        const access_token = response.data.access_token;
+
+        const userInformation = await axios.get('https://discord.com/api/v10/users/@me', {
+          headers: {
+            'Authorization': `Bearer ${access_token}`,
+          }
+        });
+
+        console.log(response.data, userInformation.data);
+      } catch (error) {
+        console.error(error);
       }
-    })
-    .catch(error => {
-      console.error("Error:", error);
-      navigate('/login');
-      alert("An error occurred during authentication, please try again later");
-    });
-  }, [navigate]);
+    };
+
+    fetchData();
+  }, []);
 
   return null;
 };

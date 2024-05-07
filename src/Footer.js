@@ -10,7 +10,7 @@ const Footer = () => {
     return (
         <footer className="footer p-2 sm:p-10 bg-primary text-base-content text-white fixed bottom-0 w-full flex flex-col sm:flex-row justify-between items-center">
             <div className="flex items-center">
-                <img width="50" height="50" viewBox="0 0 24 24" src='https://clash-images.s3.eu-north-1.amazonaws.com/images/footer.JPG' fillRule="evenodd" clipRule="evenodd" className="fill-current mr-4"/>
+                <img width="50" height="50" viewBox="0 0 24 24" src='https://clash-images.s3.eu-north-1.amazonaws.com/images/footer.JPG' fillRule="evenodd" clipRule="evenodd" className="fill-current mr-4 rounded"/>
                    
                 <div>
                     <p>Clash</p>

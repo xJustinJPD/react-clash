@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation, Link} from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContexts';
 
 const DiscordAuthCallback = () => {
   const location = useLocation();
+  const { onAuthenticated } = useAuth();
   const CLIENT_ID = process.env.REACT_APP_DISCORD_CLIENT_ID;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const SECRET_DISCORD = process.env.REACT_APP_SECRET;
   const [userData, setUserData] = useState(null);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,23 +33,26 @@ const DiscordAuthCallback = () => {
           }
         );
 
-        const access_token = response.data.access_token;
+        // Store the access token and refresh token
+        const { access_token, refresh_token } = response.data;
 
         const userInformation = await axios.get('https://discord.com/api/v10/users/@me', {
           headers: {
             Authorization: `Bearer ${access_token}`
           }
         });
+
+        // Update authentication context with user information, access token, and refresh token
+        onAuthenticated(true, access_token, userInformation.data.id, userInformation.data.role, refresh_token);
+
         setUserData(userInformation.data);
-        console.log(response.data, userInformation.data);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, [CLIENT_ID, REDIRECT_URI, location.search,SECRET_DISCORD]);
-
+  }, [CLIENT_ID, REDIRECT_URI, location.search, SECRET_DISCORD, onAuthenticated]);
 
   return (
     <div>

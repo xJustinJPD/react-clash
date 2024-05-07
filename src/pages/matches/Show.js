@@ -29,7 +29,6 @@ const MatchShow = ({setError}) => {
                 });
                 setMatch(response.data.data);
                 setTeam2(response.data.data.team_2); 
-                console.log(response.data.data)
             } catch (err) {
                 console.error(err);
                 if (err.response && err.response.data && err.response.data.message) {
@@ -38,6 +37,8 @@ const MatchShow = ({setError}) => {
             }
 
         };
+
+
 
         if (team2 === null) {
             fetchMatch();
@@ -54,11 +55,15 @@ const MatchShow = ({setError}) => {
                     fetchMatch();
                 }
             },5000);
+
+
             return () => {
                 clearInterval(matchCancelled);
             }
         }
         
+
+
 
 
       
@@ -70,6 +75,8 @@ const MatchShow = ({setError}) => {
     const toggleFormVisibility = () => {
         setShowForm(!showForm);
     };
+
+
 
     if (match != null && match.status === 'cancelled') {
         // Redirect to teams page
@@ -94,6 +101,8 @@ const MatchShow = ({setError}) => {
 
         );
     }
+
+
     
 
     return (

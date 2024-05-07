@@ -18,7 +18,11 @@ const ViewProfile = ({setError}) => {
   const token = localStorage.getItem('token');
   const [local] = axios; 
   const navigate = useNavigate();
-  const username_disc = localStorage.getItem('discordInfo');
+  let usernameDisc = null;
+const discordInfo = localStorage.getItem('discordInfo');
+if (discordInfo) {
+  usernameDisc = JSON.parse(discordInfo).username;
+}
   const logout = () => {
     onAuthenticated(false);
     navigate('/login');

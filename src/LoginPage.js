@@ -7,14 +7,14 @@ const LoginPage = () => {
     const { authenticated } = useAuth();
 
     return (
-    <>
+    <div className="pb-36">
         {(!authenticated) ? (
         <LoginForm />
         ) : (
         navigate('/')
         )}
         
-    </>
+    </div>
     );
     }
     

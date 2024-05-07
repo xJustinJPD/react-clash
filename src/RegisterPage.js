@@ -8,14 +8,14 @@ const RegisterPage = () => {
     const { authenticated } = useAuth();
 
     return (
-    <>
+    <div className="pb-36">
         {(!authenticated) ? (
         <RegisterForm />
         ) : (
         navigate('/login')
         )}
         
-    </>
+    </div>
     );
     }
     

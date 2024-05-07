@@ -117,8 +117,8 @@ const EditUser = () => {
         navigate('/pageNotFound');
     }
     return (
-        <div>
-            <h2 className='m-3'>Edit User</h2>
+        <div className='grid grid-cols-1 gap-1 justify-items-center m-10 pb-36'>
+            <h1 className='m-3 font-bold text-2xl'>Edit User</h1>
             <form onSubmit={submitForm}>
                 <div className='m-3'>
                     <label className="form-control w-full max-w-xs">
@@ -169,7 +169,11 @@ const EditUser = () => {
                     </label>
                 </div>
 
-                <input type='submit' className="btn btn-success m-3" />
+                <div className='flex justify-center p-5'>
+                <button type='submit' className="btn btn-wide btn-info">
+                        Complete
+                        </button>
+            </div>
             </form>
         </div>
     );

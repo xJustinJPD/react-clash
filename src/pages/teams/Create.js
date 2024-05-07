@@ -125,7 +125,7 @@ const Create = () => {
                         <span style={errorStyle}>{errors.image}</span>
                     </label>
                 </div>
-            <div className='flex justify-center'>
+            <div className='flex justify-center p-5'>
             <button type='submit' className="btn btn-wide btn-success">
                         Create Team
                         </button>

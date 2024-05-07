@@ -48,8 +48,8 @@ const UpdatePassword = () => {
         navigate('/pageNotFound');
     }
     return (
-        <div>
-            <h2 className='m-3'>Update Password</h2>
+        <div className='grid grid-cols-1 gap-1 justify-items-center m-10'>
+            <h1 className='m-3 font-bold text-2xl'>Update Password</h1>
             <form onSubmit={handleSubmit}>
                 <div className='m-3'>
                     <label className="form-control w-full max-w-xs">
@@ -80,7 +80,11 @@ const UpdatePassword = () => {
                         {error && <span style={errorStyle}>{error}</span>}
                     </label>
                 </div>
-                <input type='submit' className="btn btn-success m-3" value="Update Password" />
+                <div className='flex justify-center p-5'>
+            <button type='submit' className="btn btn-wide btn-info">
+                        Complete
+                        </button>
+            </div>
             </form>
         </div>
     );

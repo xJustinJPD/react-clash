@@ -12,7 +12,7 @@ const PageNotFound = () => {
   const { authenticated } = useAuth();
   // JSX structure for the PageNotFound component
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen pb-36">
       <div className="text-center" style={errorStyle}>
         {/* Error message div with red background */}
         

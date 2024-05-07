@@ -112,12 +112,14 @@ const Show = ({setError}) => {
                     <img src={team.image} alt={team.name}   className="max-w-sm rounded-lg shadow-2xl h-[200px] w-[200px] md:h-[250px] md:w-[250px] lg:h-[300px] lg:w-[300px] xl:h-[350px] xl:w-[350px]" />
                         <div className="flex flex-col justify-center ml-6">
                         <h1 className="text-5xl font-bold mb-5">{team.name}</h1>
-                        <p className="text-lg py-2">
+                        <div className="flex">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                         </svg>
+                        <p className="text-lg py-2">
                             {team.size}
                             </p>
+                            </div>
                         <p className="text-lg py-2">Wins: {team.wins}</p>
                         <p className="text-lg py-2">Losses: {team.losses}</p>
                         <p className="text-lg py-2">Rank: {team.rank}</p>

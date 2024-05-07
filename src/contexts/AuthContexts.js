@@ -126,6 +126,9 @@ export function AuthProvider(props) {
                             setAccessToken(accessToken);
                             setRefreshToken(refreshToken);
                             setDiscordInfo({ username });
+                            setUserInfo({ id, role });
+                            localStorage.setItem('token', token);
+                            localStorage.setItem('userInfo', JSON.stringify({ id, role }));
                             localStorage.setItem('accessToken', accessToken);
                             localStorage.setItem('refreshToken', refreshToken);
                             localStorage.setItem('discordInfo', JSON.stringify({ username }));

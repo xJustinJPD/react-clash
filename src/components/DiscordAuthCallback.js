@@ -34,7 +34,8 @@ const DiscordAuthCallback = () => {
 
         const userInformation = await axios.get('https://discord.com/api/v10/users/@me', {
           headers: {
-            Authorization: `Bearer ${access_token}`
+            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'application/x-www-form-urlencoded'
           }
         });
         setUserData(userInformation.data);
@@ -57,9 +58,10 @@ const DiscordAuthCallback = () => {
 
         const refresh_token = response2.data.refresh_token;
 
-        const refresh = await axios.get('https://discord.com/api/v10/users/@me', {
+        const refresh = await axios.get('https://discord.com/api/v10/users/@me', response2, {
           headers: {
-            Authorization: `Bearer ${refresh_token}`
+            Authorization: `Bearer ${refresh_token}`,
+            'Content-Type': 'application/x-www-form-urlencoded'
           }
         });
         // setUserData(userInformation.data);
@@ -71,7 +73,7 @@ const DiscordAuthCallback = () => {
     };
    
     fetchData();
-  }, [CLIENT_ID, REDIRECT_URI, location.search,SECRET_DISCORD]);
+  }, [CLIENT_ID, REDIRECT_URI, location.search,SECRET_DISCORD,refresh_token]);
 
 
   return (

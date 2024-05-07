@@ -9,7 +9,7 @@ import ReceivedTeams from './components/ReceivedTeams';
 
 
 const ViewProfile = ({setError}) => {
-  const { authenticated, onAuthenticated } = useAuth();
+  const { authenticated, onAuthenticated, discordInfo } = useAuth();
   const [user, setUser] = useState([]); 
   const [receivedRequests, setReceivedRequests] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
@@ -18,7 +18,6 @@ const ViewProfile = ({setError}) => {
   const [local] = axios; 
   const navigate = useNavigate();
 
-const {discordInfo} = localStorage.getItem('discordInfo');
 
   const logout = () => {
     onAuthenticated(false);
@@ -122,7 +121,7 @@ const {discordInfo} = localStorage.getItem('discordInfo');
   {discordInfo ? (
     <>
         <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
-      <p>{discordInfo}</p>
+      <p>{discordInfo.username}</p>
     </>
   ) : (
     <Link to={'/user/discord-login'}>

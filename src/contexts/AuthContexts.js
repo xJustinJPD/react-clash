@@ -96,8 +96,8 @@ export function AuthProvider(props) {
             
             if (storedToken && storedUserInfo) {
                 setAuthenticated(true);
-                setAccessToken(JSON.parse(storedAccessToken));
-                setRefreshToken(JSON.parse(storedRefreshToken));
+                setAccessToken(storedAccessToken);
+                setRefreshToken(storedRefreshToken);
                 setDiscordInfo(JSON.parse(storedDiscordInfo));
                 setUserInfo(JSON.parse(storedUserInfo));
             } else {

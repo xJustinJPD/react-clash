@@ -154,26 +154,6 @@ const ViewProfile = ({setError}) => {
           <div>
         <Link to={`/user/${user?.id}/edit`}><button className="btn btn-outline btn-lg btn-primary">Edit Profile</button></Link>
       </div>
-      <div className="col-span-1 bg-white p-8 shadow-lg rounded-md">
-          <div className="border border-gray-200 p-4">
-            <h2 className="text-lg font-semibold mb-4">Discord Info</h2>
-            {discordInfo && discordInfo.username !== null ? (
-              <div className="flex items-center">
-                <img className="mr-2" width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
-                <p className="discord-username">
-                  <a href={`https://discord.com/users/${discordInfo.username}`} target="_blank" rel="noopener noreferrer">
-                    {discordInfo.username}
-                  </a>
-                </p>
-              </div>
-            ) : (
-              <Link to={'/user/discord-login'}>
-                <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
-              </Link>
-            )}
-          </div>
-        </div>
-    
       <div>
         <Link to={`/user/${user?.id}/password`} ><button className="btn btn-outline btn-lg btn-primary mx-2">Update Password</button></Link>
       </div>
@@ -194,9 +174,26 @@ const ViewProfile = ({setError}) => {
 
       </div>
     </div>
-    <div className='grid grid-cols-1'>
-        {/* CHART */}
-    </div>
+    <div className="grid grid-cols-12 bg-white p-8 shadow-lg rounded-md">
+  <div className="border border-gray-200 p-4 col-span-6 sm:col-span-3 md:col-span-4 lg:col-span-5">
+    <h2 className="text-lg font-semibold mb-4">Discord Info</h2>
+    {discordInfo && discordInfo.username !== null ? (
+      <div className="flex items-center">
+        <img className="mr-2 w-12 h-12" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
+        <p className="discord-username">
+          <a href={`https://discord.com/users/${discordInfo.username}`} target="_blank" rel="noopener noreferrer">
+            {discordInfo.username}
+          </a>
+        </p>
+      </div>
+    ) : (
+      <Link to={'/user/discord-login'}>
+        <img className="w-12 h-12" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
+      </Link>
+    )}
+  </div>
+</div>
+
     </div>
   );
 };

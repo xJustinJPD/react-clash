@@ -46,7 +46,7 @@ const Navbar = (props) => {
             <div className="avatar online pl-2">
               <div className="w-12 rounded-full">
                 <Link to='/profile'>
-                  <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="user-avatar" />
+                  <img src="https://clash-images.s3.eu-north-1.amazonaws.com/images/activeUser.JPG" alt="user-avatar" />
                 </Link>
               </div>
             </div>
@@ -54,7 +54,7 @@ const Navbar = (props) => {
             // Avatar for non-authenticated users
             <div className="avatar offline">
               <div className="w-12 rounded-full">
-                <img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" alt="user-avatar" />
+                <img src="https://clash-images.s3.eu-north-1.amazonaws.com/images/activeUser.JPG" alt="user-avatar" />
               </div>
             </div>
           )}

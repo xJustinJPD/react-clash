@@ -154,7 +154,7 @@ const ViewProfile = ({setError}) => {
           <div>
         <Link to={`/user/${user?.id}/edit`}><button className="btn btn-outline btn-lg btn-primary">Edit Profile</button></Link>
       </div>
-      {discordInfo && discordInfo.username ? (
+      {discordInfo && discordInfo.username !== null ? (
     <>
     <div className="flex items-center">
       <img className="mr-2" width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>

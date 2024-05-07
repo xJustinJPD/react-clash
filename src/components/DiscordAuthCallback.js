@@ -60,7 +60,7 @@ const DiscordAuthCallback = () => {
 
         const refresh = await axios.get('https://discord.com/api/v10/users/@me', response2, {
           headers: {
-            Authorization: `Bearer ${refresh_token}`,
+            // Authorization: `Bearer ${refresh_token}`,
             'Content-Type': 'application/x-www-form-urlencoded'
           }
         });

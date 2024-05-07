@@ -30,8 +30,8 @@ export function AuthProvider(props) {
         const storedDiscordInfo = localStorage.getItem('discordInfo');
 
         if (storedAccessToken && storedRefreshToken && storedDiscordInfo) {
-            setAccessToken(JSON.parse(storedAccessToken));
-            setRefreshToken(JSON.parse(storedRefreshToken));
+            setAccessToken(storedAccessToken);
+            setRefreshToken(storedRefreshToken);
             setDiscordInfo(JSON.parse(storedDiscordInfo));
         }
     }, []);

@@ -10,7 +10,7 @@ import ReceivedTeams from './components/ReceivedTeams';
 
 
 const ViewProfile = ({setError}) => {
-  const { authenticated, discordInfo, onAuthenticated } = useAuth();
+  const { authenticated, onAuthenticated } = useAuth();
   const [user, setUser] = useState([]); 
   const [receivedRequests, setReceivedRequests] = useState([]);
   const [sentRequests, setSentRequests] = useState([]);
@@ -18,7 +18,7 @@ const ViewProfile = ({setError}) => {
   const token = localStorage.getItem('token');
   const [local] = axios; 
   const navigate = useNavigate();
-
+  const username_disc = localStorage.getItem('discordInfo');
   const logout = () => {
     onAuthenticated(false);
     navigate('/login');
@@ -140,10 +140,10 @@ const ViewProfile = ({setError}) => {
       <div>
         <Link to={`/user/${user?.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
         <Link to={`/user/${user?.id}/password`} ><button className="btn btn-outline btn-primary m-3">Update Password</button></Link><div>
-          {discordInfo.username ? (
+          {username_disc.username ? (
             <>
                 <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
-              <p>{discordInfo.username}</p>
+              <p>{username_disc.username}</p>
             </>
           ) : (
             <Link to={'/user/discord-login'}>

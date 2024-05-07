@@ -17,7 +17,7 @@ const Footer = () => {
                     <p>A Ranked System: Call Of Duty Edition</p>
                 </div>
             </div>
-            <div className="flex flex-col sm:flex-row items-center">
+            <div className="flex flex-col sm:flex-row items-center hidden sm:block">
                 <nav className="sm:ml-4">
                     <h6 className="footer-title">Pages</h6> 
                     <Link to='/' className="mr-4 sm:mr-8">Home</Link>

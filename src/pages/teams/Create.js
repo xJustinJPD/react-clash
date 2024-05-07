@@ -130,10 +130,8 @@ const Create = () => {
                         Create Team
                         </button>
             </div>
-
-            <input type='submit' className="btn btn-success m-3" />
             </form>
-        </div>
+            </div>
     );
 };
 

@@ -63,16 +63,16 @@ export function AuthProvider(props) {
                 }
             );
 
-            const newAccessToken = response.data.access_token;
+            const accessToken = response.data.access_token;
 
             // Update access token in state and localStorage
-            setAccessToken(newAccessToken);
-            localStorage.setItem('accessToken', newAccessToken);
+            setAccessToken(accessToken);
+            localStorage.setItem('accessToken', accessToken);
 
             // Fetch user information with the new access token
             const refreshedUserInfo = await axios.get('https://discord.com/api/v10/users/@me', {
                 headers: {
-                    Authorization: `Bearer ${newAccessToken}`,
+                    Authorization: `Bearer ${accessToken}`,
                     'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });

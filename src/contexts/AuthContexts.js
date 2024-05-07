@@ -41,7 +41,7 @@ export function AuthProvider(props) {
             if (accessToken && refreshToken) {
                 refreshTokens();
             }
-        }, 60000);
+        }, 2000);
 
         return () => clearInterval(timer);
     }, [accessToken, refreshToken]);

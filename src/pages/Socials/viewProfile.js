@@ -17,11 +17,9 @@ const ViewProfile = ({setError}) => {
   const token = localStorage.getItem('token');
   const [local] = axios; 
   const navigate = useNavigate();
-//   let usernameDisc = null;
-// const discordInfo = localStorage.getItem('discordInfo');
-// if (discordInfo) {
-//   usernameDisc = JSON.parse(discordInfo).username;
-// }
+
+const discordInfo = localStorage.getItem('discordInfo');
+
   const logout = () => {
     onAuthenticated(false);
     navigate('/login');
@@ -121,16 +119,16 @@ const ViewProfile = ({setError}) => {
   };
 
   
-  // {username_disc ? (
-  //   <>
-  //       <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
-  //     <p>{username_disc}</p>
-  //   </>
-  // ) : (
-  //   <Link to={'/user/discord-login'}>
-  //   <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
-  // </Link>
-  // )}
+  {discordInfo ? (
+    <>
+        <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
+      <p>{discordInfo}</p>
+    </>
+  ) : (
+    <Link to={'/user/discord-login'}>
+    <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
+  </Link>
+  )}
 
   return (
     <div className="justify-between pb-36">

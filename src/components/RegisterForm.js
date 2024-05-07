@@ -75,7 +75,7 @@ const RegisterForm = () => {
 
     return (
         <>
-            <div className='grid grid-cols-1 gap-1 justify-items-center m-3'>
+            <div className='grid grid-cols-1 gap-1 pb-36 justify-items-center m-3'>
             <h2 className='m-3'><b>Register:</b></h2>
             Username: <input onChange={handleForm} onKeyDown={handleKeyDown} className='border' type="text" name="username" value={form.username}  />
             <p style={errorStyle}>{errorMessages.username}</p> <br />

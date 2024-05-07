@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from '../../config/Api';
 import { useParams } from "react-router";
 import PlayerCard from "./components/PlayerStatsForm";
+import { Link } from "react-router-dom";
 
 const MatchStats = () => {
     const { id, team1id, team2id } = useParams();
@@ -50,14 +51,26 @@ const MatchStats = () => {
             ));
 
     return (
-        <>  
-            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
-                Team 1 Players: {players1List}
+            <div>
+            <div className='flex justify-center mt-10'>
+                <h1><b>Update Your Teams Statistics</b></h1>
             </div>
-            <div className='grid grid-cols-3 gap-6 justify-items-center m-3'>
-                Team 2 Players: {players2List}
+            <div className='flex justify-center mb-10'>
+                <h1>(Update each players' statistics and submit for each individual player)</h1>
             </div>
-        </>
+            <div className='grid grid-cols-3 gap-6 flex justify-center m-8'>
+                <b>Players:</b> {players1List}
+            </div>
+            <div className='grid grid-cols-3 gap-6 justify-items-center m-8'>
+                {players2List}
+            </div>
+            <div className='flex justify-center m-10'>
+            <Link to={`/teams`}><button className="btn btn-wide btn-primary">
+                        Back To Teams
+                        </button></Link>
+            </div>
+            </div>
+        
     );
 };
 

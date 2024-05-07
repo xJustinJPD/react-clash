@@ -86,8 +86,8 @@ const Create = () => {
     };
     
     return (
-        <div>
-            <h2 className='m-3'>Create Team</h2>
+        <div className='grid grid-cols-1 gap-1 justify-items-center m-10'>
+            <h1 className='m-3 font-bold text-2xl'>Create Team</h1>
             <form onSubmit={submitForm}>
             <div className='m-3'>
             <label className="form-control w-full max-w-xs">
@@ -116,8 +116,12 @@ const Create = () => {
             <input type="file" onChange={handleImageChange} name='image' className="file-input file-input-bordered w-full max-w-xs" />
             </label>
             </div>
+            <div className='flex justify-center'>
+            <button type='submit' className="btn btn-wide btn-success">
+                        Create Team
+                        </button>
+            </div>
 
-            <input type='submit' className="btn btn-success m-3" />
             </form>
         </div>
     );

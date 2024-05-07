@@ -15,10 +15,10 @@ const Navbar = (props) => {
       <div className=''>
             <div className="navbar bg-neutral">
             <div className="navbar-start">
-    <a className="btn btn-ghost text-xl"><Link to='/'>Clash</Link></a>
+    <a className="btn btn-ghost text-xl text-white"><Link to='/'>Clash</Link></a>
   </div>
   <div className="navbar-center hidden lg:flex">
-    <ul className="menu menu-horizontal px-1">
+    <ul className="menu menu-horizontal px-1 text-white">
     <li><Link to='/'>Home</Link></li>
     <li className='pt-2'>•</li>
     <li><Link to='/teams'>Teams</Link></li>

@@ -63,35 +63,53 @@ const UpdateGameForm = ({ gameId, team1Creator, team2Creator, team1id, team2id }
                 <>
                     {(userInfo && (userInfo.id === team1Creator || userInfo.role.includes('admin'))) && (
                         <div className="space-y-2">
+                            <div className='p-5'>
                             <label htmlFor="team1Score">Team 1 Score:</label>
-                            <input type="number" id="team1Score" value={team1Score} onChange={(e) => setTeam1Score(e.target.value)} />
+                            <input type="number" className='outline m-2' id="team1Score" value={team1Score} onChange={(e) => setTeam1Score(e.target.value)} />
+                            <br/>
+                            </div>
+                            <div className='p-5'>
+                            <label htmlFor="team2Score">Team 1 Result Image:</label>
                             <input type="file" onChange={handleTeam1ImageChange} name='team_1_image' className="file-input file-input-bordered w-full max-w-xs" />
+                            <br/>
+                            </div>
+                            <div className='p-5'>
                             <label htmlFor="team1Result">Team 1 Result:</label>
-                            <select id="team1Result" value={team1Result} onChange={(e) => setTeam1Result(e.target.value)}>
+                            <select id="team1Result" className='outline m-2' value={team1Result} onChange={(e) => setTeam1Result(e.target.value)}>
                                 <option value="">Select Result</option>
                                 <option value={0}>Win</option>
                                 <option value={1}>Loss</option>
                             </select>
+                            </div>
                         </div>
                     )}
                     
                     {(userInfo && (userInfo.id === team2Creator || userInfo.role.includes('admin'))) && (
                         <div className="space-y-2">
+                            <div className='p-5'>
                             <label htmlFor="team2Score">Team 2 Score:</label>
-                            <input type="number" id="team2Score" value={team2Score} onChange={(e) => setTeam2Score(e.target.value)} />
-                            <input type="file" onChange={handleTeam2ImageChange} name='team_2_image' className="file-input file-input-bordered w-full max-w-xs" />
+                            <input className='outline m-2' type="number" id="team2Score" value={team2Score} onChange={(e) => setTeam2Score(e.target.value)} />
+                            <br/>
+                            </div>
+                            <div className='p-5'>
+                            <label htmlFor="team2Score">Team 2 Result Image:</label>
+                            <input type="file" onChange={handleTeam2ImageChange} name='team_2_image' className="file-input file-input-bordered w-full max-w-xs"/>
+                            <br/>
+                            </div>
+                            <div className='p-5'>
                             <label htmlFor="team2Result">Team 2 Result:</label>
-                            <select id="team2Result" value={team2Result} onChange={(e) => setTeam2Result(e.target.value)}>
+                            <select id="team2Result" className='outline m-2' value={team2Result} onChange={(e) => setTeam2Result(e.target.value)}>
                                 <option value="">Select Result</option>
                                 <option value={0}>Win</option>
                                 <option value={1}>Loss</option>
                             </select>
+                            </div>
                         </div>
                     )}
                 </>
             )}
-            <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                Update Game
+            <button type="submit" className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+                Confirm Complete Game
             </button>
         </form>
     );

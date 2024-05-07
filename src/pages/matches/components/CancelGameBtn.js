@@ -22,8 +22,8 @@ const CancelGameButton = ({ gameId, setError }) => {
     };
 
     return (
-        <button onClick={handleCancelGame} className="btn btn-danger">
-            Cancel MatchMaking
+        <button onClick={handleCancelGame} className="btn btn-error">
+            Cancel Match
         </button>
     );
 };

@@ -29,7 +29,7 @@ export default function FriendBtn({id, resource, friendCallback, setError}) {
 
     return (
         <button onClick={onFriend} className="btn btn-outline btn-success">
-            {isLoading ? "Sent." : "Send Friend Request"}
+            {isLoading ? "Sent" : "Send Friend Request"}
         </button>
     );
 };

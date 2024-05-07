@@ -112,14 +112,20 @@ const Show = ({setError}) => {
     <img src={team.image} alt={team.name} className="max-w-sm rounded-lg shadow-2xl" />
     <div className="flex flex-col justify-center ml-6">
       <h1 className="text-5xl font-bold mb-5">{team.name}</h1>
-      <p className="text-lg py-2">Size: {team.size}</p>
+      <div className="flex">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                    </svg>
+        <p className="text-lg py-2">{team.size}</p>
+        </div>
+      
       <p className="text-lg py-2">Wins: {team.wins}</p>
       <p className="text-lg py-2">Losses: {team.losses}</p>
       <p className="text-lg py-2">Rank: {team.rank}</p>
       <p className="text-lg py-2">Win Ratio: {team["team-win-ratio"]}</p>
       {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
         <div className="flex mt-4">
-          <Link to={`/teams/${team.id}/edit`} className="btn btn-outline btn-primary mr-3">Edit</Link>
+          <Link to={`/teams/${team.id}/edit`} className="btn btn-outline btn-primary mr-3">Edit Team</Link>
           <DeleteBtn setError={setError} id={team.id} resource="teams" deleteCallback={() => navigate('/')} />
           <MatchBtn id={team.id} users={teamUserList} size={team.size} setError={setError} />
         </div>
@@ -127,7 +133,7 @@ const Show = ({setError}) => {
     </div>
   </div>
 </div>
-            <div className="text-3xl font-bold text-center my-4">Users in Team:</div>
+            <div className="text-3xl font-bold text-left my-4 ml-10">Users in Team:</div>
             <hr className="my-4" />
             <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
                 {userList}
@@ -135,7 +141,7 @@ const Show = ({setError}) => {
             {authenticated && ((userInfo && userInfo.id === team.creator) || (userInfo && userInfo.role.includes('admin'))) && (
                 
                 <>
-                 <div className="text-3xl font-bold text-center my-4">Sent Requests To:</div>
+                 <div className="text-3xl font-bold text-left my-4 ml-10">Sent Requests To:</div>
                  
                     <hr className="my-4" />
                         <div  div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
@@ -143,7 +149,7 @@ const Show = ({setError}) => {
                         </div>
                     {friendList.length > 0 ? (
                         <>
-                            <div className="text-3xl font-bold text-center my-4">Add Friends To Team:</div>
+                            <div className="text-3xl font-bold text-left my-4 ml-10">Add Friends To Team:</div>
                             <hr className="my-4" />
                             <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
                                 {friendList}

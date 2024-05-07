@@ -37,8 +37,8 @@ export default function AddBtn({team_id, player_username, addCallback, setError}
     };
 
     return (
-        <button onClick={handleAdd} className="btn btn-outline btn-error">
-            {isLoading ? "Sent." : "Send"}
+        <button onClick={handleAdd} className="btn btn-outline btn-success">
+            {isLoading ? "Sent" : "Send"}
         </button>
     );
 };

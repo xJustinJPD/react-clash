@@ -116,29 +116,26 @@ const ViewProfile = ({setError}) => {
   };
 
   return (
-    <div className="flex justify-between">
-      <div className="grid grid-cols-8 gap-4 bg-white p-8 shadow-lg rounded-md">
+    <div className="justify-between">
+      <div className="grid grid-cols-8 gap-4 p-8 rounded-md">
         <div className="col-span-8">
-          <h1 className="text-3xl font-bold mb-4">Username: {user?.username}</h1>
           <img src={`${user?.image}`} alt="" className="mb-4 rounded-full w-24 h-24" />
-          <p className="text-gray-600"><b>Current Email: </b>{user?.email}</p>
-          <p className="text-gray-600"><b>Description: </b>{user?.description}</p>
-          <p className="text-gray-600"><b>Kills: </b>{user?.kills}</p>
-          <p className="text-gray-600"><b>Deaths: </b>{user?.deaths}</p>
-          <p className="text-gray-600"><b>Rank: </b>{user?.rank}</p>
-          <p className="text-gray-600"><b>KD Ratio: </b>{user['user-kd-ratio']}</p>
-          <p className="text-gray-600"><b>Win/loss Ratio: </b>{user['user-win-ratio']}</p>
-        </div>
+          <h1 className="text-3xl font-bold mb-4">{user?.username}</h1>
+          
+          <p className="text-gray-600"><b>Email: </b>{user?.email}</p>
+
+          <div>
+        <Link to={`/user/${user?.id}/edit`}><button className="btn btn-outline btn-lg btn-primary my-5">Edit Profile</button></Link>
       </div>
-      <div>
-        <Link to={`/user/${user?.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
-      </div>
-      <div className="grid grid-cols-1 bg-white p-8 shadow-lg rounded-md ml-4">
-        {authenticated ? (
+      {authenticated ? (
           <button className="btn btn-error btn-lg mb-4" onClick={logout}>
             Logout
           </button>
         ) : null}
+        </div>
+      </div>
+      <div className="grid grid-cols-1 bg-white p-8 shadow-lg rounded-md ml-4">
+
         <ReceivedRequests receivedRequests={receivedRequests} fetchReceivedRequests={fetchReceivedRequests} />
         <SentRequests sentRequests={sentRequests} onCancelRequest={handleCancelRequest} />
         <ReceivedTeams teams={receivedTeams} fetchReceivedTeams={fetchReceivedTeams} />

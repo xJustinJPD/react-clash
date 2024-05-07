@@ -66,9 +66,8 @@ const refreshedUserInfo = await axios.get('https://discord.com/api/v10/users/@me
   }
 });
 console.log(refreshedUserInfo.data);
-        // setUserData(userInformation.data);
-        // console.log(response.data, userInformation.data);
-        console.log(response2.data, refresh.data);
+
+        
       } catch (error) {
         console.error(error);
       }

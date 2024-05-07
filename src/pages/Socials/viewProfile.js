@@ -120,6 +120,7 @@ const ViewProfile = ({setError}) => {
     setSentRequests(updatedRequests);
   };
 
+  
   // {username_disc ? (
   //   <>
   //       <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
@@ -130,7 +131,6 @@ const ViewProfile = ({setError}) => {
   //   <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
   // </Link>
   // )}
-
 
   return (
     <div className="justify-between pb-36">
@@ -157,6 +157,9 @@ const ViewProfile = ({setError}) => {
           <div>
         <Link to={`/user/${user?.id}/edit`}><button className="btn btn-outline btn-lg btn-primary">Edit Profile</button></Link>
       </div>
+      <Link to={'/user/discord-login'}>
+    <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
+  </Link>
       <div>
         <Link to={`/user/${user?.id}/password`} ><button className="btn btn-outline btn-lg btn-primary mx-2">Update Password</button></Link>
       </div>

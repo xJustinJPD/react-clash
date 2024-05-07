@@ -115,9 +115,9 @@ export function AuthProvider(props) {
                 refreshToken,
                 accessToken,
                 discordInfo,
-                onAuthenticated: (auth, token, id, role, username, refreshToken,accessToken) => {
+                onAuthenticated: (auth, token, id, role, username, refreshToken, accessToken) => {
                     setAuthenticated(auth);
-
+                
                     if (auth && token) {
                         setUserInfo({ id, role });
                         localStorage.setItem('token', token);
@@ -135,8 +135,8 @@ export function AuthProvider(props) {
                         setUserInfo({ id: null, role: [] });
                         localStorage.removeItem('userInfo');
                     }
-
                 }
+                
             }}
         >
             {props.children}

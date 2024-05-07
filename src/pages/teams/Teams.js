@@ -37,7 +37,7 @@ const Teams = ({ setError }) => {
             New Team +
             </button></Link>
             </div>
-            <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-6 justify-items-center m-3'>
+            <div className='grid md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 sm:grid-cols-1 gap-5 justify-items-center m-3'>
                 {teamList}
             </div>
         </div>

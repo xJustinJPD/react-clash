@@ -54,7 +54,7 @@ export function AuthProvider(props) {
                     client_id: process.env.REACT_APP_DISCORD_CLIENT_ID,
                     client_secret: process.env.REACT_APP_SECRET_DISCORD,
                     grant_type: 'refresh_token',
-                    refresh_token: refreshToken,
+                    refresh_token: localStorage.getItem(refreshToken),
                 }).toString(),
                 {
                     headers: {

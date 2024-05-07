@@ -41,6 +41,9 @@ const DiscordAuthCallback = () => {
           }
         });
         const { username } = userInformation.data;
+        localStorage.setItem('accessToken', access_token);
+        localStorage.setItem('refreshToken', refresh_token);
+        localStorage.setItem('discordInfo', JSON.stringify({ username }));
         onAuthenticated(true, token, userInfo, access_token, refresh_token, username);
         setUserData(userInformation.data.username);
         console.log(response.data, userInformation.data);

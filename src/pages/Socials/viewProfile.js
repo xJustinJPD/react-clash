@@ -18,7 +18,7 @@ const ViewProfile = ({setError}) => {
   const [local] = axios; 
   const navigate = useNavigate();
 
-const discordInfo = localStorage.getItem('discordInfo');
+const {discordInfo} = localStorage.getItem('discordInfo');
 
   const logout = () => {
     onAuthenticated(false);

@@ -156,9 +156,15 @@ const ViewProfile = ({setError}) => {
       </div>
       {discordInfo ? (
     <>
-        <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
-      <p>{discordInfo.username}</p>
-    </>
+    <div className="flex items-center">
+      <img className="mr-2" width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
+      <p className="discord-username">
+        <a href={`https://discord.com/users/${discordInfo.username}`} target="_blank" rel="noopener noreferrer">
+          {discordInfo.username}
+        </a>
+      </p>
+    </div>
+  </>
   ) : (
     <Link to={'/user/discord-login'}>
     <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>

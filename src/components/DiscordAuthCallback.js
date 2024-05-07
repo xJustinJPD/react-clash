@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useLocation, Link} from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContexts';
+import UserInfo from './userInfo';
 const DiscordAuthCallback = () => {
   const location = useLocation();
   const CLIENT_ID = process.env.REACT_APP_DISCORD_CLIENT_ID;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const SECRET_DISCORD = process.env.REACT_APP_SECRET;
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState([]);
   const { onAuthenticated } = useAuth();
   const token = localStorage.getItem('token'); 
   const userInfo = localStorage.getItem('userInfo');
@@ -85,17 +86,7 @@ const DiscordAuthCallback = () => {
 
 
   return (
-    <div>
-      {userData ? (
-        <div>
-          <h2>User Information</h2>
-          <p>Username: {userData}</p>
-          <Link to="/profile">Return to Profile</Link>
-        </div>
-      ) : (
-        <p>Loading user data...</p>
-      )}
-    </div>
+    <UserInfo userData={userData} />
   );
 };
 

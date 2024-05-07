@@ -131,7 +131,7 @@ export function AuthProvider(props) {
                             localStorage.setItem('userInfo', JSON.stringify({ id, role }));
                             localStorage.setItem('accessToken', accessToken);
                             localStorage.setItem('refreshToken', refreshToken);
-                            localStorage.setItem('discordInfo', JSON.stringify(userInformation.data));
+                            localStorage.setItem('discordInfo', JSON.stringify({username}));
 
                         }
                     } else if (!auth) {

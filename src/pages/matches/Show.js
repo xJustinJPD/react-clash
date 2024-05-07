@@ -29,6 +29,7 @@ const MatchShow = ({setError}) => {
                 });
                 setMatch(response.data.data);
                 setTeam2(response.data.data.team_2); 
+                console.log(response.data.data)
             } catch (err) {
                 console.error(err);
                 if (err.response && err.response.data && err.response.data.message) {
@@ -96,21 +97,41 @@ const MatchShow = ({setError}) => {
     
 
     return (
-        <div className="grid grid-cols-2 gap-4 p-4">
-            {/* Match Data */}
-            <div className="col-span-1">
-                <h1 className="text-5xl font-bold">Match: {match.id}</h1>
-                <h1 className="text-5xl font-bold">Type: {match.queue_type}</h1>
-                {match.team_1 && <h1 className="text-5xl font-bold">Team 1: {match.team_1.id}</h1>}
-                {match.team_2 && <h1 className="text-5xl font-bold">Team 2: {match.team_2.id}</h1>}
+        <div className="grid grid-cols-3 gap-4 p-4">
+            {/* Team 1 data*/}
+            <div className="col-span-1 justify-center m-5">
+                <div className="hero min-h-screen bg-base-200">
+                <div className="hero-content flex-col lg:flex-row">
+                    <img src={`${match.team_1?.image}`} alt="" className="m-6 rounded w-24 h-24" />
+                    <div>
+                    {match.team_1 && <h1 className="text-3xl font-bold" >{match.team_1.name}</h1>}
+                    </div>
+                </div>
+                </div>
             </div>
             
+            
             {/* Form */}
-            <div className="col-span-1">
-            <CancelGameButton gameId={id} setError={setError} /> 
-                <button onClick={toggleFormVisibility} className="btn btn-primary mb-4">Update Game</button>
-               
+            <div className="col-span-1 my-5">
+            <div className="flex flex-col w-full border-opacity-50">
+                <div className="grid h-20 card rounded-box place-items-center"><h1 className='text-3xl'><b>{match.queue_type} Playlist</b></h1></div>
+                <div className="grid h-20 card rounded-box place-items-center"><CancelGameButton gameId={id} setError={setError} /></div>
+                <div className="divider">OR</div>
+                <div className="grid h-20 card rounded-box place-items-center"><button onClick={toggleFormVisibility} className="btn btn-primary mb-4">Complete Game</button>
                 {showForm && <UpdateGameForm gameId={id} team1Creator={match.team_1.creator} team2Creator={match.team_2.creator} team1id={match.team_1.id} team2id={match.team_2.id} />}
+                </div>
+            </div>
+            </div>
+            {/* Team 2 Data */}
+            <div className="col-span-1 justify-center m-5">
+                <div className="hero min-h-screen bg-base-200">
+                <div className="hero-content flex-col lg:flex-row">
+                    <img src={`${match.team_2?.image}`} alt="" className="m-6 rounded w-24 h-24" />
+                    <div>
+                    {match.team_1 && <h1 className="text-3xl font-bold" >{match.team_2.name}</h1>}
+                    </div>
+                </div>
+                </div>
             </div>
         </div>
     );

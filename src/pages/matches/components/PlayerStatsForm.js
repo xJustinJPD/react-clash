@@ -5,6 +5,7 @@ import axios from '../../../config/Api';
 import { useState } from 'react';
 
 const PlayerCard = ({user}) => {
+    const [isLoading, setIsLoading] = useState(false);
     const { userInfo } = useAuth();
     const navigate = useNavigate();
     const [local] = axios;
@@ -46,6 +47,10 @@ const PlayerCard = ({user}) => {
         return included;
     };
 
+    const onSubmit = () => {
+        setIsLoading(true)
+    };
+
     const submitForm = (e) => {
         e.preventDefault();
         let token = localStorage.getItem('token');
@@ -60,7 +65,6 @@ const PlayerCard = ({user}) => {
             // formData.append('deaths', form.deaths);
 
 
-
             local.put(`/stats/${user.id}`, form, {
                 headers: {
                     "Authorization": `Bearer ${token}`,
@@ -69,7 +73,6 @@ const PlayerCard = ({user}) => {
             })
             .then(response => {
                 console.log({form})
-                console.log(`submitted user ${user.id} + ${user.user.id}`)
             })
             .catch(err => {
                 console.error(err);
@@ -78,30 +81,33 @@ const PlayerCard = ({user}) => {
         
     };
 
+
 	return (
         
             <div className="card w-96 bg-neutral text-neutral-content">
                 <div className="card-body items-center text-center">
-                    <h2 className="card-title">{user.username}</h2>
-                    <h2 className='m-3'>Update K/D</h2>
+                    <h2 className="card-title text-white">{user.user.username}</h2>
+                    <h2 className='m-3'>Update Stats:</h2>
                         <form onSubmit={submitForm}>
                         <div className='m-3'>
                         <label className="form-control w-full max-w-xs">
                         <div className="label">
-                            <span className="label-text">Kills:</span>
+                            <span className="label-text text-white">Kills:</span>
                         </div>
-                        <input type="text" onChange={handleForm} value={form.kills} name='kills' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                        <input type="text" onChange={handleForm} value={form.kills} name='kills' placeholder="Type here" className="input input-bordered w-full max-w-xs text-black" />
                         </label>
                         </div>
                         <div className='m-3'>
                         <label className="form-control w-full max-w-xs">
                         <div className="label">
-                            <span className="label-text">Deaths:</span>
+                            <span className="label-text text-white">Deaths:</span>
                         </div>
-                        <input type="text" onChange={handleForm} value={form.deaths} name='deaths' placeholder="Type here" className="input input-bordered w-full max-w-xs" />
+                        <input type="text" onChange={handleForm} value={form.deaths} name='deaths' placeholder="Type here" className="input input-bordered w-full max-w-xs text-black" />
                         </label>
                         </div>
-                        <input type='submit' className="btn btn-success m-3" />
+                        <button type='submit' onClick={onSubmit} className="btn btn-outline btn-success">
+                            {isLoading ? "Submitted" : "Submit"}
+                        </button>
                         </form>
                     <div className="card-actions justify-end">
                         {userInfo && userInfo.id !== user.id && (

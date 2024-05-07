@@ -73,7 +73,7 @@ const DiscordAuthCallback = () => {
     };
    
     fetchData();
-  }, [CLIENT_ID, REDIRECT_URI, location.search,SECRET_DISCORD,refresh_token]);
+  }, [CLIENT_ID, REDIRECT_URI, location.search,SECRET_DISCORD]);
 
 
   return (

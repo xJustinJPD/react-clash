@@ -86,13 +86,14 @@ export function AuthProvider(props) {
             console.error('Error refreshing tokens:', error);
         }
     };
-    if(accessToken & refreshToken & discordInfo){
-        useEffect(() => {
+    useEffect(() => {
+        if (accessToken && refreshToken && discordInfo) {
             const storedToken = localStorage.getItem('token');
             const storedUserInfo = localStorage.getItem('userInfo');
             const storedAccessToken = localStorage.getItem('accessToken');
             const storedRefreshToken = localStorage.getItem('refreshToken');
             const storedDiscordInfo = localStorage.getItem('discordInfo');
+            
             if (storedToken && storedUserInfo) {
                 setAuthenticated(true);
                 setAccessToken(JSON.parse(storedAccessToken));
@@ -102,8 +103,9 @@ export function AuthProvider(props) {
             } else {
                 setAuthenticated(false);
             }
-        }, []);
-    }
+        }
+    }, [accessToken, refreshToken, discordInfo]);
+    
 
     return (
         <AuthContext.Provider

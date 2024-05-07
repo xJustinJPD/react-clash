@@ -18,11 +18,11 @@ const ViewProfile = ({setError}) => {
   const token = localStorage.getItem('token');
   const [local] = axios; 
   const navigate = useNavigate();
-  let usernameDisc = null;
-const discordInfo = localStorage.getItem('discordInfo');
-if (discordInfo) {
-  usernameDisc = JSON.parse(discordInfo).username;
-}
+//   let usernameDisc = null;
+// const discordInfo = localStorage.getItem('discordInfo');
+// if (discordInfo) {
+//   usernameDisc = JSON.parse(discordInfo).username;
+// }
   const logout = () => {
     onAuthenticated(false);
     navigate('/login');
@@ -122,7 +122,16 @@ if (discordInfo) {
     setSentRequests(updatedRequests);
   };
 
-
+  // {username_disc ? (
+  //   <>
+  //       <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
+  //     <p>{username_disc}</p>
+  //   </>
+  // ) : (
+  //   <Link to={'/user/discord-login'}>
+  //   <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
+  // </Link>
+  // )}
 
 
   return (
@@ -144,16 +153,7 @@ if (discordInfo) {
       <div>
         <Link to={`/user/${user?.id}/edit`}><button className="btn btn-outline btn-primary m-3">Edit</button></Link>
         <Link to={`/user/${user?.id}/password`} ><button className="btn btn-outline btn-primary m-3">Update Password</button></Link><div>
-          {username_disc ? (
-            <>
-                <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
-              <p>{username_disc}</p>
-            </>
-          ) : (
-            <Link to={'/user/discord-login'}>
-            <img width="48" height="48" src="https://img.icons8.com/fluency/48/discord-logo.png" alt="discord-logo"/>
-          </Link>
-          )}
+          
         </div>
       </div>
       <div className="grid grid-cols-1 bg-white p-8 shadow-lg rounded-md ml-4">

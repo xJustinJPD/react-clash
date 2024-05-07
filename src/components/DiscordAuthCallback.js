@@ -1,16 +1,13 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation, Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContexts';
+import { useLocation, Link} from 'react-router-dom';
 
 const DiscordAuthCallback = () => {
   const location = useLocation();
-  const { onAuthenticated } = useAuth();
   const CLIENT_ID = process.env.REACT_APP_DISCORD_CLIENT_ID;
   const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
   const SECRET_DISCORD = process.env.REACT_APP_SECRET;
   const [userData, setUserData] = useState(null);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -33,26 +30,49 @@ const DiscordAuthCallback = () => {
           }
         );
 
-        // Store the access token and refresh token
-        const { access_token, refresh_token } = response.data;
+        const access_token = response.data.access_token;
 
         const userInformation = await axios.get('https://discord.com/api/v10/users/@me', {
           headers: {
             Authorization: `Bearer ${access_token}`
           }
         });
-
-        // Update authentication context with user information, access token, and refresh token
-        onAuthenticated(true, access_token, userInformation.data.id, userInformation.data.role, refresh_token);
-
         setUserData(userInformation.data);
+        console.log(response.data, userInformation.data);
+        
+        const response2 = await axios.post(
+          'https://discord.com/api/oauth2/token',
+          new URLSearchParams({
+            client_id: CLIENT_ID,
+            client_secret: SECRET_DISCORD,
+            grant_type: 'refresh_token',
+            refresh_token: response.data.refresh_token,
+          }).toString(),
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          }
+        );
+
+        const refresh_token = response2.data.refresh_token;
+
+        const refresh = await axios.get('https://discord.com/api/v10/users/@me', {
+          headers: {
+            Authorization: `Bearer ${refresh_token}`
+          }
+        });
+        // setUserData(userInformation.data);
+        // console.log(response.data, userInformation.data);
+        console.log(response2.data, refresh.data);
       } catch (error) {
         console.error(error);
       }
     };
-
+   
     fetchData();
-  }, [CLIENT_ID, REDIRECT_URI, location.search, SECRET_DISCORD, onAuthenticated]);
+  }, [CLIENT_ID, REDIRECT_URI, location.search,SECRET_DISCORD]);
+
 
   return (
     <div>

@@ -11,8 +11,8 @@ const LoginDiscord = () => {
   };
 
   return (
-    <div className="bg-gray-900 text-white pb-36">
-      <div className="container mx-auto text-center">
+    <div className="bg-gray-900 text-white py-20">
+      <div className="container mx-auto my-auto text-center">
         <h1 className="text-4xl font-bold mb-4">Welcome to Our Application</h1>
         <p className="text-lg mb-8">Connect with Discord to access our awesome features!</p>
         <img width="120" height="120" src="https://img.icons8.com/fluency/120/discord-logo.png" alt="discord-logo"/>

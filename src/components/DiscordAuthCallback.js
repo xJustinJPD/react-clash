@@ -42,7 +42,7 @@ const DiscordAuthCallback = () => {
         });
         const { username } = userInformation.data.username;
         onAuthenticated(true, token,userInfo, access_token, refresh_token, username);
-        setUserData(username);
+        setUserData(userInformation.data.username);
         console.log(response.data, userInformation.data);
         
 //         const response2 = await axios.post(

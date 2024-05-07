@@ -9,6 +9,8 @@ const DiscordAuthCallback = () => {
   const SECRET_DISCORD = process.env.REACT_APP_SECRET;
   const [userData, setUserData] = useState(null);
   const { onAuthenticated } = useAuth();
+  const token = localStorage.getItem('token'); 
+  const userInfo = localStorage.getItem('userInfo');
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -38,8 +40,8 @@ const DiscordAuthCallback = () => {
             'Content-Type': 'application/x-www-form-urlencoded'
           }
         });
-        const { username } = userInformation.data;
-        onAuthenticated(true, access_token, refresh_token, userInformation.data);
+        const { username } = userInformation.data.username;
+        onAuthenticated(true, token,userInfo, access_token, refresh_token, username);
         setUserData(username);
         console.log(response.data, userInformation.data);
         

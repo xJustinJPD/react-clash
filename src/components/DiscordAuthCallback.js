@@ -56,14 +56,16 @@ const DiscordAuthCallback = () => {
           }
         );
 
-        const refresh_token = response2.data.refresh_token;
+        const newAccessToken = response2.data.access_token;
 
-        const refresh = await axios.get('https://discord.com/api/v10/users/@me', response2, {
-          headers: {
-            // Authorization: `Bearer ${refresh_token}`,
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        });
+// Now use the new access token to fetch user information
+const refreshedUserInfo = await axios.get('https://discord.com/api/v10/users/@me', {
+  headers: {
+    Authorization: `Bearer ${newAccessToken}`,
+    'Content-Type': 'application/x-www-form-urlencoded'
+  }
+});
+console.log(refreshedUserInfo.data);
         // setUserData(userInformation.data);
         // console.log(response.data, userInformation.data);
         console.log(response2.data, refresh.data);

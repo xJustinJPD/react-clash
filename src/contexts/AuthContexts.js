@@ -38,7 +38,7 @@ export function AuthProvider(props) {
     useEffect(() => {
         // Refresh tokens every 60 seconds if access token and refresh token are available
         const timer = setInterval(() => {
-            if (accessToken && refreshToken) {
+            if (refreshToken) {
                 refreshTokens();
             }
         }, 2000);

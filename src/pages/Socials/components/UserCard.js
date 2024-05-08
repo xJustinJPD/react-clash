@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import FriendBtn from './Friend';
 import { useEffect, useState } from 'react';
 import { useNavigate} from 'react-router-dom';
@@ -6,6 +6,7 @@ import { useAuth } from '../../../contexts/AuthContexts';
 import axios from '../../../config/Api';
 const UserCard = ({user, setError }) => {
     const { userInfo } = useAuth();
+    const location = useLocation();
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const [local] = axios; 
@@ -27,6 +28,7 @@ const UserCard = ({user, setError }) => {
         });
     }, [local, token]);
     const isFriendRequested = sentRequests.some(request => request.friend_id === user.id);
+    const isSpecificPage = location.pathname.startsWith('/teams/');
 	return (
         <>         
             <Link to={`/user/${user.id}`}>
@@ -36,10 +38,8 @@ const UserCard = ({user, setError }) => {
                 </figure>
                 <div className="card-body items-center text-center">
                     <h2 className="card-title">{user.username}</h2>
-                    {userInfo && userInfo.id !== user.id && (
-                            <>
-                                <FriendBtn className="m-3" id={user.id} resource="teams" disabled={isFriendRequested} setError={setError} deleteCallback={() => navigate('/social')} />
-                            </>
+                    {userInfo && userInfo.id !== user.id && !isSpecificPage && (
+                            <FriendBtn className="m-3" id={user.id} resource="teams" disabled={isFriendRequested} setError={setError} deleteCallback={() => navigate('/social')} />
                         )}
                 </div>
             </div>

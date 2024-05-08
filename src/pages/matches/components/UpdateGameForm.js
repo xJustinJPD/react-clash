@@ -41,9 +41,9 @@ const UpdateGameForm = ({ gameId, team1Creator, team2Creator, team1id, team2id }
                 formData.append('team_2_score', parseInt(team2Score));
             }
             
-            formData.append('_method', 'put');
+            // formData.append('_method', 'put');
             console.log('Form data:', formData);
-            const response = await local.post(`/games/${gameId}`, formData, {
+            const response = await local.put(`/games/${gameId}`, formData, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`,
                     "Content-Type": "multipart/form-data"
